@@ -1,0 +1,15 @@
+.terraform
+.state
+**/terraform.tfstate
+**/terraform.tfstate.backup
+.terraform.lock*
+.terraform.tfstate.lock.info
+install_asm_*
+.outdir-asm
+.tfstate.*.backup
+modules/apigee-hybrid-workload/overrides/
+**.crt
+**.csr
+**.key
+modules/apigee-hybrid-workload/apigeectl_*
+__pycache__
