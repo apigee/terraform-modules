@@ -25,17 +25,17 @@ variable "backend_migs" {
 }
 
 variable "ssl_certificate" {
-  description = "SSL certificate for the HTTPS LB"
+  description = "SSL certificate for the HTTPS LB."
   type = string
 }
 
 variable "external_ip" {
-  description = "External IP for the L7 XLB"
+  description = "External IP for the L7 XLB."
   type = string
   default = null
 }
 
 variable "name" {
-  description = "LB name"
+  description = "External LB name."
   type = string
 }
