@@ -23,7 +23,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_address_name"></a> [address\_name](#input\_address\_name) | Name for the external IP address | `string` | n/a | yes |
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id. | `string` | n/a | yes |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | GCP Project ID. | `string` | n/a | yes |
 | <a name="input_subdomain_prefixes"></a> [subdomain\_prefixes](#input\_subdomain\_prefixes) | Subdomain prefixes for the nip hostname (Optional). | `list(string)` | `[]` | no |
 
 ## Outputs
