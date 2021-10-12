@@ -12,8 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:alpine3.14
-RUN apk add --no-cache git
-RUN go get github.com/google/addlicense
-WORKDIR /home
-CMD ["addlicense", "-check", "."]
+name: Check Docs
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  update-docs:
+    name: Check Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+      - name: Check that docs are current
+        uses: ./.github/actions/update-docs

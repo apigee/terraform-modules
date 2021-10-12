@@ -15,7 +15,7 @@
  */
 
 variable "project_id" {
-  description = "Project id."
+  description = "GCP Project ID."
   type        = string
 }
 

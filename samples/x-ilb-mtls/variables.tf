@@ -55,7 +55,7 @@ variable "network" {
 }
 
 variable "exposure_subnets" {
-  description = "Subnets for exposing Apigee services"
+  description = "Subnets for exposing Apigee services."
   type = list(object({
     name          = string
     ip_cidr_range = string
