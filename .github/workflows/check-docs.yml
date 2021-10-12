@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Update Docs
+name: Check Docs
 on:
   pull_request:
     branches:
       - main
 jobs:
   update-docs:
-    name: Docs Update
+    name: Check Docs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -27,7 +27,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{github.event.pull_request.head.repo.full_name}}
-      - name: Run Docs Generator
+      - name: Check that docs are current
         uses: ./.github/actions/update-docs
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          update_docs: true

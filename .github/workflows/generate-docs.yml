@@ -12,18 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: "Update Docs"
-description: "Updates the TF Module documentation if needed"
-inputs:
-  update_docs:
-    description: "Should the updated docs be pushed to the branch"
-    required: false
-    default: 'false'
-outputs:
-  stdout:
-    description: "Docs Update Output"
-runs:
-  using: "docker"
-  image: "Dockerfile"
-  env:
-    UPDATE_DOCS: ${{ inputs.update_docs }}
+name: Update Docs
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        required: true
+        description: 'Branch on where you want to update the TF docs.'
+jobs:
+  update-docs:
+    name: Docs Update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - name: Run Docs Generator
+        uses: ./.github/actions/update-docs
+        with:
+          update_docs: true

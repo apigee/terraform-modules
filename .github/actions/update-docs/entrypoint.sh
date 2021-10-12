@@ -26,10 +26,16 @@ changes=$(git diff --name-only | grep 'README.md$' || true )
 
 if [ -z "$changes" ];then
   echo "No Docs Changes"
-else
+elif [ "$UPDATE_DOCS" = "true" ]; then
+  echo "Trying to Push to the branch."
   git config user.name "Pipeline Docs Generator"
   git config user.email "noreply@apigee.google.com"
   git add ./**/README.md
   git commit -m "Terraform docs update for $REF"
   git push
+else
+  echo "The Documentation in the following README files is out of date:"
+  echo "$changes"
+  echo "Please run the docs generator workflow manually."
+  exit -1
 fi
