@@ -1,3 +1,4 @@
+#!/bin/sh
 # Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:alpine3.14
-RUN apk add --no-cache git
-RUN go get github.com/google/addlicense
-WORKDIR /home
-CMD ["addlicense", "-check", "."]
+set -e
+
+SCRIPT_FOLDER=$( (cd "$(dirname "$0")" && pwd ))
+UPDATE_DOCS_GH_ACTION="$SCRIPT_FOLDER/../.github/actions/update-docs"
+
+docker build -t apigee-terraform-docs-generator:latest "$UPDATE_DOCS_GH_ACTION"
+
+docker run -v $SCRIPT_FOLDER/..:/opt/apigee-terraform-modules -w /opt/apigee-terraform-modules apigee-terraform-docs-generator:latest
+

@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:alpine3.14
+FROM quay.io/terraform-docs/terraform-docs:0.16.0
+
 RUN apk add --no-cache git
-RUN go get github.com/google/addlicense
-WORKDIR /home
-CMD ["addlicense", "-check", "."]
+
+COPY ./entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
