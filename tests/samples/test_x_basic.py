@@ -15,8 +15,9 @@
 
 import os
 import pytest
+from .utils import *
 
-FIXTURES_DIR = os.path.join(os.path.dirname(__file__), '../../../samples/x-l7xlb')
+FIXTURES_DIR = os.path.join(os.path.dirname(__file__), '../../samples/x-basic')
 
 @pytest.fixture(scope="module")
 def resources(recursive_plan_runner):
@@ -29,26 +30,20 @@ def resources(recursive_plan_runner):
 
 def test_resource_count(resources):
   "Test total number of resources created."
-  assert len(resources) == 33
+  assert len(resources) == 19
 
+def test_apigee_instance(resources):
+  "Test Apigee Instance Resource"
+  assert_instance(resources, 'europe-west1', 'SLASH_22')
+
+def test_apigee_instance_attachment(resources):
+  "Test Apigee Instance Attachments."
+  assert_instance_attachment(resources, ['test1', 'test2'])
 
 def test_envgroup_attachment(resources):
   "Test Apigee Envgroup Attachments."
-  attachments = [r['values'] for r in resources if r['type']
-              == 'google_apigee_envgroup_attachment']
-  assert len(attachments) == 2
-  assert set(a['environment'] for a in attachments) == set(['test1', 'test2'])
-
+  assert_envgroup_attachment(resources, ['test1', 'test2'])
 
 def test_envgroup(resources):
   "Test env group."
-  envgroups = [r['values'] for r in resources if r['type']
-          == 'google_apigee_envgroup']
-  assert len(envgroups) == 1
-  assert envgroups[0]['name'] == 'test'
-
-def test_instance_bidge_location_parity(resources):
-  "Test that the instance and bridge VM are in the same location"
-  instance = [r['values'] for r in resources if r['type'] == 'google_apigee_instance'][0]
-  instance_group_mgr = [r['values'] for r in resources if r['type'] == 'google_compute_region_instance_group_manager'][0]
-  assert instance['location'] == instance_group_mgr['region']
+  assert_envgroup_name(resources, 'test')
