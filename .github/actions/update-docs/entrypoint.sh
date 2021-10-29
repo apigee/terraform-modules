@@ -29,6 +29,7 @@ if [ -z "$changes" ];then
 elif [ "$FAIL_ON_OUTDATED" = "true" ]; then
   echo "The Documentation in the following README files is out of date:"
   echo "$changes"
+  git diff
   echo "Please run the docs generator workflow manually and commit your changes:"
   echo "./tools/update-docs.sh"
   exit -1

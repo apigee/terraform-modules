@@ -12,37 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-import os
-import pytest
-
-FIXTURES_DIR = os.path.join(os.path.dirname(__file__), '../../../samples/x-ilb-mtls')
-
-@pytest.fixture(scope="module")
-def resources(recursive_plan_runner):
-  _, resources = recursive_plan_runner(
-    FIXTURES_DIR,
-    tf_var_file=os.path.join(FIXTURES_DIR, "x-demo.tfvars"),
-    project_id='testonly',
-  )
-  return resources
-
-def test_resource_count(resources):
-  "Test total number of resources created."
-  assert len(resources) == 34
-
-
-def test_envgroup_attachment(resources):
+def assert_envgroup_attachment(resources, envs):
   "Test Apigee Envgroup Attachments."
   attachments = [r['values'] for r in resources if r['type']
               == 'google_apigee_envgroup_attachment']
   assert len(attachments) == 2
-  assert set(a['environment'] for a in attachments) == set(['test1', 'test2'])
+  assert set(a['environment'] for a in attachments) == set(envs)
 
-
-def test_envgroup(resources):
+def assert_envgroup_name(resources, name):
   "Test env group."
   envgroups = [r['values'] for r in resources if r['type']
           == 'google_apigee_envgroup']
   assert len(envgroups) == 1
-  assert envgroups[0]['name'] == 'test'
+  assert envgroups[0]['name'] == name
+
+def assert_instance(resources, location, cidr):
+  "Test Apigee Instance Resource"
+  instances = [r['values'] for r in resources if r['type'] == 'google_apigee_instance']
+  assert len(instances) == 1
+  assert instances[0]['location'] == location
+  assert instances[0]['peering_cidr_range'] == cidr
+
+def assert_instance_attachment(resources, envs):
+  "Test Apigee Instance Attachments."
+  attachments = [r['values'] for r in resources if r['type']
+              == 'google_apigee_instance_attachment']
+  assert len(attachments) == 2
+  assert set(a['environment'] for a in attachments) == set(envs)

@@ -11,6 +11,8 @@ Currently the following modules are a available and can be used either as part o
 * [Apigee X Bridge MIG](modules/apigee-x-bridge-mig) Configures a managed instance group of network bridge GCE instances (VMs) that can be used as a load balancer backend and forward traffic to the internal Apigee X endpoint.
 * [Apigee X mTLS MIG](modules/apigee-x-mtls-mig) Configures a managed instance group of Envoy proxies that can be used to terminate mutual TLS and forward traffic to the internal Apigee X endpoint.
 * [L7 external LB for MIG](modules/mig-l7xlb) Configures an external HTTPS Cloud Load Balancer that fronts a managed instance groups.
+* [Routing Appliance](modules/routing-appliance) Configures a routing appliance and custom routes to overcome transitive peering problems.
+* [HTTPbin Development Backend](modules/httpbin-development-backend) Configures an example HTTP backend based on a locally hosted httpbin.org service and an internal load balancer.
 * [NIP.io Development Hostname](modules/nip-development-hostname) Configures an external IP address and hostname based on the IP and the nip.io mechanism as well as a Google-managed SSL certificate.
 
 
@@ -28,8 +30,8 @@ Select one of the available sample deployments:
 
 * [X Basic](samples/x-basic) for a basic Apigee X setup with the raw instance endpoints exposed as internal IP addresses.
 * [X with external L7 LB](samples/x-l7xlb) for an Apigee X setup that is exposed via a global external L7 load balancer.
-* [X with internal L4 LB and mTLS](samples/x-ilb-mtls) basic Apigee X setup plus exposure via regional L4 load balancer and envoy proxy to terminate mTLS.
-
+* [X with internal L4 LB and mTLS](samples/x-ilb-mtls) for a basic Apigee X setup plus exposure via regional L4 load balancer and envoy proxy to terminate mTLS.
+* [X with network appliance for transitive peering](samples/x-tansitive-peering) for an Apigee X organization that is peered to a network is transitively peered to another VPC that contains the backend.
 To deploy the sample, first create a copy of the example variables and edit according to your requirements.
 
 ```sh
