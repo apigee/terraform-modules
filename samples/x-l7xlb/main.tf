@@ -15,24 +15,24 @@
  */
 
 locals {
-  subnet_region_name = {for subnet in var.exposure_subnets:
+  subnet_region_name = { for subnet in var.exposure_subnets :
     subnet.region => "${subnet.region}/${subnet.name}"
   }
 }
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
-  project_id = var.project_id
-  name       = var.network
+  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
+  project_id                       = var.project_id
+  name                             = var.network
   private_service_networking_range = var.peering_range
-  subnets = var.exposure_subnets
+  subnets                          = var.exposure_subnets
 }
 
 module "nip-development-hostname" {
   source             = "../../modules/nip-development-hostname"
   project_id         = var.project_id
   address_name       = "apigee-external"
-  subdomain_prefixes = [for name, _ in var.apigee_envgroups: name]
+  subdomain_prefixes = [for name, _ in var.apigee_envgroups : name]
 }
 
 module "apigee-x-core" {
@@ -41,10 +41,10 @@ module "apigee-x-core" {
   ax_region           = var.ax_region
   apigee_instances    = var.apigee_instances
   apigee_environments = var.apigee_environments
-  apigee_envgroups    = {
-    for name, env_group in var.apigee_envgroups: name => {
+  apigee_envgroups = {
+    for name, env_group in var.apigee_envgroups : name => {
       environments = env_group.environments
-      hostnames = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
+      hostnames    = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
     }
   }
   network = module.vpc.network.id
@@ -61,10 +61,10 @@ module "apigee-x-bridge-mig" {
 }
 
 module "mig-l7xlb" {
-  source              = "../../modules/mig-l7xlb"
-  project_id          = var.project_id
-  name                = "apigee-xlb"
-  backend_migs        = [ for _,mig in module.apigee-x-bridge-mig : mig.instance_group ]
+  source          = "../../modules/mig-l7xlb"
+  project_id      = var.project_id
+  name            = "apigee-xlb"
+  backend_migs    = [for _, mig in module.apigee-x-bridge-mig : mig.instance_group]
   ssl_certificate = module.nip-development-hostname.ssl_certificate
-  external_ip = module.nip-development-hostname.ip_address
+  external_ip     = module.nip-development-hostname.ip_address
 }

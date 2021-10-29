@@ -15,11 +15,11 @@
  */
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
-  project_id = var.project_id
-  name       = var.apigee_network
+  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
+  project_id                       = var.project_id
+  name                             = var.apigee_network
   private_service_networking_range = var.peering_range
-  subnets = [var.appliance_subnet]
+  subnets                          = [var.appliance_subnet]
 }
 
 module "apigee-x-core" {
@@ -28,10 +28,10 @@ module "apigee-x-core" {
   ax_region           = var.ax_region
   apigee_instances    = var.apigee_instances
   apigee_environments = var.apigee_environments
-  apigee_envgroups    = {
-    for name, env_group in var.apigee_envgroups: name => {
+  apigee_envgroups = {
+    for name, env_group in var.apigee_envgroups : name => {
       environments = env_group.environments
-      hostnames = env_group.hostnames
+      hostnames    = env_group.hostnames
     }
   }
   network = module.vpc.network.id
@@ -46,13 +46,13 @@ resource "google_compute_network_peering_routes_config" "peering_primary_routes"
 }
 
 module "routing-appliance" {
-  source              = "../../modules/routing-appliance"
-  project_id          = var.project_id
-  name                = var.appliance_name
-  network             = module.vpc.name
-  subnet              = module.vpc.subnet_self_links["${var.appliance_subnet.region}/${var.appliance_subnet.name}"]
-  region              = var.appliance_region
-  forwarded_ranges    = var.appliance_forwarded_ranges
+  source           = "../../modules/routing-appliance"
+  project_id       = var.project_id
+  name             = var.appliance_name
+  network          = module.vpc.name
+  subnet           = module.vpc.subnet_self_links["${var.appliance_subnet.region}/${var.appliance_subnet.name}"]
+  region           = var.appliance_region
+  forwarded_ranges = var.appliance_forwarded_ranges
 }
 
 resource "google_compute_firewall" "allow-appliance-ingress" {
@@ -71,12 +71,12 @@ module "backend-vpc" {
   source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
   project_id = var.project_id
   name       = var.backend_network
-  subnets = [var.backend_subnet]
+  subnets    = [var.backend_subnet]
 }
 
 module "peering-apigee-backend" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc-peering?ref=v6.0.0"
-  prefix        = "peering-apigee-backend"
+  source                     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc-peering?ref=v6.0.0"
+  prefix                     = "peering-apigee-backend"
   export_local_custom_routes = true
 
   local_network = module.vpc.self_link
@@ -89,12 +89,12 @@ module "peering-apigee-backend" {
 }
 
 module "backend-example" {
-  source              = "../../modules/httpbin-development-backend"
-  project_id          = var.project_id
-  name                = var.backend_name
-  network             = var.backend_network
-  subnet              = module.backend-vpc.subnet_self_links["${var.backend_subnet.region}/${var.backend_subnet.name}"]
-  region              = var.backend_region
+  source     = "../../modules/httpbin-development-backend"
+  project_id = var.project_id
+  name       = var.backend_name
+  network    = var.backend_network
+  subnet     = module.backend-vpc.subnet_self_links["${var.backend_subnet.region}/${var.backend_subnet.name}"]
+  region     = var.backend_region
 }
 
 resource "google_compute_firewall" "allow-backend-ingress" {

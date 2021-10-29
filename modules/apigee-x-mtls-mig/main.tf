@@ -19,31 +19,31 @@ resource "random_id" "bucket" {
 }
 
 module "mtls-proxy-sa" {
-  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v6.0.0"
-  project_id        = var.project_id
-  name              = "apigee-mtls-proxy-vm"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v6.0.0"
+  project_id = var.project_id
+  name       = "apigee-mtls-proxy-vm"
 }
 
 module "config-bucket" {
   source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v6.0.0"
   project_id = var.project_id
   name       = "apigee-mtls-ingress-${random_id.bucket.dec}"
-  location      = "EU"
+  location   = "EU"
   iam = {
     "roles/storage.objectViewer" = ["serviceAccount:${module.mtls-proxy-sa.email}"]
   }
 }
 
 resource "google_storage_bucket_object" "envoy_config" {
-  name   = "envoy-config.yaml"
+  name    = "envoy-config.yaml"
   content = replace(file("${path.module}/envoy-config-template.yaml"), "#ENDPOINT_IP#", var.endpoint_ip)
-  bucket = module.config-bucket.name
+  bucket  = module.config-bucket.name
 }
 
 resource "google_storage_bucket_object" "setup_script" {
-  name   = "setup.sh"
+  name    = "setup.sh"
   content = file("${path.module}/setup.sh")
-  bucket = module.config-bucket.name
+  bucket  = module.config-bucket.name
 }
 
 resource "google_storage_bucket_object" "ca_cert" {
@@ -65,12 +65,12 @@ resource "google_storage_bucket_object" "tls_key" {
 }
 
 module "apigee-mtls-proxy-template" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v6.0.0"
-  project_id = var.project_id
-  name       = "apigee-nb-mtls-proxy"
-  zone       = "${var.region}-b"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v6.0.0"
+  project_id    = var.project_id
+  name          = "apigee-nb-mtls-proxy"
+  zone          = "${var.region}-b"
   instance_type = var.machine_type
-  tags       = ["apigee-mtls-proxy"]
+  tags          = ["apigee-mtls-proxy"]
   network_interfaces = [{
     network    = var.network,
     subnetwork = var.subnet
@@ -83,9 +83,9 @@ module "apigee-mtls-proxy-template" {
     type  = "pd-standard"
     size  = 10
   }
-  create_template  = true
+  create_template = true
   metadata = {
-    BUCKET           = module.config-bucket.name
+    BUCKET             = module.config-bucket.name
     startup-script-url = "gs://${module.config-bucket.name}/setup.sh"
   }
   service_account        = module.mtls-proxy-sa.email

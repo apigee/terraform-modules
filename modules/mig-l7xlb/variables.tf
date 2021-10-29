@@ -21,21 +21,21 @@ variable "project_id" {
 
 variable "backend_migs" {
   description = "List of MIGs to be used as backends."
-  type = list(string)
+  type        = list(string)
 }
 
 variable "ssl_certificate" {
   description = "SSL certificate for the HTTPS LB."
-  type = string
+  type        = string
 }
 
 variable "external_ip" {
   description = "External IP for the L7 XLB."
-  type = string
-  default = null
+  type        = string
+  default     = null
 }
 
 variable "name" {
   description = "External LB name."
-  type = string
+  type        = string
 }

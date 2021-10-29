@@ -15,21 +15,21 @@
  */
 
 output "ssl_certificate" {
-    description = "Google-managed SSL certificate"
-    value = google_compute_managed_ssl_certificate.google_cert.id
+  description = "Google-managed SSL certificate"
+  value       = google_compute_managed_ssl_certificate.google_cert.id
 }
 
 output "ip_address" {
   description = "Reserved external IP address."
-  value = google_compute_global_address.external_address.address
+  value       = google_compute_global_address.external_address.address
 }
 
 output "hostname" {
   description = "Generated hostname (nip.io encoded IP address)."
-  value = local.hostname
+  value       = local.hostname
 }
 
 output "subdomains" {
   description = "List of generated subdomains (subdomain prefixes plus nip.io encoded IP address)"
-  value = local.subdomains
+  value       = local.subdomains
 }

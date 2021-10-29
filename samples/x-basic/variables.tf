@@ -56,5 +56,5 @@ variable "network" {
 
 variable "peering_range" {
   description = "Service Peering CIDR range."
-  type = string
+  type        = string
 }

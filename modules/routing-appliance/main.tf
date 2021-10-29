@@ -19,9 +19,9 @@ resource "random_id" "bucket" {
 }
 
 module "appliance-sa" {
-  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v6.0.0"
-  project_id        = var.project_id
-  name              = "sa-${var.name}"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v6.0.0"
+  project_id = var.project_id
+  name       = "sa-${var.name}"
 }
 
 module "config-bucket" {
@@ -35,18 +35,18 @@ module "config-bucket" {
 }
 
 resource "google_storage_bucket_object" "setup_script" {
-  name   = "setup.sh"
+  name    = "setup.sh"
   content = file("${path.module}/setup.sh")
-  bucket = module.config-bucket.name
+  bucket  = module.config-bucket.name
 }
 
 module "routing-appliance-template" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v6.0.0"
-  project_id = var.project_id
-  name       = var.name
-  zone       = "${var.region}-b"
-  instance_type = var.machine_type
-  tags       = [var.name]
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v6.0.0"
+  project_id     = var.project_id
+  name           = var.name
+  zone           = "${var.region}-b"
+  instance_type  = var.machine_type
+  tags           = [var.name]
   can_ip_forward = true
   network_interfaces = [{
     network    = var.network,
@@ -60,7 +60,7 @@ module "routing-appliance-template" {
     type  = "pd-standard"
     size  = 10
   }
-  create_template  = true
+  create_template = true
   metadata = {
     startup-script-url = "gs://${module.config-bucket.name}/setup.sh"
   }
@@ -102,9 +102,9 @@ module "ilb-appliance" {
     }
   ]
   health_check_config = {
-    type = "tcp"
-    check = { port = 80 }
-    config = {}
+    type    = "tcp"
+    check   = { port = 80 }
+    config  = {}
     logging = false
   }
 }
@@ -113,7 +113,7 @@ resource "google_compute_firewall" "hc-allow" {
   name          = "allow-hc-${var.name}"
   project       = var.project_id
   network       = var.network
-  source_ranges = ["130.211.0.0/22","35.191.0.0/16"]
+  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
   target_tags   = [var.name]
   allow {
     protocol = "tcp"

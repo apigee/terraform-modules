@@ -15,6 +15,6 @@
  */
 
 output "instance_group" {
-    description = "Backend Service MIG"
-    value = module.demo-backend-mig.group_manager.instance_group
+  description = "Backend Service MIG"
+  value       = module.demo-backend-mig.group_manager.instance_group
 }

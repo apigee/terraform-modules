@@ -19,16 +19,15 @@ RUN apk add --no-cache \
 
 ENV TERRAFORM_VERSION=1.0.4
 
-RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip && rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+RUN wget -q "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
+    unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     mv terraform /usr/bin/terraform
 
-COPY requirements.txt ./requirements.txt
-COPY fake-key.json /var/fake-key.json
-
-RUN pip3 install --no-cache-dir $PYTHON_PACKAGES --no-warn-script-location -r requirements.txt
-
 # Fake path for testing
+COPY fake-key.json /var/fake-key.json
 ENV GOOGLE_APPLICATION_CREDENTIALS="/var/fake-key.json"
+
+COPY requirements.txt /var/requirements.txt
+RUN pip3 install --no-cache-dir --no-warn-script-location -r /var/requirements.txt
 
 ENTRYPOINT [ "python3", "-m", "pytest" ]

@@ -31,7 +31,7 @@ Select one of the available sample deployments:
 * [X Basic](samples/x-basic) for a basic Apigee X setup with the raw instance endpoints exposed as internal IP addresses.
 * [X with external L7 LB](samples/x-l7xlb) for an Apigee X setup that is exposed via a global external L7 load balancer.
 * [X with internal L4 LB and mTLS](samples/x-ilb-mtls) for a basic Apigee X setup plus exposure via regional L4 load balancer and envoy proxy to terminate mTLS.
-* [X with network appliance for transitive peering](samples/x-tansitive-peering) for an Apigee X organization that is peered to a network is transitively peered to another VPC that contains the backend.
+* [X with network appliance for transitive peering](samples/x-transitive-peering) for an Apigee X organization that is peered to a network is transitively peered to another VPC that contains the backend.
 To deploy the sample, first create a copy of the example variables and edit according to your requirements.
 
 ```sh

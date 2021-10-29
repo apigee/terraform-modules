@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: TF Samples Test
+name: Code Linter
 on:
   push:
   pull_request:
@@ -22,15 +22,26 @@ on:
   schedule:
     - cron: "0 0 * * *"
 jobs:
-  test-examples:
-    name: Test Example Modules
+  linter:
+    name: Lint Codebase
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-
-      - name: Run TFTest on Examples
-        uses: ./.github/actions/tftest
+      - name: Setup Node
+        uses: actions/setup-node@v2
         with:
-          test-dir: tests/samples
+          node-version: "14"
+      - name: Install Linter dependencies
+        run: npm install
+      - name: Run Mega Linter
+        uses: nvuillam/mega-linter@v4
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SPELL_CSPELL_DISABLE_ERRORS: true
+          PYTHON_BANDIT_DISABLE_ERRORS: true
+          PYTHON_FLAKE8_DISABLE_ERRORS: true
+          COPYPASTE_JSCPD_DISABLE_ERRORS: true
+          YAML_YAMLLINT_DISABLE_ERRORS: true
+          LINTER_RULES_PATH: '.'

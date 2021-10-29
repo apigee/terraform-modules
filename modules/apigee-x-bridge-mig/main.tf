@@ -15,11 +15,11 @@
  */
 
 module "bridge-template" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v6.0.0"
-  project_id = var.project_id
-  name       = "apigee-${var.region}"
-  zone       = "${var.region}-b"
-  tags       = var.bridge_tags
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v6.0.0"
+  project_id    = var.project_id
+  name          = "apigee-${var.region}"
+  zone          = "${var.region}-b"
+  tags          = var.bridge_tags
   instance_type = var.machine_type
   network_interfaces = [{
     network    = var.network,
@@ -33,7 +33,7 @@ module "bridge-template" {
     type  = "pd-standard"
     size  = 20
   }
-  create_template  = true
+  create_template = true
   metadata = {
     ENDPOINT           = var.endpoint_ip
     startup-script-url = "gs://apigee-5g-saas/apigee-envoy-proxy-release/latest/conf/startup-script.sh"
@@ -61,10 +61,10 @@ module "bridge-mig" {
     initial_delay_sec = 30
   }
   health_check_config = {
-    type    = "https"
-    check   = {
-        port = 443,
-        request_path = "/healthz/ingress"
+    type = "https"
+    check = {
+      port         = 443,
+      request_path = "/healthz/ingress"
     }
     config  = {}
     logging = false
@@ -79,7 +79,7 @@ resource "google_compute_firewall" "allow_glb_to_mig_bridge" {
   name          = "allow-glb-bridge-${random_id.fw.hex}"
   project       = var.project_id
   network       = var.network
-  source_ranges = ["130.211.0.0/22","35.191.0.0/16"]
+  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
   target_tags   = var.bridge_tags
   allow {
     protocol = "tcp"

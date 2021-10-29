@@ -30,7 +30,7 @@ module "kms-org-db" {
   }
   keyring = {
     location = var.ax_region
-    name = "apigee-x-org"
+    name     = "apigee-x-org"
   }
   keys = {
     org-db = null
@@ -38,14 +38,14 @@ module "kms-org-db" {
 }
 
 module "apigee" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization?ref=v6.0.0"
-  project_id          = var.project_id
-  analytics_region    = var.ax_region
-  runtime_type        = "CLOUD"
-  authorized_network  = var.network
+  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization?ref=v6.0.0"
+  project_id              = var.project_id
+  analytics_region        = var.ax_region
+  runtime_type            = "CLOUD"
+  authorized_network      = var.network
   database_encryption_key = module.kms-org-db.key_self_links["org-db"]
-  apigee_environments = var.apigee_environments
-  apigee_envgroups    = var.apigee_envgroups
+  apigee_environments     = var.apigee_environments
+  apigee_envgroups        = var.apigee_envgroups
   depends_on = [
     google_project_service_identity.apigee_sa,
     module.kms-org-db.self_link
@@ -63,7 +63,7 @@ module "kms-inst-disk" {
   }
   keyring = {
     location = each.value.region
-    name = "apigee-${each.key}"
+    name     = "apigee-${each.key}"
   }
   keys = {
     inst-disk = null

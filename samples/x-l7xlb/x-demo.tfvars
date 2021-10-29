@@ -16,12 +16,12 @@
 
 ax_region = "europe-west1"
 
-apigee_environments = [ "test1", "test2" ]
+apigee_environments = ["test1", "test2"]
 
 apigee_instances = {
   euw1-instance = {
-    region = "europe-west1"
-    cidr_mask = 22
+    region       = "europe-west1"
+    cidr_mask    = 22
     environments = ["test1", "test2"]
   }
 }
@@ -37,9 +37,9 @@ network = "apigee-network"
 
 exposure_subnets = [
   {
-    name          = "apigee-exposure"
-    ip_cidr_range = "10.100.0.0/24"
-    region        = "europe-west1"
+    name               = "apigee-exposure"
+    ip_cidr_range      = "10.100.0.0/24"
+    region             = "europe-west1"
     secondary_ip_range = null
   }
 ]

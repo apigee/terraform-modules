@@ -15,6 +15,6 @@
  */
 
 output "instance_group" {
-    description = "Routing Appliance MIG"
-    value = module.routing-appliance-mig.group_manager.instance_group
+  description = "Routing Appliance MIG"
+  value       = module.routing-appliance-mig.group_manager.instance_group
 }
