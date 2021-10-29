@@ -20,5 +20,4 @@ UPDATE_DOCS_GH_ACTION="$SCRIPT_FOLDER/../.github/actions/update-docs"
 
 docker build -t apigee-terraform-docs-generator:latest "$UPDATE_DOCS_GH_ACTION"
 
-docker run -v $SCRIPT_FOLDER/..:/opt/apigee-terraform-modules -w /opt/apigee-terraform-modules apigee-terraform-docs-generator:latest
-
+docker run -v "$SCRIPT_FOLDER"/..:/opt/apigee-terraform-modules -w /opt/apigee-terraform-modules apigee-terraform-docs-generator:latest

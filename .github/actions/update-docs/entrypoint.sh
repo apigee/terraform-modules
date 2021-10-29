@@ -32,7 +32,7 @@ elif [ "$FAIL_ON_OUTDATED" = "true" ]; then
   git diff
   echo "Please run the docs generator workflow manually and commit your changes:"
   echo "./tools/update-docs.sh"
-  exit -1
+  exit 1
 else
   echo "Updated documentation for the following README files:"
   echo "$changes"

@@ -17,33 +17,39 @@ import os
 import pytest
 from .utils import *
 
-FIXTURES_DIR = os.path.join(os.path.dirname(__file__), '../../samples/x-basic')
+FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "../../samples/x-basic")
+
 
 @pytest.fixture(scope="module")
 def resources(recursive_plan_runner):
-  _, resources = recursive_plan_runner(
-    FIXTURES_DIR,
-    tf_var_file=os.path.join(FIXTURES_DIR, "x-demo.tfvars"),
-    project_id='testonly',
-  )
-  return resources
+    _, resources = recursive_plan_runner(
+        FIXTURES_DIR,
+        tf_var_file=os.path.join(FIXTURES_DIR, "x-demo.tfvars"),
+        project_id="testonly",
+    )
+    return resources
+
 
 def test_resource_count(resources):
-  "Test total number of resources created."
-  assert len(resources) == 19
+    "Test total number of resources created."
+    assert len(resources) == 19
+
 
 def test_apigee_instance(resources):
-  "Test Apigee Instance Resource"
-  assert_instance(resources, 'europe-west1', 'SLASH_22')
+    "Test Apigee Instance Resource"
+    assert_instance(resources, "europe-west1", "SLASH_22")
+
 
 def test_apigee_instance_attachment(resources):
-  "Test Apigee Instance Attachments."
-  assert_instance_attachment(resources, ['test1', 'test2'])
+    "Test Apigee Instance Attachments."
+    assert_instance_attachment(resources, ["test1", "test2"])
+
 
 def test_envgroup_attachment(resources):
-  "Test Apigee Envgroup Attachments."
-  assert_envgroup_attachment(resources, ['test1', 'test2'])
+    "Test Apigee Envgroup Attachments."
+    assert_envgroup_attachment(resources, ["test1", "test2"])
+
 
 def test_envgroup(resources):
-  "Test env group."
-  assert_envgroup_name(resources, 'test')
+    "Test env group."
+    assert_envgroup_name(resources, "test")

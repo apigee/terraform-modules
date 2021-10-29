@@ -16,7 +16,7 @@
 
 ax_region = "europe-west1"
 
-apigee_environments = [ "test1", "test2" ]
+apigee_environments = ["test1", "test2"]
 
 apigee_envgroups = {
   test = {
@@ -27,8 +27,8 @@ apigee_envgroups = {
 
 apigee_instances = {
   euw1-instance = {
-    region = "europe-west1"
-    cidr_mask = 22
+    region       = "europe-west1"
+    cidr_mask    = 22
     environments = ["test1", "test2"]
   }
 }

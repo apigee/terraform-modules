@@ -16,17 +16,17 @@
 
 variable "endpoint_ip" {
   description = "Apigee X Instance Endpoint IP."
-  type = string
+  type        = string
 }
 
 variable "network" {
-    description = "VPC network for running the MIGs (needs to be peered with the Apigee tenant project)."
-    type = string
+  description = "VPC network for running the MIGs (needs to be peered with the Apigee tenant project)."
+  type        = string
 }
 
 variable "subnet" {
-    description = "VPC subnet for running the MIGs"
-    type = string
+  description = "VPC subnet for running the MIGs"
+  type        = string
 }
 
 variable "project_id" {
@@ -36,17 +36,17 @@ variable "project_id" {
 
 variable "bridge_tags" {
   description = "Network tags for the Bridge VMs."
-  type = list(string)
-  default = ["apigee-bridge"]
+  type        = list(string)
+  default     = ["apigee-bridge"]
 }
 
 variable "region" {
   description = "GCP Region for the MIGs."
-  type = string
+  type        = string
 }
 
 variable "machine_type" {
   description = "GCE Machine type."
-  type = string
-  default = "e2-small"
+  type        = string
+  default     = "e2-small"
 }

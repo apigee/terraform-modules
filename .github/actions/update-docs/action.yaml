@@ -21,4 +21,4 @@ runs:
   using: "docker"
   image: "Dockerfile"
   env:
-    FAIL_ON_OUTDATED: 'true'
+    FAIL_ON_OUTDATED: "true"

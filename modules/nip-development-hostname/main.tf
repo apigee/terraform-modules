@@ -15,16 +15,16 @@
  */
 
 resource "google_compute_global_address" "external_address" {
-  name    = var.address_name
-  project = var.project_id
+  name         = var.address_name
+  project      = var.project_id
   address_type = "EXTERNAL"
 }
 
 locals {
-    hostname = "${replace(google_compute_global_address.external_address.address, ".", "-")}.nip.io"
-    subdomains = [for subdomain in var.subdomain_prefixes : "${subdomain}.${local.hostname}"]
-    certname = "cert-${replace(google_compute_global_address.external_address.address, ".", "")}"
-    domains = concat([local.hostname], local.subdomains)
+  hostname   = "${replace(google_compute_global_address.external_address.address, ".", "-")}.nip.io"
+  subdomains = [for subdomain in var.subdomain_prefixes : "${subdomain}.${local.hostname}"]
+  certname   = "cert-${replace(google_compute_global_address.external_address.address, ".", "")}"
+  domains    = concat([local.hostname], local.subdomains)
 }
 
 resource "google_compute_managed_ssl_certificate" "google_cert" {

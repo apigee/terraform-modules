@@ -57,9 +57,9 @@ variable "network" {
 variable "exposure_subnets" {
   description = "Subnets for exposing Apigee services."
   type = list(object({
-    name          = string
-    ip_cidr_range = string
-    region        = string
+    name               = string
+    ip_cidr_range      = string
+    region             = string
     secondary_ip_range = map(string)
   }))
   default = []
@@ -67,20 +67,20 @@ variable "exposure_subnets" {
 
 variable "peering_range" {
   description = "Peering CIDR range"
-  type = string
+  type        = string
 }
 
 variable "ca_cert_path" {
   description = "Path to User CA Cert File (pem)."
-  type = string
+  type        = string
 }
 
 variable "tls_cert_path" {
   description = "Path to Server Cert File (pem)."
-  type = string
+  type        = string
 }
 
 variable "tls_key_path" {
   description = "Path to Server Key File (pem)."
-  type = string
+  type        = string
 }

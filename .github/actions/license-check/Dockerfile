@@ -13,7 +13,6 @@
 # limitations under the License.
 
 FROM golang:alpine3.14
-RUN apk add --no-cache git
-RUN go get github.com/google/addlicense
+RUN apk add --no-cache git && go get github.com/google/addlicense
 WORKDIR /home
 CMD ["addlicense", "-check", "."]

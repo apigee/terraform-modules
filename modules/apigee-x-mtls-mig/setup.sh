@@ -32,7 +32,7 @@ apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io
 
 sudo docker run \
-      -p 9901:9901 \
-      -p 443:10000 \
-      -v /var/apigee:/opt/apigee \
-      envoyproxy/envoy:v1.18-latest -c /opt/apigee/config.yaml
+    -p 9901:9901 \
+    -p 443:10000 \
+    -v /var/apigee:/opt/apigee \
+    envoyproxy/envoy:v1.18-latest -c /opt/apigee/config.yaml

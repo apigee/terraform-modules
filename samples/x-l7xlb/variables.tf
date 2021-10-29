@@ -52,9 +52,9 @@ variable "apigee_instances" {
 variable "exposure_subnets" {
   description = "Subnets for exposing Apigee services"
   type = list(object({
-    name          = string
-    ip_cidr_range = string
-    region        = string
+    name               = string
+    ip_cidr_range      = string
+    region             = string
     secondary_ip_range = map(string)
   }))
   default = []
@@ -67,5 +67,5 @@ variable "network" {
 
 variable "peering_range" {
   description = "Peering CIDR range"
-  type = string
+  type        = string
 }

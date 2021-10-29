@@ -16,12 +16,12 @@
 
 ax_region = "europe-west1"
 
-apigee_environments = [ "test1", "test2" ]
+apigee_environments = ["test1", "test2"]
 
 apigee_instances = {
   euw1-instance = {
-    region = "europe-west1"
-    cidr_mask = 22
+    region       = "europe-west1"
+    cidr_mask    = 22
     environments = ["test1", "test2"]
   }
 }
@@ -33,32 +33,32 @@ apigee_envgroups = {
   }
 }
 
-apigee_network = "apigee-network"
-peering_range = "10.0.0.0/16"
+apigee_network   = "apigee-network"
+peering_range    = "10.0.0.0/16"
 appliance_region = "europe-west1"
 appliance_subnet = {
-  name          = "appliance-euw1"
-  ip_cidr_range = "10.100.0.0/28"
-  region        = "europe-west1"
+  name               = "appliance-euw1"
+  ip_cidr_range      = "10.100.0.0/28"
+  region             = "europe-west1"
   secondary_ip_range = null
 }
 
 backend_network = "backend-network"
-backend_region = "europe-west1"
+backend_region  = "europe-west1"
 backend_subnet = {
-  name          = "backend-euw1"
-  ip_cidr_range = "10.200.0.0/28"
-  region        = "europe-west1"
+  name               = "backend-euw1"
+  ip_cidr_range      = "10.200.0.0/28"
+  region             = "europe-west1"
   secondary_ip_range = null
 }
 
 appliance_forwarded_ranges = {
   backend-routes = {
-    range = "10.200.0.0/27"
+    range    = "10.200.0.0/27"
     priority = 800
   }
   apigee-routes = {
-    range = "10.0.0.0/15"
+    range    = "10.0.0.0/15"
     priority = 800
   }
 }

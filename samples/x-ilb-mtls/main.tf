@@ -15,17 +15,17 @@
  */
 
 locals {
-  subnet_region_name = {for subnet in var.exposure_subnets:
+  subnet_region_name = { for subnet in var.exposure_subnets :
     subnet.region => "${subnet.region}/${subnet.name}"
   }
 }
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
-  project_id = var.project_id
-  name       = var.network
+  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
+  project_id                       = var.project_id
+  name                             = var.network
   private_service_networking_range = var.peering_range
-  subnets = var.exposure_subnets
+  subnets                          = var.exposure_subnets
 }
 
 module "apigee-x-core" {
@@ -39,16 +39,16 @@ module "apigee-x-core" {
 }
 
 module "apigee-x-mtls-mig" {
-  for_each            = var.apigee_instances
-  source              = "../../modules/apigee-x-mtls-mig"
-  project_id          = var.project_id
-  endpoint_ip         = module.apigee-x-core.instance_endpoints[each.key]
-  ca_cert_path        = var.ca_cert_path
-  tls_cert_path       = var.tls_cert_path
-  tls_key_path        = var.tls_key_path
-  network             = var.network
-  subnet              = module.vpc.subnet_self_links[local.subnet_region_name[each.value.region]]
-  region              = each.value.region
+  for_each      = var.apigee_instances
+  source        = "../../modules/apigee-x-mtls-mig"
+  project_id    = var.project_id
+  endpoint_ip   = module.apigee-x-core.instance_endpoints[each.key]
+  ca_cert_path  = var.ca_cert_path
+  tls_cert_path = var.tls_cert_path
+  tls_key_path  = var.tls_key_path
+  network       = var.network
+  subnet        = module.vpc.subnet_self_links[local.subnet_region_name[each.value.region]]
+  region        = each.value.region
 }
 
 module "ilb" {
@@ -69,9 +69,9 @@ module "ilb" {
     }
   ]
   health_check_config = {
-    type = "tcp"
-    check = { port = 443 }
-    config = {}
+    type    = "tcp"
+    check   = { port = 443 }
+    config  = {}
     logging = true
   }
 }

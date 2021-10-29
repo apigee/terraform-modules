@@ -15,6 +15,6 @@
  */
 
 output "instance_group" {
-    description = "Proxy MIGs for mTLS termination"
-    value = module.apigee-mtls-proxy-mig.group_manager.instance_group
+  description = "Proxy MIGs for mTLS termination"
+  value       = module.apigee-mtls-proxy-mig.group_manager.instance_group
 }

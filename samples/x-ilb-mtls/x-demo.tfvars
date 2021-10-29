@@ -16,7 +16,7 @@
 
 ax_region = "europe-west1"
 
-apigee_environments = [ "test1", "test2" ]
+apigee_environments = ["test1", "test2"]
 
 apigee_envgroups = {
   test = {
@@ -27,8 +27,8 @@ apigee_envgroups = {
 
 apigee_instances = {
   euw1-instance = {
-    region = "europe-west1"
-    cidr_mask = 22
+    region       = "europe-west1"
+    cidr_mask    = 22
     environments = ["test1", "test2"]
   }
 }
@@ -37,15 +37,15 @@ network = "apigee-network"
 
 exposure_subnets = [
   {
-    name          = "apigee-exposure"
-    ip_cidr_range = "10.100.0.0/24"
-    region        = "europe-west1"
+    name               = "apigee-exposure"
+    ip_cidr_range      = "10.100.0.0/24"
+    region             = "europe-west1"
     secondary_ip_range = null
   }
 ]
 
 peering_range = "10.0.0.0/22"
 
-ca_cert_path = "./certs/certs/apigee-test-CA.pem"
+ca_cert_path  = "./certs/certs/apigee-test-CA.pem"
 tls_cert_path = "./certs/certs/servercert.pem"
-tls_key_path = "./certs/certs/serverkey.pem"
+tls_key_path  = "./certs/certs/serverkey.pem"

@@ -21,39 +21,52 @@ import tftest
 BASEDIR = os.path.dirname(os.path.dirname(__file__))
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def _plan_runner():
-  "Returns a function to run Terraform plan on a fixture."
+    "Returns a function to run Terraform plan on a fixture."
 
-  def run_plan(fixture_path, tf_var_file=None, targets=None, refresh=True, **tf_vars):
-    "Runs Terraform plan and returns parsed output."
-    tf = tftest.TerraformTest(fixture_path, BASEDIR,
-                              os.environ.get('TERRAFORM', 'terraform'))
-    tf.setup()
-    return tf.plan(output=True, refresh=refresh, tf_vars=tf_vars, tf_var_file=tf_var_file, targets=targets)
+    def run_plan(fixture_path, tf_var_file=None, targets=None, refresh=True, **tf_vars):
+        "Runs Terraform plan and returns parsed output."
+        tf = tftest.TerraformTest(
+            fixture_path, BASEDIR, os.environ.get("TERRAFORM", "terraform")
+        )
+        tf.setup()
+        return tf.plan(
+            output=True,
+            refresh=refresh,
+            tf_vars=tf_vars,
+            tf_var_file=tf_var_file,
+            targets=targets,
+        )
 
-  return run_plan
+    return run_plan
 
 
 def recursive_resources(module):
-  if "child_modules" in module:
-    child_resources = [recursive_resources(child_module) for child_module in module['child_modules']]
-  else:
-    child_resources = []
+    if "child_modules" in module:
+        child_resources = [
+            recursive_resources(child_module)
+            for child_module in module["child_modules"]
+        ]
+    else:
+        child_resources = []
 
-  flattened_child_resources = [i for l in child_resources for i in l]
+    flattened_child_resources = [i for l in child_resources for i in l]
 
-  if "resources" not in module:
-    return flattened_child_resources
-  return module['resources'] + flattened_child_resources
+    if "resources" not in module:
+        return flattened_child_resources
+    return module["resources"] + flattened_child_resources
 
-@pytest.fixture(scope='session')
+
+@pytest.fixture(scope="session")
 def recursive_plan_runner(_plan_runner):
-  "Returns a function to run Terraform plan on a module fixture."
+    "Returns a function to run Terraform plan on a module fixture."
 
-  def run_plan(fixture_path, tf_var_file=None, targets=None, **tf_vars):
-    "Runs Terraform plan and returns plan and module resources."
-    plan = _plan_runner(fixture_path, tf_var_file=tf_var_file, targets=targets, **tf_vars)
-    return plan, recursive_resources(plan.root_module)
+    def run_plan(fixture_path, tf_var_file=None, targets=None, **tf_vars):
+        "Runs Terraform plan and returns plan and module resources."
+        plan = _plan_runner(
+            fixture_path, tf_var_file=tf_var_file, targets=targets, **tf_vars
+        )
+        return plan, recursive_resources(plan.root_module)
 
-  return run_plan
+    return run_plan

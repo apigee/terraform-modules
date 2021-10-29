@@ -67,9 +67,9 @@ variable "appliance_region" {
 variable "appliance_subnet" {
   description = "Subnet to host the routing appliance"
   type = object({
-    name          = string
-    ip_cidr_range = string
-    region        = string
+    name               = string
+    ip_cidr_range      = string
+    region             = string
     secondary_ip_range = map(string)
   })
 }
@@ -93,9 +93,9 @@ variable "backend_region" {
 variable "backend_subnet" {
   description = "Subnet to host the backend service"
   type = object({
-    name          = string
-    ip_cidr_range = string
-    region        = string
+    name               = string
+    ip_cidr_range      = string
+    region             = string
     secondary_ip_range = map(string)
   })
 }
@@ -103,13 +103,13 @@ variable "backend_subnet" {
 variable "appliance_forwarded_ranges" {
   description = "CDIR ranges that should route via the network appliance"
   type = map(object({
-    range     = string
-    priority  = number
+    range    = string
+    priority = number
   }))
-  default  = {}
+  default = {}
 }
 
 variable "peering_range" {
   description = "Peering CIDR range"
-  type = string
+  type        = string
 }

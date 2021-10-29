@@ -15,10 +15,10 @@
  */
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
-  project_id = var.project_id
-  name       = var.network
-  subnets    = []
+  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
+  project_id                       = var.project_id
+  name                             = var.network
+  subnets                          = []
   private_service_networking_range = var.peering_range
 }
 

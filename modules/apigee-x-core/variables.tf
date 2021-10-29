@@ -16,17 +16,17 @@
 
 variable "project_id" {
   description = "Project id (also used for the Apigee Organization)."
-  type = string
+  type        = string
 }
 
 variable "ax_region" {
   description = "GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli)."
-  type = string
+  type        = string
 }
 
 variable "network" {
   description = "Network (self-link) to peer with the Apigee tennant project."
-  type = string
+  type        = string
 }
 
 variable "apigee_envgroups" {

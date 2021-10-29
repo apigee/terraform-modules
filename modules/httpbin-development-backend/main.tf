@@ -15,12 +15,12 @@
  */
 
 module "demo-backend-template" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v6.0.0"
-  project_id = var.project_id
-  name       = var.name
-  zone       = "${var.region}-b"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v6.0.0"
+  project_id    = var.project_id
+  name          = var.name
+  zone          = "${var.region}-b"
   instance_type = var.machine_type
-  tags       = [var.name]
+  tags          = [var.name]
   network_interfaces = [{
     network    = var.network,
     subnetwork = var.subnet
@@ -33,7 +33,7 @@ module "demo-backend-template" {
     type  = "pd-standard"
     size  = 10
   }
-  create_template  = true
+  create_template = true
   metadata = {
     startup-script = "docker run -p 80:80 kennethreitz/httpbin"
   }
@@ -71,9 +71,9 @@ module "ilb-backend" {
     }
   ]
   health_check_config = {
-    type = "tcp"
-    check = { port = 80 }
-    config = {}
+    type    = "tcp"
+    check   = { port = 80 }
+    config  = {}
     logging = false
   }
 }
@@ -82,7 +82,7 @@ resource "google_compute_firewall" "hc-allow" {
   name          = "allow-hc-${var.name}"
   project       = var.project_id
   network       = var.network
-  source_ranges = ["130.211.0.0/22","35.191.0.0/16"]
+  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
   target_tags   = [var.name]
   allow {
     protocol = "tcp"
