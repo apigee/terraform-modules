@@ -5,7 +5,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | n/a |
+| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | >= 3.45, < 4.0.0 |
 
 ## Modules
 
