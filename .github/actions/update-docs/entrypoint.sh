@@ -18,7 +18,7 @@ set -e
 
 for TYPE in samples modules; do
   for D in "$TYPE"/*; do
-    terraform-docs --hide header --hide requirements markdown table --output-file README.md --output-mode inject "$D"
+    terraform-docs --lockfile=false --hide header --hide requirements markdown table --output-file README.md --output-mode inject "$D"
   done
 done
 
