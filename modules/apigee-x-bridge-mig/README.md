@@ -5,15 +5,15 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_google"></a> [google](#provider\_google) | >= 4.0.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bridge-mig"></a> [bridge-mig](#module\_bridge-mig) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig | v6.0.0 |
-| <a name="module_bridge-template"></a> [bridge-template](#module\_bridge-template) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v6.0.0 |
+| <a name="module_bridge-mig"></a> [bridge-mig](#module\_bridge-mig) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig | v8.0.0 |
+| <a name="module_bridge-template"></a> [bridge-template](#module\_bridge-template) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v8.0.0 |
 
 ## Resources
 

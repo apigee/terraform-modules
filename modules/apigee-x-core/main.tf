@@ -21,7 +21,7 @@ resource "google_project_service_identity" "apigee_sa" {
 }
 
 module "kms-org-db" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v6.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v8.0.0"
   project_id = var.project_id
   key_iam = {
     org-db = {
@@ -38,23 +38,23 @@ module "kms-org-db" {
 }
 
 module "apigee" {
-  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization?ref=v6.0.0"
+  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization?ref=v8.0.0"
   project_id              = var.project_id
   analytics_region        = var.ax_region
   runtime_type            = "CLOUD"
   authorized_network      = var.network
-  database_encryption_key = module.kms-org-db.key_self_links["org-db"]
+  database_encryption_key = module.kms-org-db.key_ids["org-db"]
   apigee_environments     = var.apigee_environments
   apigee_envgroups        = var.apigee_envgroups
   depends_on = [
     google_project_service_identity.apigee_sa,
-    module.kms-org-db.self_link
+    module.kms-org-db.id
   ]
 }
 
 module "kms-inst-disk" {
   for_each   = var.apigee_instances
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v6.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v8.0.0"
   project_id = var.project_id
   key_iam = {
     inst-disk = {
@@ -72,13 +72,13 @@ module "kms-inst-disk" {
 
 module "apigee-x-instance" {
   for_each            = var.apigee_instances
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-x-instance?ref=v6.0.0"
+  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-x-instance?ref=v8.0.0"
   apigee_org_id       = module.apigee.org_id
   name                = each.key
   region              = each.value.region
   cidr_mask           = each.value.cidr_mask
   apigee_environments = each.value.environments
-  disk_encryption_key = module.kms-inst-disk[each.key].key_self_links["inst-disk"]
+  disk_encryption_key = module.kms-inst-disk[each.key].key_ids["inst-disk"]
   depends_on = [
     google_project_service_identity.apigee_sa,
     module.kms-inst-disk.self_link

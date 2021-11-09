@@ -5,16 +5,16 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | >= 3.45, < 4.0.0 |
+| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | >= 4.0.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_apigee"></a> [apigee](#module\_apigee) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization | v6.0.0 |
-| <a name="module_apigee-x-instance"></a> [apigee-x-instance](#module\_apigee-x-instance) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-x-instance | v6.0.0 |
-| <a name="module_kms-inst-disk"></a> [kms-inst-disk](#module\_kms-inst-disk) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v6.0.0 |
-| <a name="module_kms-org-db"></a> [kms-org-db](#module\_kms-org-db) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v6.0.0 |
+| <a name="module_apigee"></a> [apigee](#module\_apigee) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization | v8.0.0 |
+| <a name="module_apigee-x-instance"></a> [apigee-x-instance](#module\_apigee-x-instance) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-x-instance | v8.0.0 |
+| <a name="module_kms-inst-disk"></a> [kms-inst-disk](#module\_kms-inst-disk) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v8.0.0 |
+| <a name="module_kms-org-db"></a> [kms-org-db](#module\_kms-org-db) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v8.0.0 |
 
 ## Resources
 

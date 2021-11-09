@@ -15,7 +15,7 @@
  */
 
 module "vpc" {
-  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
+  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v8.0.0"
   project_id                       = var.project_id
   name                             = var.network
   subnets                          = []
