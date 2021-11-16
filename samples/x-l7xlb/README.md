@@ -1,5 +1,10 @@
 # Apigee X with External HTTPS Load Balancer
 
+## Setup Instructions
+
+Please see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
+for detailed instructions.
+
 <!-- BEGIN_TF_DOCS -->
 ## Providers
 

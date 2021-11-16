@@ -1,5 +1,10 @@
 # Apigee X with Internal L4 Load Balancer and Client Authentication (mTLS)
 
+## Setup Instructions
+
+Please see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
+for detailed instructions.
+
 <!-- BEGIN_TF_DOCS -->
 ## Providers
 

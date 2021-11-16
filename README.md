@@ -15,7 +15,6 @@ Currently the following modules are a available and can be used either as part o
 * [HTTPbin Development Backend](modules/httpbin-development-backend) Configures an example HTTP backend based on a locally hosted httpbin.org service and an internal load balancer.
 * [NIP.io Development Hostname](modules/nip-development-hostname) Configures an external IP address and hostname based on the IP and the nip.io mechanism as well as a Google-managed SSL certificate.
 
-
 ## Deploying End-To-End Samples
 
 Set the project and enable all required services:
@@ -54,7 +53,6 @@ terraform {
 EOF
 ```
 
-
 Validate your config:
 
 ```sh
@@ -70,7 +68,11 @@ terraform apply --var-file=./my-config.tfvars -var "project_id=$PROJECT_ID"
 
 ## Known issues
 
-* Instance attachments with multiple environments might fail because of an [issue](https://github.com/hashicorp/terraform-provider-google/issues/10084) in the Terraform provider. As a temporary workaround re-apply with the same configuration for each environment until all environments are attached to the respective instances.
+* Currently, there are no known issues specific to this module.
+* Feel free to [create an issue](https://github.com/apigee/terraform-modules/issues/new)
+  if you came across anything.
+* Please also see the list of [open issues](https://github.com/hashicorp/terraform-provider-google/issues?q=is%3Aissue+is%3Aopen+apigee)
+  in the upstream terraform provider that could be inherited by this module.
 
 ## License
 
