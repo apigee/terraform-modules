@@ -1,5 +1,10 @@
 # Basic Apigee X Setup with internal Endpoint
 
+## Setup Instructions
+
+Please see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
+for detailed instructions.
+
 <!-- BEGIN_TF_DOCS -->
 ## Providers
 

@@ -19,6 +19,11 @@ To validate or demo the setup:
 1. Create and ssh into a temporary bastion VM in the backend network or use one of the backend VMs directly.
 1. Set the `ENDPOINT_IP` variable to your internal Apigee Endpoint and call the API proxy with: `curl https://test.api.example.com/internal/get --resolve test.api.example.com:443:${ENDPOINT_IP} -kv`
 
+## Setup Instructions
+
+Please see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
+for detailed instructions.
+
 <!-- BEGIN_TF_DOCS -->
 ## Providers
 
