@@ -15,7 +15,7 @@
  */
 
 module "bridge-template" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v6.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v8.0.0"
   project_id    = var.project_id
   name          = "apigee-${var.region}"
   zone          = "${var.region}-b"
@@ -43,7 +43,7 @@ module "bridge-template" {
 }
 
 module "bridge-mig" {
-  source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v6.0.0"
+  source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v8.0.0"
   project_id  = var.project_id
   location    = var.region
   regional    = true

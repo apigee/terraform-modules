@@ -15,7 +15,7 @@
  */
 
 module "vpc" {
-  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
+  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v8.0.0"
   project_id                       = var.project_id
   name                             = var.apigee_network
   private_service_networking_range = var.peering_range
@@ -68,14 +68,14 @@ resource "google_compute_firewall" "allow-appliance-ingress" {
 }
 
 module "backend-vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v6.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v8.0.0"
   project_id = var.project_id
   name       = var.backend_network
   subnets    = [var.backend_subnet]
 }
 
 module "peering-apigee-backend" {
-  source                     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc-peering?ref=v6.0.0"
+  source                     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc-peering?ref=v8.0.0"
   prefix                     = "peering-apigee-backend"
   export_local_custom_routes = true
 

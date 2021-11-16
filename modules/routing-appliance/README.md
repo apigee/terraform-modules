@@ -3,18 +3,18 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_google"></a> [google](#provider\_google) | >= 4.0.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_appliance-sa"></a> [appliance-sa](#module\_appliance-sa) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account | v6.0.0 |
-| <a name="module_config-bucket"></a> [config-bucket](#module\_config-bucket) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs | v6.0.0 |
-| <a name="module_ilb-appliance"></a> [ilb-appliance](#module\_ilb-appliance) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb | v6.0.0 |
-| <a name="module_routing-appliance-mig"></a> [routing-appliance-mig](#module\_routing-appliance-mig) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig | v6.0.0 |
-| <a name="module_routing-appliance-template"></a> [routing-appliance-template](#module\_routing-appliance-template) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v6.0.0 |
+| <a name="module_appliance-sa"></a> [appliance-sa](#module\_appliance-sa) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account | v8.0.0 |
+| <a name="module_config-bucket"></a> [config-bucket](#module\_config-bucket) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs | v8.0.0 |
+| <a name="module_ilb-appliance"></a> [ilb-appliance](#module\_ilb-appliance) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb | v8.0.0 |
+| <a name="module_routing-appliance-mig"></a> [routing-appliance-mig](#module\_routing-appliance-mig) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig | v8.0.0 |
+| <a name="module_routing-appliance-template"></a> [routing-appliance-template](#module\_routing-appliance-template) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v8.0.0 |
 
 ## Resources
 

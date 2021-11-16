@@ -3,15 +3,15 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_google"></a> [google](#provider\_google) | >= 4.0.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_demo-backend-mig"></a> [demo-backend-mig](#module\_demo-backend-mig) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig | v6.0.0 |
-| <a name="module_demo-backend-template"></a> [demo-backend-template](#module\_demo-backend-template) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v6.0.0 |
-| <a name="module_ilb-backend"></a> [ilb-backend](#module\_ilb-backend) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb | v6.0.0 |
+| <a name="module_demo-backend-mig"></a> [demo-backend-mig](#module\_demo-backend-mig) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig | v8.0.0 |
+| <a name="module_demo-backend-template"></a> [demo-backend-template](#module\_demo-backend-template) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v8.0.0 |
+| <a name="module_ilb-backend"></a> [ilb-backend](#module\_ilb-backend) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb | v8.0.0 |
 
 ## Resources
 
