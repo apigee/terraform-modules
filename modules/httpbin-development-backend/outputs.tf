@@ -15,6 +15,11 @@
  */
 
 output "instance_group" {
-  description = "Backend Service MIG"
+  description = "Backend Service MIG."
   value       = module.demo-backend-mig.group_manager.instance_group
+}
+
+output "ilb_ip" {
+  description = "ILB forwarding rule IP address."
+  value = module.ilb-backend.forwarding_rule_address
 }

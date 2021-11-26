@@ -34,5 +34,6 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_instance_group"></a> [instance\_group](#output\_instance\_group) | Backend Service MIG |
+| <a name="output_ilb_ip"></a> [ilb\_ip](#output\_ilb\_ip) | ILB forwarding rule IP address. |
+| <a name="output_instance_group"></a> [instance\_group](#output\_instance\_group) | Backend Service MIG. |
 <!-- END_TF_DOCS -->
