@@ -17,12 +17,10 @@ Currently the following modules are a available and can be used either as part o
 
 ## Deploying End-To-End Samples
 
-Set the project and enable all required services:
+Set the project ID where you want your Apigee Organization to be deployed to:
 
 ```sh
 PROJECT_ID=my-project-id
-
-gcloud services enable compute.googleapis.com apigee.googleapis.com servicenetworking.googleapis.com cloudkms.googleapis.com --project $PROJECT_ID
 ```
 
 Select one of the available sample deployments:

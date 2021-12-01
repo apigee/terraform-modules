@@ -39,6 +39,7 @@ for detailed instructions.
 | <a name="module_backend-example"></a> [backend-example](#module\_backend-example) | ../../modules/httpbin-development-backend | n/a |
 | <a name="module_backend-vpc"></a> [backend-vpc](#module\_backend-vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v8.0.0 |
 | <a name="module_peering-apigee-backend"></a> [peering-apigee-backend](#module\_peering-apigee-backend) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc-peering | v8.0.0 |
+| <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v8.0.0 |
 | <a name="module_routing-appliance"></a> [routing-appliance](#module\_routing-appliance) | ../../modules/routing-appliance | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v8.0.0 |
 
@@ -67,8 +68,11 @@ for detailed instructions.
 | <a name="input_backend_network"></a> [backend\_network](#input\_backend\_network) | Peered Backend VPC name. | `string` | n/a | yes |
 | <a name="input_backend_region"></a> [backend\_region](#input\_backend\_region) | GCP Region Backend (ensure this matches backend\_subnet.region). | `string` | n/a | yes |
 | <a name="input_backend_subnet"></a> [backend\_subnet](#input\_backend\_subnet) | Subnet to host the backend service | <pre>object({<br>    name               = string<br>    ip_cidr_range      = string<br>    region             = string<br>    secondary_ip_range = map(string)<br>  })</pre> | n/a | yes |
+| <a name="input_billing_account"></a> [billing\_account](#input\_billing\_account) | Billing account id. | `string` | `null` | no |
 | <a name="input_peering_range"></a> [peering\_range](#input\_peering\_range) | Peering CIDR range | `string` | n/a | yes |
+| <a name="input_project_create"></a> [project\_create](#input\_project\_create) | Create project. When set to false, uses a data source to reference existing project. | `bool` | `false` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id (also used for the Apigee Organization). | `string` | n/a | yes |
+| <a name="input_project_parent"></a> [project\_parent](#input\_project\_parent) | Parent folder or organization in 'folders/folder\_id' or 'organizations/org\_id' format. | `string` | `null` | no |
 
 ## Outputs
 
