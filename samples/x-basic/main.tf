@@ -14,9 +14,23 @@
  * limitations under the License.
  */
 
+module "project" {
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v8.0.0"
+  name            = var.project_id
+  parent          = var.project_parent
+  billing_account = var.billing_account
+  project_create  = var.project_create
+  services = [
+    "apigee.googleapis.com",
+    "cloudkms.googleapis.com",
+    "compute.googleapis.com",
+    "servicenetworking.googleapis.com"
+  ]
+}
+
 module "vpc" {
   source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v8.0.0"
-  project_id                       = var.project_id
+  project_id                       = module.project.project_id
   name                             = var.network
   subnets                          = []
   private_service_networking_range = var.peering_range
@@ -24,10 +38,11 @@ module "vpc" {
 
 module "apigee-x-core" {
   source              = "../../modules/apigee-x-core"
-  project_id          = var.project_id
+  project_id          = module.project.project_id
   apigee_environments = var.apigee_environments
   ax_region           = var.ax_region
   apigee_envgroups    = var.apigee_envgroups
   network             = module.vpc.network.id
   apigee_instances    = var.apigee_instances
 }
+

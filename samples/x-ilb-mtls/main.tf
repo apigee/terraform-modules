@@ -20,9 +20,23 @@ locals {
   }
 }
 
+module "project" {
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v8.0.0"
+  name            = var.project_id
+  parent          = var.project_parent
+  billing_account = var.billing_account
+  project_create  = var.project_create
+  services = [
+    "apigee.googleapis.com",
+    "cloudkms.googleapis.com",
+    "compute.googleapis.com",
+    "servicenetworking.googleapis.com"
+  ]
+}
+
 module "vpc" {
   source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v8.0.0"
-  project_id                       = var.project_id
+  project_id                       = module.project.project_id
   name                             = var.network
   private_service_networking_range = var.peering_range
   subnets                          = var.exposure_subnets
@@ -30,7 +44,7 @@ module "vpc" {
 
 module "apigee-x-core" {
   source              = "../../modules/apigee-x-core"
-  project_id          = var.project_id
+  project_id          = module.project.project_id
   apigee_environments = var.apigee_environments
   apigee_envgroups    = var.apigee_envgroups
   apigee_instances    = var.apigee_instances
@@ -41,7 +55,7 @@ module "apigee-x-core" {
 module "apigee-x-mtls-mig" {
   for_each      = var.apigee_instances
   source        = "../../modules/apigee-x-mtls-mig"
-  project_id    = var.project_id
+  project_id    = module.project.project_id
   endpoint_ip   = module.apigee-x-core.instance_endpoints[each.key]
   ca_cert_path  = var.ca_cert_path
   tls_cert_path = var.tls_cert_path
@@ -54,7 +68,7 @@ module "apigee-x-mtls-mig" {
 module "ilb" {
   for_each      = var.apigee_instances
   source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb?ref=v8.0.0"
-  project_id    = var.project_id
+  project_id    = module.project.project_id
   region        = each.value.region
   name          = "apigee-mtls-${each.key}"
   service_label = "apigee-mtls-${each.key}"

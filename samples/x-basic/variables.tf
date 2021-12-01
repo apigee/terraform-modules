@@ -58,3 +58,25 @@ variable "peering_range" {
   description = "Service Peering CIDR range."
   type        = string
 }
+
+variable "billing_account" {
+  description = "Billing account id."
+  type        = string
+  default     = null
+}
+
+variable "project_parent" {
+  description = "Parent folder or organization in 'folders/folder_id' or 'organizations/org_id' format."
+  type        = string
+  default     = null
+  validation {
+    condition     = var.project_parent == null || can(regex("(organizations|folders)/[0-9]+", var.project_parent))
+    error_message = "Parent must be of the form folders/folder_id or organizations/organization_id."
+  }
+}
+
+variable "project_create" {
+  description = "Create project. When set to false, uses a data source to reference existing project."
+  type        = bool
+  default     = false
+}
