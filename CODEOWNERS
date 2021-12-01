@@ -1,4 +1,4 @@
-*       @seymen @danistrebel
+*       @danistrebel
 
 modules/apigee-x-bridge-mig             @danistrebel
 modules/apigee-x-core                   @danistrebel
@@ -9,3 +9,4 @@ modules/nip-development-hostname        @danistrebel
 samples/x-basic                         @danistrebel
 samples/x-ilb-mtls                      @danistrebel
 samples/x-l7xlb                         @danistrebel
+samples/x-transitive-peering            @danistrebel
