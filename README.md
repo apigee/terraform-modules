@@ -30,6 +30,7 @@ Select one of the available sample deployments:
 * [X with internal L4 LB and mTLS](samples/x-ilb-mtls) for a basic Apigee X setup plus exposure via regional L4 load balancer and envoy proxy to terminate mTLS.
 * [X with network appliance for transitive peering](samples/x-transitive-peering) for an Apigee X organization that is peered to a network is transitively peered to another VPC that contains the backend.
 To deploy the sample, first create a copy of the example variables and edit according to your requirements.
+* [X with DNS peering](samples/x-dns-peering) for a basic Apigee X setup with DNS peering with a private DNS Zone containing records for Apigee and an example backend.
 
 ```sh
 cd samples/... # Sample from above

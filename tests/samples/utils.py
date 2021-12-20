@@ -32,6 +32,12 @@ def assert_envgroup_name(resources, name):
     assert len(envgroups) == 1
     assert envgroups[0]["name"] == name
 
+def assert_envgroup_hostnames(resources, hostnames):
+    "Test env group hostnames."
+    envgroups = [
+        r["values"] for r in resources if r["type"] == "google_apigee_envgroup"
+    ]
+    assert set(envgroups[0]["hostnames"]) == set(hostnames)
 
 def assert_instance(resources, location, cidr):
     "Test Apigee Instance Resource"
