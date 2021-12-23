@@ -15,7 +15,7 @@
  */
 
 module "demo-backend-template" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v8.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v9.0.2"
   project_id    = var.project_id
   name          = var.name
   zone          = "${var.region}-b"
@@ -42,7 +42,7 @@ module "demo-backend-template" {
 }
 
 module "demo-backend-mig" {
-  source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v8.0.0"
+  source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v9.0.2"
   project_id  = var.project_id
   location    = var.region
   regional    = true
@@ -55,7 +55,7 @@ module "demo-backend-mig" {
 }
 
 module "ilb-backend" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb?ref=v8.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb?ref=v9.0.2"
   project_id    = var.project_id
   region        = var.region
   name          = var.name
