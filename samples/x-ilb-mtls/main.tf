@@ -21,7 +21,7 @@ locals {
 }
 
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v8.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v9.0.2"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -35,10 +35,10 @@ module "project" {
 }
 
 module "vpc" {
-  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v8.0.0"
+  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v9.0.2"
   project_id                       = module.project.project_id
   name                             = var.network
-  private_service_networking_range = var.peering_range
+  psn_ranges                       = [var.peering_range]
   subnets                          = var.exposure_subnets
 }
 
@@ -67,7 +67,7 @@ module "apigee-x-mtls-mig" {
 
 module "ilb" {
   for_each      = var.apigee_instances
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb?ref=v8.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb?ref=v9.0.2"
   project_id    = module.project.project_id
   region        = each.value.region
   name          = "apigee-mtls-${each.key}"
