@@ -16,7 +16,7 @@
 
 module "bridge-template" {
   source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v9.0.2"
-  project_id    = var.project_id
+  project_id    = var.service_project_id
   name          = "apigee-${var.region}"
   zone          = "${var.region}-b"
   tags          = var.bridge_tags
@@ -44,7 +44,7 @@ module "bridge-template" {
 
 module "bridge-mig" {
   source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v9.0.2"
-  project_id  = var.project_id
+  project_id  = var.service_project_id
   location    = var.region
   regional    = true
   name        = "apigee-bridge-mig-${var.region}"
@@ -77,7 +77,7 @@ resource "random_id" "fw" {
 
 resource "google_compute_firewall" "allow_glb_to_mig_bridge" {
   name          = "allow-glb-bridge-${random_id.fw.hex}"
-  project       = var.project_id
+  project       = var.host_project_id
   network       = var.network
   source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
   target_tags   = var.bridge_tags

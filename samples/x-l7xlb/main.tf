@@ -18,11 +18,27 @@ locals {
   subnet_region_name = { for subnet in var.exposure_subnets :
     subnet.region => "${subnet.region}/${subnet.name}"
   }
+  host_project_id = var.host_project_id != "" ? var.host_project_id : var.project_id
+  service_project_id = var.service_project_id != "" ? var.service_project_id : var.project_id
 }
 
-module "project" {
+module "hostProject" {
   source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v9.0.2"
-  name            = var.project_id
+  name            = local.host_project_id
+  parent          = var.project_parent
+  billing_account = var.billing_account
+  project_create  = var.project_create
+  services = [
+    "apigee.googleapis.com",
+    "cloudkms.googleapis.com",
+    "compute.googleapis.com",
+    "servicenetworking.googleapis.com"
+  ]
+}
+
+module "serviceProject" {
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v9.0.2"
+  name            = local.service_project_id
   parent          = var.project_parent
   billing_account = var.billing_account
   project_create  = var.project_create
@@ -36,7 +52,7 @@ module "project" {
 
 module "vpc" {
   source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v9.0.2"
-  project_id                       = module.project.project_id
+  project_id                       = module.hostProject.project_id
   name                             = var.network
   psn_ranges                       = [var.peering_range]
   subnets                          = var.exposure_subnets
@@ -44,14 +60,14 @@ module "vpc" {
 
 module "nip-development-hostname" {
   source             = "../../modules/nip-development-hostname"
-  project_id         = module.project.project_id
+  project_id         = module.serviceProject.project_id
   address_name       = "apigee-external"
   subdomain_prefixes = [for name, _ in var.apigee_envgroups : name]
 }
 
 module "apigee-x-core" {
   source              = "../../modules/apigee-x-core"
-  project_id          = module.project.project_id
+  project_id          = module.serviceProject.project_id
   ax_region           = var.ax_region
   apigee_instances    = var.apigee_instances
   apigee_environments = var.apigee_environments
@@ -65,18 +81,19 @@ module "apigee-x-core" {
 }
 
 module "apigee-x-bridge-mig" {
-  for_each    = var.apigee_instances
-  source      = "../../modules/apigee-x-bridge-mig"
-  project_id  = module.project.project_id
-  network     = module.vpc.network.id
-  subnet      = module.vpc.subnet_self_links[local.subnet_region_name[each.value.region]]
-  region      = each.value.region
-  endpoint_ip = module.apigee-x-core.instance_endpoints[each.key]
+  for_each            = var.apigee_instances
+  source              = "../../modules/apigee-x-bridge-mig"
+  host_project_id     = module.hostProject.project_id
+  service_project_id  = module.serviceProject.project_id
+  network             = module.vpc.network.id
+  subnet              = module.vpc.subnet_self_links[local.subnet_region_name[each.value.region]]
+  region              = each.value.region
+  endpoint_ip         = module.apigee-x-core.instance_endpoints[each.key]
 }
 
 module "mig-l7xlb" {
   source          = "../../modules/mig-l7xlb"
-  project_id      = module.project.project_id
+  project_id      = module.serviceProject.project_id
   name            = "apigee-xlb"
   backend_migs    = [for _, mig in module.apigee-x-bridge-mig : mig.instance_group]
   ssl_certificate = module.nip-development-hostname.ssl_certificate

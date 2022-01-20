@@ -17,6 +17,7 @@
 variable "project_id" {
   description = "Project id (also used for the Apigee Organization)."
   type        = string
+  default     = ""
 }
 
 variable "ax_region" {
@@ -90,4 +91,14 @@ variable "project_create" {
   description = "Create project. When set to false, uses a data source to reference existing project."
   type        = bool
   default     = false
+}
+
+variable "host_project_id" {
+  description = "The ID of the host project"
+  type        = string
+}
+
+variable "service_project_id" {
+  description = "The ID of the service project"
+  type        = string
 }

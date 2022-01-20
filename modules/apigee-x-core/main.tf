@@ -30,7 +30,7 @@ module "kms-org-db" {
   }
   keyring = {
     location = var.ax_region
-    name     = "apigee-x-org"
+    name     = "apigee-x-org-2"
   }
   keys = {
     org-db = null

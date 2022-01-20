@@ -29,8 +29,13 @@ variable "subnet" {
   type        = string
 }
 
-variable "project_id" {
-  description = "GCP Project id."
+variable "host_project_id" {
+  description = "GCP Host Project id."
+  type        = string
+}
+
+variable "service_project_id" {
+  description = "GCP Service Project id."
   type        = string
 }
 
