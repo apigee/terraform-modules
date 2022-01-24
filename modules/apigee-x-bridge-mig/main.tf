@@ -77,7 +77,7 @@ resource "random_id" "fw" {
 
 resource "google_compute_firewall" "allow_glb_to_mig_bridge" {
   name          = "allow-glb-bridge-${random_id.fw.hex}"
-  project       = var.project_id
+  project       = split("/", "google_compute_network.${var.network}")[1]
   network       = var.network
   source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
   target_tags   = var.bridge_tags
