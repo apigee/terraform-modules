@@ -41,12 +41,14 @@ exposure_subnets = [
     name               = "apigee-exposure-1"
     ip_cidr_range      = "10.100.0.0/24"
     region             = "europe-west1"
+    instance           = "euw1-instance"
     secondary_ip_range = null
   },
   {
     name               = "apigee-exposure-2"
     ip_cidr_range      = "10.200.0.0/24"
     region             = "europe-west2"
+    instance           = "euw1-instance"
     secondary_ip_range = null
   }
 ]

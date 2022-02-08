@@ -61,6 +61,7 @@ variable "exposure_subnets" {
     name               = string
     ip_cidr_range      = string
     region             = string
+    instance           = string
     secondary_ip_range = map(string)
   }))
   default = []

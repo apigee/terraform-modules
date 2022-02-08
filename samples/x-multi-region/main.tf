@@ -18,8 +18,8 @@ locals {
   subnet_region_name   = { for subnet in var.exposure_subnets :
     subnet.region => "${subnet.region}/${subnet.name}"
   }
-  instance_region_name = { for k, v in var.apigee_instances :
-    v.region => k
+  instance_region_name = { for subnet in var.exposure_subnets :
+    subnet.region => subnet.instance
   }
   svpc_host_project_id = var.svpc_host_project_id != "" ? var.svpc_host_project_id : join("-", ["host", var.project_id])
 }
@@ -109,7 +109,7 @@ module "apigee-x-bridge-mig" {
   network     = module.shared-vpc.network.id
   region      = each.key
   subnet      = module.shared-vpc.subnet_self_links[local.subnet_region_name[each.key]]
-  endpoint_ip = module.apigee-x-core.instance_endpoints[lookup(local.instance_region_name, each.key, values(local.instance_region_name)[0])]
+  endpoint_ip = module.apigee-x-core.instance_endpoints[local.instance_region_name[each.key]]
 }
 
 module "mig-l7xlb" {

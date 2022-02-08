@@ -17,7 +17,7 @@ import os
 import pytest
 from .utils import *
 
-FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "../../samples/x-dual-region")
+FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "../../samples/x-multi-region")
 
 
 @pytest.fixture(scope="module")
