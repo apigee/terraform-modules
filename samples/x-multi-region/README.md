@@ -5,7 +5,10 @@
 Please see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
 for detailed instructions.
 
-![Apigee X Shared VPC Sample Architecture](/sample-architecture.png "Apigee X Shared VPC Sample Architecture")
+<p align="center">
+  <img src="./sample-architecture.png?raw=true" alt="Apigee X Shared VPC Multi Region Sample Architecture">
+</p>
+
 Note that the sample uses an EVAL Apigee X Organization and hence a single Apigee X Instance only. In case you have a PROD Apigee X Organization then you will be able to easily extend the sample accordingly.
 
 <!-- BEGIN_TF_DOCS -->
