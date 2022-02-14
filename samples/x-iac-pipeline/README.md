@@ -61,13 +61,13 @@ and provision the Bootstrap GCP Project:
 terraform apply --var-file=./my-config.tfvars -var "project_id=$PROJECT_ID"
 ```
 
-Create the Infrastructuyyre as Code (takes roughly 25min):
+Create the Infrastructure as Code (takes roughly 25min):
 
 ```sh
 cd ./infra/
 ./00_setupRepo.sh $PROJECT_ID 
 ```
-**Warning**: This step will kick off a Cloud Build in the boostrap Project.
+**Warning**: This step will kick off a Cloud Build in the Boostrap GCP Project.
 * Check the Cloud Build history in your Bootstrap GCP Project on https://console.cloud.google.com/cloud-build/builds?supportedpurview=project and make sure the build completes before continuing to the next step.
 
 Provision a simple httpbin Proxy:
