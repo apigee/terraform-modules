@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-project_parent = "organizations/0123456789"
-
 billing_account = "0123456789"
+
+project_parent = "organizations/0123456789"
 
 region = "europe-west1"
 

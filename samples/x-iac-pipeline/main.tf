@@ -119,9 +119,15 @@ resource "google_organization_iam_member" "org_xpn_admin" {
   member = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }
 
-resource "google_folder_iam_member" "folder_xpn_admin" {
+data "google_folder" "bootstrap_folder" {
+  count               = length(regexall("(folders)/([0-9]+)", var.project_parent)) > 0 ? 1 : 0
+  folder              = var.project_parent 
+  lookup_organization = true
+}
+
+resource "google_organization_iam_member" "organization_folder_xpn_admin" {
   count  = length(regexall("(folders)/([0-9]+)", var.project_parent)) > 0 ? 1 : 0
-  folder = var.project_parent
+  org_id = regex("(organizations)/([0-9]+)", data.google_folder.bootstrap_folder[0].organization)[1]
   role   = "roles/compute.xpnAdmin"
   member = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }

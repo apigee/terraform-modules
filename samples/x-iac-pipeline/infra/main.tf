@@ -36,7 +36,7 @@ module "host-project" {
     service_projects = [] # defined later
   }
   services                  = [
-    "servicenetworking.googleapis.com"
+    "serviceusage.googleapis.com"
   ]
 }
 
@@ -52,11 +52,25 @@ module "service-project" {
     host_project = module.host-project.project_id
   }
   services                  = [
-    "apigee.googleapis.com",
     "cloudkms.googleapis.com",
     "compute.googleapis.com",
-    "servicenetworking.googleapis.com"
+    "serviceusage.googleapis.com"
   ]
+}
+
+resource "google_project_service" "apigee" {
+  project = module.service-project.project_id
+  service = "apigee.googleapis.com"
+}
+
+resource "google_project_service" "svc_service_networking" {
+  project = module.service-project.project_id
+  service = "servicenetworking.googleapis.com"
+}
+
+resource "google_project_service" "host_service_networking" {
+  project = module.host-project.project_id
+  service = "servicenetworking.googleapis.com"
 }
 
 module "shared-vpc" {
@@ -100,6 +114,11 @@ module "apigee-x-core" {
     }
   }
   network = module.shared-vpc.network.id
+  depends_on = [
+    google_project_service.apigee,
+    google_project_service.host_service_networking,
+    google_project_service.svc_service_networking
+  ]
 }
 
 module "apigee-x-bridge-mig" {
