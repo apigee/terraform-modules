@@ -6,7 +6,7 @@ This sample deploys in a sligthly different manner than you might be used to in 
 
 Deploying this sample happens in two stages.
 1. As a first step the Terraform scripts in this directory will create a Bootstrap [GCP Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) with all the resources required to deploy Apigee X with an Infrastructure as Code (IaC) Automation Pipeline.
-2. The second step will leverage two [Cloud Source Repositories](https://cloud.google.com/source-repositories) and [Cloud Build](https://cloud.google.com/build) for deploying Apigee X with the surrounding resources as well as a simple httpbin Proxy.
+2. The second step will leverage two [Cloud Source Repositories](https://cloud.google.com/source-repositories) and [Cloud Build](https://cloud.google.com/build) for deploying Apigee X with the surrounding resources as well as a simple [httpbin](https://httpbin.org) proxy.
 
 The below diagram depicts the Bootstrap GCP Project setup.
 
@@ -14,7 +14,7 @@ The below diagram depicts the Bootstrap GCP Project setup.
   <img src="./sample-bootstrap-project.png?raw=true" alt="Sample Bootstrap GCP Project">
 </p>
 
-Please refer to the below diagram for a graphical representation of the architecutre for this sample.
+Please refer to the below diagram for a graphical representation of the architecture for this sample.
 
 <p align="center">
   <img src="./sample-architecture.png?raw=true" alt="Apigee X Shared VPC Multi Region Sample Architecture">
@@ -103,8 +103,8 @@ MANAGED_STATUS: ACTIVE
 test.123-456-789-012.nip.io: ACTIVE
 ```
 
-Once that status reads **ACTVITE** it might still take a short moment for the certificate to propagate through the platform.  
-However, shortly after that you should see successful responses to request sent to the test proxy (see command below).
+Once that status reads **ACTIVE** it might still take a short moment for the certificate to propagate through the platform.  
+However, shortly after that you should see successful responses for requests sent to the test proxy (see command below).
 
 ### Testing
 Run the following command to execute a simple end-to-end test for your setup.  
