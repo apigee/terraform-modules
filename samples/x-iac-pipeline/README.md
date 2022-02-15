@@ -5,8 +5,14 @@
 This sample deploys in a sligthly different manner than you might be used to in case you have explored the other samples in this repository. 
 
 Deploying this sample happens in two stages.
-1. As a first step the Terraform scripts in this directory will create a Bootstrap [GCP Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) with all the resources required to deploy Apigee X with an Infrastructure as Code (IaC) Automation Pipeline).
+1. As a first step the Terraform scripts in this directory will create a Bootstrap [GCP Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) with all the resources required to deploy Apigee X with an Infrastructure as Code (IaC) Automation Pipeline.
 2. The second step will leverage two [Cloud Source Repositories](https://cloud.google.com/source-repositories) and [Cloud Build](https://cloud.google.com/build) for deploying Apigee X with the surrounding resources as well as a simple httpbin Proxy.
+
+The below diagram depicts the Bootstrap GCP Project setup.
+
+<p align="center">
+  <img src="./sample-bootstrap-project.png?raw=true" alt="Sample Bootstrap GCP Project">
+</p>
 
 Please refer to the below diagram for a graphical representation of the architecutre for this sample.
 
@@ -18,7 +24,7 @@ Note that the sample uses an EVAL Apigee X Organization and hence a single Apige
 
 You can deploy this sample by executing the shell commands listed below.  
 
-Set the project ID where you want your Apigee Organization to be deployed to:
+Set the GCP Project ID where you want your Bootstrap GCP Project created:
 
 ```sh
 PROJECT_ID=my-project-id
@@ -65,7 +71,7 @@ Create the Infrastructure as Code (takes roughly 25min):
 
 ```sh
 cd ./infra/
-./00_setupRepo.sh $PROJECT_ID 
+./setupRepo.sh $PROJECT_ID 
 ```
 **Warning**: This step will kick off a Cloud Build in the Boostrap GCP Project.
 * Check the Cloud Build history in your Bootstrap GCP Project on https://console.cloud.google.com/cloud-build/builds?supportedpurview=project and make sure the build completes before continuing to the next step.
@@ -74,7 +80,37 @@ Provision a simple httpbin Proxy:
 
 ```sh
 cd ../app/
-./00_setupRepo.sh $PROJECT_ID 
+./setupRepo.sh $PROJECT_ID 
+```
+
+## Testing the Sample Setup
+
+### Prerequisits
+Before you can test your sample setup you need to wait until the provisioning of the cloud resources has come to completion.  
+A good proxy for the overall status is to check the status of the [managed SSL certificate](https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs) that the pipeline provisions for you.  
+Run the following command in your [Cloud Shell](https://cloud.google.com/shell) to confirm that the status reads **ACTIVE** before you continue.
+
+```
+gcloud compute ssl-certificates list --project ${PROJECT_ID}-iac
+
+This should output something like the following:
+NAME: cert-12345687890
+TYPE: MANAGED
+CREATION_TIMESTAMP: 2022-01-17T08:23:15.213-08:00
+EXPIRE_TIME: 2022-04-17T08:58:29.000-07:00
+MANAGED_STATUS: ACTIVE
+
+test.123-456-789-012.nip.io: ACTIVE
+```
+
+Once that status reads **ACTVITE** it might still take a short moment for the certificate to propagate through the platform.  
+However, shortly after that you should see successful responses to request sent to the test proxy (see command below).
+
+### Testing
+Run the following command to execute a simple end-to-end test for your setup.  
+(Make sure you substitute test.123-456-789-012.nip.io with your values as returned by the command above)
+```
+curl https://test.123-456-789-012.nip.io/httpbin/headers
 ```
 
 <!-- BEGIN_TF_DOCS -->

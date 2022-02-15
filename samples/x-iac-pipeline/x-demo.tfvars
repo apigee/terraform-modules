@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-billing_account = "0123456789"
+billing_account = "012345-012345-012345"
 
 project_parent = "organizations/0123456789"
 
