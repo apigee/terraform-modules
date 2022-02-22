@@ -2,7 +2,7 @@
 
 ## Setup Instructions
 
-This sample deploys in a sligthly different manner than you might be used to in case you have explored the other samples in this repository. 
+This sample deploys in a slightly different manner than you might be used to in case you have explored the other samples in this repository.
 
 Deploying this sample happens in two stages.
 1. As a first step the Terraform scripts in this directory will create a Bootstrap [GCP Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) with all the resources required to deploy Apigee X with an Infrastructure as Code (IaC) Automation Pipeline.

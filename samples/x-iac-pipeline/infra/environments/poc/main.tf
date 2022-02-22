@@ -14,7 +14,6 @@
 
 module "infra" {
   source              = "../../"
-
   project_id          = var.project_id
   billing_account     = var.billing_account
   ax_region           = var.ax_region

@@ -40,7 +40,7 @@ cd samples/... # Sample from above
 cp ./x-demo.tfvars ./my-config.tfvars
 ```
 
-Decide on a [backend](https://www.terraform.io/docs/language/settings/backends/index.html) and create the necessary config. To use a backend on Google Cloud Storage (GCS) use:
+Decide on a [backend](https://www.terraform.io/language/settings/backends) and create the necessary config. To use a backend on Google Cloud Storage (GCS) use:
 
 ```sh
 gsutil mb "gs://$PROJECT_ID-tf"

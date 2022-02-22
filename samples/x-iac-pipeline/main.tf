@@ -15,13 +15,13 @@
  */
 
 module "bootstrap-project" {
-  source                    = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v9.0.2"
-  name                      = var.project_id
-  parent                    = var.project_parent
-  billing_account           = var.billing_account
-  project_create            = var.project_create
-  auto_create_network       = false
-  services                  = [
+  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v9.0.2"
+  name                = var.project_id
+  parent              = var.project_parent
+  billing_account     = var.billing_account
+  project_create      = var.project_create
+  auto_create_network = false
+  services = [
     "apigee.googleapis.com",
     "cloudbilling.googleapis.com",
     "cloudbuild.googleapis.com",
@@ -121,7 +121,7 @@ resource "google_organization_iam_member" "org_xpn_admin" {
 
 data "google_folder" "bootstrap_folder" {
   count               = length(regexall("(folders)/([0-9]+)", var.project_parent)) > 0 ? 1 : 0
-  folder              = var.project_parent 
+  folder              = var.project_parent
   lookup_organization = true
 }
 

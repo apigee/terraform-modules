@@ -12,31 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+---
 steps:
-- id: 'branch name'
-  name: 'alpine'
-  entrypoint: 'sh'
-  args:
-  - '-c'
-  - |
-      echo "***********************"
-      echo "$BRANCH_NAME"
-      echo "***********************"
-- name: gcr.io/cloud-builders/gcloud-slim
-  id: fetch-token
-  entrypoint: 'bash'
-  args:
-    - -c
-    - |
-      # Fetch a GCP bearer token
-      gcloud auth print-access-token > /workspace/token
-- name: 'gcr.io/cloud-builders/mvn'
-  id: deploy-api 
-  entrypoint: 'bash'
-  args:
-    - -c
-    - |
-      # Deploy the API
-      cd httpbin
-      mvn install -Phttpbin -Dorg=${_APIGEE_ORG} -Denv=${_APIGEE_ENV} -Dbearer=$(cat /workspace/token)
-      rm /workspace/token
+  - id: 'branch name'
+    name: 'alpine'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+          echo "***********************"
+          echo "$BRANCH_NAME"
+          echo "***********************"
+  - name: gcr.io/cloud-builders/gcloud-slim
+    id: fetch-token
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+          # Fetch a GCP bearer token
+          gcloud auth print-access-token > /workspace/token
+  - name: 'gcr.io/cloud-builders/mvn'
+    id: deploy-api
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+          # Deploy the API
+          cd httpbin
+          mvn install -Phttpbin -Dorg=${_APIGEE_ORG} -Denv=${_APIGEE_ENV} -Dbearer=$(cat /workspace/token)
+          rm /workspace/token
