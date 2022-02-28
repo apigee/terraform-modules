@@ -11,10 +11,10 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_apigee"></a> [apigee](#module\_apigee) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization | v9.0.2 |
-| <a name="module_apigee-x-instance"></a> [apigee-x-instance](#module\_apigee-x-instance) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-x-instance | v9.0.2 |
-| <a name="module_kms-inst-disk"></a> [kms-inst-disk](#module\_kms-inst-disk) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v9.0.2 |
-| <a name="module_kms-org-db"></a> [kms-org-db](#module\_kms-org-db) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v9.0.2 |
+| <a name="module_apigee"></a> [apigee](#module\_apigee) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization | v14.0.0 |
+| <a name="module_apigee-x-instance"></a> [apigee-x-instance](#module\_apigee-x-instance) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-x-instance | v14.0.0 |
+| <a name="module_kms-inst-disk"></a> [kms-inst-disk](#module\_kms-inst-disk) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v14.0.0 |
+| <a name="module_kms-org-db"></a> [kms-org-db](#module\_kms-org-db) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v14.0.0 |
 
 ## Resources
 
@@ -28,7 +28,7 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    environments = list(string)<br>    hostnames    = list(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environment Names. | `list(string)` | `[]` | no |
-| <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL). | <pre>map(object({<br>    region       = string<br>    ip_range    = string<br>    environments = list(string)<br>  }))</pre> | `{}` | no |
+| <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL). | <pre>map(object({<br>    region       = string<br>    ip_range     = string<br>    environments = list(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
 | <a name="input_network"></a> [network](#input\_network) | Network (self-link) to peer with the Apigee tennant project. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id (also used for the Apigee Organization). | `string` | n/a | yes |

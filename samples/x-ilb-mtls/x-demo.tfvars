@@ -28,7 +28,7 @@ apigee_envgroups = {
 apigee_instances = {
   euw1-instance = {
     region       = "europe-west1"
-    cidr_mask    = 22
+    ip_range     = "10.0.0.0/22"
     environments = ["test1", "test2"]
   }
 }
@@ -45,6 +45,7 @@ exposure_subnets = [
 ]
 
 peering_range = "10.0.0.0/22"
+support_range = "10.1.0.0/28"
 
 ca_cert_path  = "./certs/certs/apigee-test-CA.pem"
 tls_cert_path = "./certs/certs/servercert.pem"
