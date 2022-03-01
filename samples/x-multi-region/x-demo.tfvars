@@ -22,9 +22,15 @@ apigee_instances = {
   # Single instance only for eval, add a second instance for prod setups
   euw1-instance = {
     region       = "europe-west1"
-    cidr_mask    = 22
+    ip_range     = "10.0.0.0/22"
     environments = ["test1", "test2"]
   }
+  # Example of second instance
+  # euw2-instance = {
+  #   region       = "europe-west2"
+  #   ip_range    = "10.0.8.0/22"
+  #   environments = ["test1", "test2"]
+  # }
 }
 
 apigee_envgroups = {
@@ -53,4 +59,6 @@ exposure_subnets = [
   }
 ]
 
-peering_range = "10.0.0.0/16"
+peering_range  = "10.0.0.0/16"
+support_range1 = "10.1.0.0/28"
+# support_range2 = "10.2.0.0/28"  # Support range for second instance

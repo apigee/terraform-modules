@@ -35,12 +35,12 @@ def resources(recursive_plan_runner):
 
 def test_resource_count(resources):
     "Test total number of resources created."
-    assert len(resources) == 52
+    assert len(resources) == 53
 
 
 def test_apigee_instance(resources):
     "Test Apigee Instance Resource"
-    assert_instance(resources, "europe-west1", "SLASH_22")
+    assert_instance(resources, "europe-west1", "10.0.0.0/22")
 
 
 def test_apigee_instance_attachment(resources):
@@ -65,5 +65,5 @@ def test_firewall_appliance(resources):
     ]
     assert len(appliance_firewalls) == 1
     assert set(appliance_firewalls[0]["source_ranges"]) == set(
-        ["10.0.0.0/16", "10.200.0.0/28"]
+        ["10.0.0.0/22", "10.200.0.0/28"]
     )

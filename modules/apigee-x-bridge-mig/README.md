@@ -12,8 +12,8 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_bridge-mig"></a> [bridge-mig](#module\_bridge-mig) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig | v9.0.2 |
-| <a name="module_bridge-template"></a> [bridge-template](#module\_bridge-template) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v9.0.2 |
+| <a name="module_bridge-mig"></a> [bridge-mig](#module\_bridge-mig) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig | v14.0.0 |
+| <a name="module_bridge-template"></a> [bridge-template](#module\_bridge-template) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v14.0.0 |
 
 ## Resources
 

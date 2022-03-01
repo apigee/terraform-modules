@@ -49,7 +49,7 @@ variable "apigee_instances" {
   description = "Apigee Instances (only one for EVAL)."
   type = map(object({
     region       = string
-    cidr_mask    = number
+    ip_range     = string
     environments = list(string)
   }))
   default = {}
@@ -76,6 +76,16 @@ variable "peering_range" {
   description = "Peering CIDR range"
   type        = string
 }
+
+variable "support_range1" {
+  description = "Support CIDR range of length /28 (required by Apigee for troubleshooting purposes)."
+  type        = string
+}
+
+# variable "support_range2" {
+#   description = "Support CIDR range of length /28 for second instance (required by Apigee for troubleshooting purposes)."
+#   type        = string
+# }
 
 variable "billing_account" {
   description = "Billing account id."

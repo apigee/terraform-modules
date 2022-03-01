@@ -39,14 +39,14 @@ def assert_envgroup_hostnames(resources, hostnames):
     ]
     assert set(envgroups[0]["hostnames"]) == set(hostnames)
 
-def assert_instance(resources, location, cidr):
+def assert_instance(resources, location, ip_range):
     "Test Apigee Instance Resource"
     instances = [
         r["values"] for r in resources if r["type"] == "google_apigee_instance"
     ]
     assert len(instances) == 1
     assert instances[0]["location"] == location
-    assert instances[0]["peering_cidr_range"] == cidr
+    assert instances[0]["ip_range"] == ip_range
 
 
 def assert_instance_attachment(resources, envs):
