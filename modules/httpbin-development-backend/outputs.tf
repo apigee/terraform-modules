@@ -21,5 +21,5 @@ output "instance_group" {
 
 output "ilb_ip" {
   description = "ILB forwarding rule IP address."
-  value = module.ilb-backend.forwarding_rule_address
+  value       = module.ilb-backend.forwarding_rule_address
 }

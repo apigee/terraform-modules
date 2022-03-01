@@ -21,7 +21,7 @@ locals {
 }
 
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v9.0.2"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v14.0.0"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -35,11 +35,14 @@ module "project" {
 }
 
 module "vpc" {
-  source                           = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v9.0.2"
-  project_id                       = module.project.project_id
-  name                             = var.network
-  psn_ranges                       = [var.peering_range]
-  subnets                          = var.exposure_subnets
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v14.0.0"
+  project_id = module.project.project_id
+  name       = var.network
+  subnets    = var.exposure_subnets
+  psa_ranges = {
+    apigee-range         = var.peering_range
+    apigee-support-range = var.support_range
+  }
 }
 
 module "nip-development-hostname" {

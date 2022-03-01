@@ -21,7 +21,7 @@ apigee_environments = ["test1", "test2"]
 apigee_instances = {
   euw1-instance = {
     region       = "europe-west1"
-    cidr_mask    = 22
+    ip_range     = "10.0.0.0/22"
     environments = ["test1", "test2"]
   }
 }
@@ -34,7 +34,8 @@ apigee_envgroups = {
 }
 
 apigee_network   = "apigee-network"
-peering_range    = "10.0.0.0/16"
+peering_range    = "10.0.0.0/22"
+support_range    = "10.1.0.0/28"
 appliance_region = "europe-west1"
 appliance_subnet = {
   name               = "appliance-euw1"
@@ -58,7 +59,7 @@ appliance_forwarded_ranges = {
     priority = 800
   }
   apigee-routes = {
-    range    = "10.0.0.0/15"
+    range    = "10.0.0.0/21"
     priority = 800
   }
 }
