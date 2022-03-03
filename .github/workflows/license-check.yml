@@ -21,7 +21,7 @@ on:
       - main
   workflow_dispatch:
 jobs:
-  license-check:
+  test-examples:
     name: License Check
     runs-on: ubuntu-latest
     steps:
