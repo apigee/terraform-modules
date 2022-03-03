@@ -133,40 +133,40 @@ resource "google_organization_iam_member" "folder_xpn_admin" {
 }
 
 resource "google_billing_account_iam_member" "billing_user" {
-  count              = "${var.project_create ? 1 : 0}"
+  count              = var.project_create ? 1 : 0
   billing_account_id = var.billing_account
   role               = "roles/billing.user"
   member             = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }
 
 resource "google_project_iam_member" "apigee_project_owner" {
-  count   = "${var.project_create ? 0 : 1}"
+  count   = var.project_create ? 0 : 1
   project = var.apigee_project_id
   role    = "roles/owner"
   member  = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }
 
 resource "google_project_iam_member" "host_project_owner" {
-  count   = "${var.project_create ? 0 : 1}"
+  count   = var.project_create ? 0 : 1
   project = var.host_project_id
   role    = "roles/owner"
   member  = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }
 
 data "google_project" "host_project" {
-  count      = "${var.project_create ? 0 : 1}"
+  count      = var.project_create ? 0 : 1
   project_id = var.host_project_id
 }
 
 resource "google_organization_iam_member" "existing_org_xpn_admin" {
-  count  = !var.project_create && (length(data.google_project.host_project) > 0 ? data.google_project.host_project[0].org_id : "" ) != "" ? 1 : 0
+  count  = !var.project_create && (length(data.google_project.host_project) > 0 ? data.google_project.host_project[0].org_id : "") != "" ? 1 : 0
   org_id = data.google_project.host_project[0].org_id
   role   = "roles/compute.xpnAdmin"
   member = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }
 
 resource "google_folder_iam_member" "folder_xpn_admin" {
-  count  = !var.project_create && (length(data.google_project.host_project) > 0 ? data.google_project.host_project[0].folder_id : "" ) != "" ? 1 : 0
+  count  = !var.project_create && (length(data.google_project.host_project) > 0 ? data.google_project.host_project[0].folder_id : "") != "" ? 1 : 0
   folder = "folders/${data.google_project.host_project[0].folder_id}"
   role   = "roles/compute.xpnAdmin"
   member = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"

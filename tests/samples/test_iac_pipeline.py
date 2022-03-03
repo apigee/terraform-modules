@@ -28,6 +28,8 @@ def resources(recursive_plan_runner):
         project_id="boottestonly",
         apigee_project_id="apigeetestonly",
         host_project_id="hosttestonly",
+        billing_account="testaccount",
+        project_create="true"
     )
     return resources
 

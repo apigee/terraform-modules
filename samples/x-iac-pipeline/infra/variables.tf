@@ -50,7 +50,8 @@ variable "apigee_instances" {
   type = map(object({
     region       = string
     ip_range     = string
-    environments = list(string) }))
+    environments = list(string)
+  }))
   default = {}
 }
 

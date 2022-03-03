@@ -51,7 +51,7 @@ module "service-project" {
   shared_vpc_service_config = {
     attach               = true
     host_project         = module.host-project.project_id
-    service_identity_iam = {} 
+    service_identity_iam = {}
   }
   services = [
     "apigee.googleapis.com",
@@ -63,10 +63,10 @@ module "service-project" {
 }
 
 module "shared-vpc" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v14.0.0"
-  project_id      = module.host-project.project_id
-  name            = var.network
-  psa_ranges      = {
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v14.0.0"
+  project_id = module.host-project.project_id
+  name       = var.network
+  psa_ranges = {
     apigee-range         = var.peering_range
     apigee-support-range = var.support_range
   }
