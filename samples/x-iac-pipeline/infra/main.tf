@@ -21,12 +21,11 @@ locals {
   instance_region_name = { for subnet in var.exposure_subnets :
     subnet.region => subnet.instance
   }
-  svpc_host_project_id = var.svpc_host_project_id != "" ? var.svpc_host_project_id : join("-", ["host", var.project_id])
 }
 
 module "host-project" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v9.0.2"
-  name                = local.svpc_host_project_id
+  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v14.0.0"
+  name                = var.host_project_id
   parent              = var.project_parent
   billing_account     = var.billing_account
   project_create      = var.project_create
@@ -43,15 +42,16 @@ module "host-project" {
 }
 
 module "service-project" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v9.0.2"
-  name                = var.project_id
+  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v14.0.0"
+  name                = var.apigee_project_id
   parent              = var.project_parent
   billing_account     = var.billing_account
   project_create      = var.project_create
   auto_create_network = false
   shared_vpc_service_config = {
-    attach       = true
-    host_project = module.host-project.project_id
+    attach               = true
+    host_project         = module.host-project.project_id
+    service_identity_iam = {} 
   }
   services = [
     "apigee.googleapis.com",
@@ -62,26 +62,14 @@ module "service-project" {
   ]
 }
 
-resource "google_project_service" "apigee" {
-  project = module.service-project.project_id
-  service = "apigee.googleapis.com"
-}
-
-resource "google_project_service" "svc_service_networking" {
-  project = module.service-project.project_id
-  service = "servicenetworking.googleapis.com"
-}
-
-resource "google_project_service" "host_service_networking" {
-  project = module.host-project.project_id
-  service = "servicenetworking.googleapis.com"
-}
-
 module "shared-vpc" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v9.0.2"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v14.0.0"
   project_id      = module.host-project.project_id
   name            = var.network
-  psn_ranges      = [var.peering_range]
+  psa_ranges      = {
+    apigee-range         = var.peering_range
+    apigee-support-range = var.support_range
+  }
   subnets         = var.exposure_subnets
   shared_vpc_host = true
   shared_vpc_service_projects = [
@@ -106,7 +94,7 @@ module "nip-development-hostname" {
 }
 
 module "apigee-x-core" {
-  source              = "github.com/apigee/terraform-modules//modules/apigee-x-core?ref=74a7eb337cb2a20c9e0a6db11587a949e5a5354b"
+  source              = "github.com/apigee/terraform-modules//modules/apigee-x-core?ref=e8394bd84de2584b0ad380c4d9cf1e3a5fd6d6f6"
   project_id          = module.service-project.project_id
   ax_region           = var.ax_region
   apigee_instances    = var.apigee_instances
@@ -118,16 +106,11 @@ module "apigee-x-core" {
     }
   }
   network = module.shared-vpc.network.id
-  depends_on = [
-    google_project_service.apigee,
-    google_project_service.host_service_networking,
-    google_project_service.svc_service_networking
-  ]
 }
 
 module "apigee-x-bridge-mig" {
   for_each    = local.subnet_region_name
-  source      = "github.com/apigee/terraform-modules//modules/apigee-x-bridge-mig?ref=51b02de4a534badded127f120af3c7e2f39da6ad"
+  source      = "github.com/apigee/terraform-modules//modules/apigee-x-bridge-mig?ref=e8394bd84de2584b0ad380c4d9cf1e3a5fd6d6f6"
   project_id  = module.service-project.project_id
   network     = module.shared-vpc.network.id
   region      = each.key

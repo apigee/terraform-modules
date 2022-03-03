@@ -14,7 +14,8 @@
 
 module "infra" {
   source              = "../../"
-  project_id          = var.project_id
+  apigee_project_id   = var.apigee_project_id
+  host_project_id     = var.host_project_id
   billing_account     = var.billing_account
   ax_region           = var.ax_region
   apigee_environments = var.apigee_environments
@@ -23,6 +24,7 @@ module "infra" {
   network             = var.network
   exposure_subnets    = var.exposure_subnets
   peering_range       = var.peering_range
+  support_range       = var.support_range
   project_create      = var.project_create
   project_parent      = var.project_parent
 }

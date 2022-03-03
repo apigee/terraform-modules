@@ -15,7 +15,7 @@
  */
 
 module "bootstrap-project" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v9.0.2"
+  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v14.0.0"
   name                = var.project_id
   parent              = var.project_parent
   billing_account     = var.billing_account
@@ -37,7 +37,7 @@ module "bootstrap-project" {
 }
 
 module "infra-tfstate-bucket" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v12.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v14.0.0"
   project_id    = module.bootstrap-project.project_id
   name          = "${var.project_id}-infra-tfstate"
   location      = var.region
@@ -47,7 +47,7 @@ module "infra-tfstate-bucket" {
 }
 
 module "app-tfstate-bucket" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v12.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v14.0.0"
   project_id    = module.bootstrap-project.project_id
   name          = "${var.project_id}-app-tfstate"
   location      = var.region
@@ -75,10 +75,9 @@ resource "google_cloudbuild_trigger" "app_trigger" {
     repo_name   = google_sourcerepo_repository.app.name
   }
   substitutions = {
-    _TF_BUCKET      = "${module.bootstrap-project.project_id}-app-tfstate"
-    _SVC_PROJECT_ID = "${module.bootstrap-project.project_id}-iac"
-    _APIGEE_ORG     = "${module.bootstrap-project.project_id}-iac"
-    _APIGEE_ENV     = "test1"
+    _TF_BUCKET  = "${module.bootstrap-project.project_id}-app-tfstate"
+    _APIGEE_ORG = var.apigee_project_id
+    _APIGEE_ENV = "test1"
   }
 }
 
@@ -91,49 +90,84 @@ resource "google_cloudbuild_trigger" "infra_trigger" {
     repo_name   = google_sourcerepo_repository.infra.name
   }
   substitutions = {
-    _TF_BUCKET      = "${module.bootstrap-project.project_id}-infra-tfstate"
-    _SVC_PROJECT_ID = "${module.bootstrap-project.project_id}-iac"
-    _PROJECT_PARENT = var.project_parent
-    _BILLING_ID     = var.billing_account
+    _TF_BUCKET         = "${module.bootstrap-project.project_id}-infra-tfstate"
+    _APIGEE_PROJECT_ID = var.apigee_project_id
+    _HOST_PROJECT_ID   = var.host_project_id
+    _PROJECT_PARENT    = var.project_parent
+    _BILLING_ID        = var.billing_account
   }
 }
 
 resource "google_organization_iam_member" "org_project_creator" {
-  count  = length(regexall("(organizations)/([0-9]+)", var.project_parent)) > 0 ? 1 : 0
+  count  = var.project_create && length(regexall("(organizations)/([0-9]+)", coalesce(var.project_parent, " "))) > 0 ? 1 : 0
   org_id = regex("(organizations)/([0-9]+)", var.project_parent)[1]
   role   = "roles/resourcemanager.projectCreator"
   member = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }
 
 resource "google_folder_iam_member" "folder_project_creator" {
-  count  = length(regexall("(folders)/([0-9]+)", var.project_parent)) > 0 ? 1 : 0
+  count  = var.project_create && length(regexall("(folders)/([0-9]+)", coalesce(var.project_parent, " "))) > 0 ? 1 : 0
   folder = var.project_parent
   role   = "roles/resourcemanager.projectCreator"
   member = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }
 
 resource "google_organization_iam_member" "org_xpn_admin" {
-  count  = length(regexall("(organizations)/([0-9]+)", var.project_parent)) > 0 ? 1 : 0
+  count  = var.project_create && length(regexall("(organizations)/([0-9]+)", coalesce(var.project_parent, " "))) > 0 ? 1 : 0
   org_id = regex("(organizations)/([0-9]+)", var.project_parent)[1]
   role   = "roles/compute.xpnAdmin"
   member = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }
 
 data "google_folder" "bootstrap_folder" {
-  count               = length(regexall("(folders)/([0-9]+)", var.project_parent)) > 0 ? 1 : 0
+  count               = var.project_create && length(regexall("(folders)/([0-9]+)", coalesce(var.project_parent, " "))) > 0 ? 1 : 0
   folder              = var.project_parent
   lookup_organization = true
 }
 
-resource "google_organization_iam_member" "organization_folder_xpn_admin" {
-  count  = length(regexall("(folders)/([0-9]+)", var.project_parent)) > 0 ? 1 : 0
+resource "google_organization_iam_member" "folder_xpn_admin" {
+  count  = var.project_create && length(regexall("(folders)/([0-9]+)", coalesce(var.project_parent, " "))) > 0 ? 1 : 0
   org_id = regex("(organizations)/([0-9]+)", data.google_folder.bootstrap_folder[0].organization)[1]
   role   = "roles/compute.xpnAdmin"
   member = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }
 
 resource "google_billing_account_iam_member" "billing_user" {
+  count              = "${var.project_create ? 1 : 0}"
   billing_account_id = var.billing_account
   role               = "roles/billing.user"
   member             = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "apigee_project_owner" {
+  count   = "${var.project_create ? 0 : 1}"
+  project = var.apigee_project_id
+  role    = "roles/owner"
+  member  = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
+}
+
+resource "google_project_iam_member" "host_project_owner" {
+  count   = "${var.project_create ? 0 : 1}"
+  project = var.host_project_id
+  role    = "roles/owner"
+  member  = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
+}
+
+data "google_project" "host_project" {
+  count      = "${var.project_create ? 0 : 1}"
+  project_id = var.host_project_id
+}
+
+resource "google_organization_iam_member" "existing_org_xpn_admin" {
+  count  = !var.project_create && (length(data.google_project.host_project) > 0 ? data.google_project.host_project[0].org_id : "" ) != "" ? 1 : 0
+  org_id = data.google_project.host_project[0].org_id
+  role   = "roles/compute.xpnAdmin"
+  member = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
+}
+
+resource "google_folder_iam_member" "folder_xpn_admin" {
+  count  = !var.project_create && (length(data.google_project.host_project) > 0 ? data.google_project.host_project[0].folder_id : "" ) != "" ? 1 : 0
+  folder = "folders/${data.google_project.host_project[0].folder_id}"
+  role   = "roles/compute.xpnAdmin"
+  member = "serviceAccount:${module.bootstrap-project.number}@cloudbuild.gserviceaccount.com"
 }

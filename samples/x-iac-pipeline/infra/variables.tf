@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "Project id (also used for the Apigee Organization)."
-  type        = string
-}
-
-variable "svpc_host_project_id" {
-  description = "Shared VPC Host Project id (if left empty will be set to project_id with prefix 'host-')."
+variable "host_project_id" {
+  description = "Shared VPC Host Project Id."
   type        = string
   default     = ""
+}
+
+variable "apigee_project_id" {
+  description = "Shared VPC Service Project Id for Apigee Organization."
+  type        = string
 }
 
 variable "ax_region" {
@@ -49,9 +49,8 @@ variable "apigee_instances" {
   description = "Apigee Instances (only one for EVAL)."
   type = map(object({
     region       = string
-    cidr_mask    = number
-    environments = list(string)
-  }))
+    ip_range     = string
+    environments = list(string) }))
   default = {}
 }
 
@@ -77,6 +76,11 @@ variable "peering_range" {
   type        = string
 }
 
+variable "support_range" {
+  description = "Support CIDR range of length /28 (required by Apigee for troubleshooting purposes)."
+  type        = string
+}
+
 variable "billing_account" {
   description = "Billing account id."
   type        = string
@@ -86,6 +90,7 @@ variable "billing_account" {
 variable "project_parent" {
   description = "Parent folder or organization in 'folders/folder_id' or 'organizations/org_id' format."
   type        = string
+  default     = null
   validation {
     condition     = var.project_parent == null || can(regex("(organizations|folders)/[0-9]+", var.project_parent))
     error_message = "Parent must be of the form folders/folder_id or organizations/organization_id."

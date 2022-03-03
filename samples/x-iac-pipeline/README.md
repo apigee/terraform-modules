@@ -24,18 +24,33 @@ Note that the sample uses an EVAL Apigee X Organization and hence a single Apige
 
 You can deploy this sample by executing the shell commands listed below.  
 
-Set the GCP Project ID where you want your Bootstrap GCP Project created:
+Set the GCP Project ID for the location of your Bootstrap GCP Project:
 
 ```sh
-PROJECT_ID=my-project-id
+PROJECT_ID=my-bootstrap-project-id
+```
+
+Set the GCP Project ID for the location of your APIGEE GCP Project (a [Shared VPC](https://cloud.google.com/vpc/docs/shared-vpc) Service Project):
+
+```sh
+APIGEE_PROJECT_ID=my-apigee-project-id
+```
+
+Set the GCP Project ID for the location of your [Shared VPC](https://cloud.google.com/vpc/docs/shared-vpc) Host GCP Project:
+
+```sh
+HOST_PROJECT_ID=my-host-project-id
 ```
 
 Draw a copy of the x-demo.tfvars to customize your Terraform Input Variables.
 
 ```sh
 cp ./x-demo.tfvars ./my-config.tfvars
+cp ./infra/environments/poc/x-demo.tfvars .infra/environments/poc/my-config.tfvars
 ```
-At a minimum you will have to overwrite the following variables:
+
+In case the three GCP Projects for which you set the Project IDs above do not exist yet and you do want to automate their creation you have to set the following variables in your my-config.tfvars:
+* project_create: Set this to true
 * billing_account: Set this to your billing account identifier 
 * project_parent: Set this to either 'organizations/0123456789' or 'folders/0123456789' where '0123456789' is either your GCP Organization identifier or the GCP Folder identifier respectively.
 
@@ -58,13 +73,13 @@ Validate your config:
 
 ```sh
 terraform init
-terraform plan --var-file=./my-config.tfvars -var "project_id=$PROJECT_ID"
+terraform plan --var-file=./my-config.tfvars -var "project_id=$PROJECT_ID" -var "apigee_project_id=$APIGEE_PROJECT_ID" -var "host_project_id=$HOST_PROJECT_ID"
 ```
 
 and provision the Bootstrap GCP Project:
 
 ```sh
-terraform apply --var-file=./my-config.tfvars -var "project_id=$PROJECT_ID"
+terraform apply --var-file=./my-config.tfvars -var "project_id=$PROJECT_ID" -var "apigee_project_id=$APIGEE_PROJECT_ID" -var "host_project_id=$HOST_PROJECT_ID"
 ```
 
 Create the Infrastructure as Code (takes roughly 25min):
@@ -91,7 +106,7 @@ A good proxy for the overall status is to check the status of the [managed SSL c
 Run the following command in your [Cloud Shell](https://cloud.google.com/shell) to confirm that the status reads **ACTIVE** before you continue.
 
 ```
-gcloud compute ssl-certificates list --project ${PROJECT_ID}-iac
+gcloud compute ssl-certificates list --project ${APIGEE_PROJECT_ID}
 
 This should output something like the following:
 NAME: cert-12345687890

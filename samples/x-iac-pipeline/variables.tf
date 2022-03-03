@@ -19,6 +19,16 @@ variable "project_id" {
   type        = string
 }
 
+variable "host_project_id" {
+  description = "Shared VPC Host Project Id"
+  type        = string
+}
+
+variable "apigee_project_id" {
+  description = "Shared VPC Service Project Id for Apigee Organization."
+  type        = string
+}
+
 variable "region" {
   description = "Region for the bootstrap resources."
   type        = string
@@ -33,11 +43,13 @@ variable "environment" {
 variable "billing_account" {
   description = "Billing account id."
   type        = string
+  default     = null
 }
 
 variable "project_parent" {
   description = "Parent folder or organization in 'folders/folder_id' or 'organizations/org_id' format."
   type        = string
+  default     = null
   validation {
     condition     = var.project_parent == null || can(regex("(organizations|folders)/[0-9]+", var.project_parent))
     error_message = "Parent must be of the form folders/folder_id or organizations/organization_id."
