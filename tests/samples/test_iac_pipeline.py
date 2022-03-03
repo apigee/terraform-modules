@@ -25,12 +25,13 @@ def resources(recursive_plan_runner):
     _, resources = recursive_plan_runner(
         FIXTURES_DIR,
         tf_var_file=os.path.join(FIXTURES_DIR, "x-demo.tfvars"),
-        project_id="testonly",
-        project_create="true"
+        project_id="boottestonly",
+        apigee_project_id="apigeetestonly",
+        host_project_id="hosttestonly",
     )
     return resources
 
 
 def test_resource_count(resources):
     "Test total number of resources created."
-    assert len(resources) == 22
+    assert len(resources) == 20
