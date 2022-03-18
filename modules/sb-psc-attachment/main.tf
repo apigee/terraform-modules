@@ -20,7 +20,7 @@ resource "google_compute_service_attachment" "psc_service_attachment" {
   project = var.project_id
   description = "A service attachment to be used by Apigee"
 
-  enable_proxy_protocol = true
+  enable_proxy_protocol = false
   connection_preference = "ACCEPT_AUTOMATIC"
   nat_subnets           = var.nat_subnets
   target_service        = var.target_service
