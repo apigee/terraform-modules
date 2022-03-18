@@ -8,7 +8,7 @@ Some background information and explanations can be found in [this community art
 
 This sample contains:
 * Apigee Basic Setup with internal Endpoint
-* Internal HTTPbin Backend MIG with ILB
+* Internal HTTP Backend MIG with ILB
 * Network Appliance MIG with custom routes for backend and the Apigee IP range.
 * Firewalls
 
@@ -36,7 +36,7 @@ for detailed instructions.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_apigee-x-core"></a> [apigee-x-core](#module\_apigee-x-core) | ../../modules/apigee-x-core | n/a |
-| <a name="module_backend-example"></a> [backend-example](#module\_backend-example) | ../../modules/httpbin-development-backend | n/a |
+| <a name="module_backend-example"></a> [backend-example](#module\_backend-example) | ../../modules/development-backend | n/a |
 | <a name="module_backend-vpc"></a> [backend-vpc](#module\_backend-vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v14.0.0 |
 | <a name="module_peering-apigee-backend"></a> [peering-apigee-backend](#module\_peering-apigee-backend) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc-peering | v14.0.0 |
 | <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v14.0.0 |

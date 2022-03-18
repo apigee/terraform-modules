@@ -1,43 +1,35 @@
-# Basic Apigee X Setup DNS Peering
-
-This Example deploys an Apigee X organization with an internal endpoint.
-It also creates a demo backend and a private Cloud DNS zone that is peered
-with the Apigee X service network.
-
-The private DNS Zone for the `internal.` domain contains the following
-A records:
-
-* **demo.internal** pointing at the ILB of the demo backend
-* **${ENV_GROUP_NAME}-api.internal** pointing at all Apigee instance endpoints
+# Basic Apigee X Setup wih internal backend reached through PSC
 
 ## Setup Instructions
 
 Please see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
 for detailed instructions.
 
+A successful run will print the endpoint attachment's host that you can then
+use for your target server in Apigee:
+
+```txt
+Outputs:
+
+psc_endpoint_attachment_host = "7.0.5.2"
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+No providers.
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_apigee-x-core"></a> [apigee-x-core](#module\_apigee-x-core) | ../../modules/apigee-x-core | n/a |
-| <a name="module_backend-example"></a> [backend-example](#module\_backend-example) | ../../modules/development-backend | n/a |
-| <a name="module_private-dns"></a> [private-dns](#module\_private-dns) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/dns | v14.0.0 |
 | <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v14.0.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v14.0.0 |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [google_compute_firewall.allow-backend-ingress](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
-| [google_service_networking_peered_dns_domain.apigee](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_networking_peered_dns_domain) | resource |
+No resources.
 
 ## Inputs
 
@@ -47,9 +39,7 @@ for detailed instructions.
 | <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | List of Apigee Environment Names. | `list(string)` | `[]` | no |
 | <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL orgs). | <pre>map(object({<br>    region       = string<br>    ip_range     = string<br>    environments = list(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
-| <a name="input_backend"></a> [backend](#input\_backend) | Example Backend. | <pre>object({<br>    name        = string<br>    subnet      = string<br>    subnet_cidr = string<br>    region      = string<br>  })</pre> | n/a | yes |
 | <a name="input_billing_account"></a> [billing\_account](#input\_billing\_account) | Billing account id. | `string` | `null` | no |
-| <a name="input_dns"></a> [dns](#input\_dns) | Example DNS Zone. | <pre>object({<br>    name   = string<br>    domain = string<br>  })</pre> | n/a | yes |
 | <a name="input_network"></a> [network](#input\_network) | Name of the VPC network to peer with the Apigee tennant project. | `string` | n/a | yes |
 | <a name="input_peering_range"></a> [peering\_range](#input\_peering\_range) | Service Peering CIDR range. | `string` | n/a | yes |
 | <a name="input_project_create"></a> [project\_create](#input\_project\_create) | Create project. When set to false, uses a data source to reference existing project. | `bool` | `false` | no |

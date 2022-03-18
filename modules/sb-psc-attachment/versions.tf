@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-output "instance_endpoints" {
-  description = "Map of instance name -> internal runtime endpoint IP address"
-  value = tomap({
-    for name, instance in module.apigee-x-instance : name => instance.endpoint
-  })
-}
-
-output "org_id" {
-  description = "Apigee Organization ID"
-  value       = module.apigee.org_id
+terraform {
+  required_version = ">= 1.0.0"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 4.0.0"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = ">= 4.0.0"
+    }
+  }
 }

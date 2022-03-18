@@ -68,4 +68,4 @@ def test_dns_entries(resources):
     record_names = [
         r["name"] for  r in record_sets if r["type"] == "A"
     ]
-    assert set(record_names) == set(["test-api.internal.", "httpbin.internal."])
+    assert set(record_names) == set(["test-api.internal.", "demo.internal."])

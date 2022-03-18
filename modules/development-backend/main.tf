@@ -24,18 +24,18 @@ module "demo-backend-template" {
   network_interfaces = [{
     network    = var.network,
     subnetwork = var.subnet
-    nat        = true
+    nat        = false
     addresses  = null
     alias_ips  = null
   }]
   boot_disk = {
-    image = "projects/cos-cloud/global/images/family/cos-stable"
+    image = "projects/debian-cloud/global/images/family/debian-10"
     type  = "pd-standard"
     size  = 10
   }
   create_template = true
   metadata = {
-    startup-script = "docker run -p 80:80 kennethreitz/httpbin"
+    startup-script = "sudo mkdir -p /var/www && cd /var/www && echo 'hello from demo' > index.html && python3 -m http.server 80"
   }
   service_account_create = true
   service_account_scopes = ["cloud-platform"]

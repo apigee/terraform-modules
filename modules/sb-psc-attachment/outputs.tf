@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-output "instance_group" {
-  description = "Backend Service MIG."
-  value       = module.demo-backend-mig.group_manager.instance_group
+output "endpoint_attachment_host" {
+    description = "Host for the endpoint attachment to be used in Apigee."
+    value = google_apigee_endpoint_attachment.endpoint_attachment.host
 }
 
-output "ilb_ip" {
-  description = "ILB forwarding rule IP address."
-  value       = module.ilb-backend.forwarding_rule_address
-}

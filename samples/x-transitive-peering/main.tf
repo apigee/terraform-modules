@@ -106,10 +106,10 @@ module "peering-apigee-backend" {
 }
 
 module "backend-example" {
-  source     = "../../modules/httpbin-development-backend"
+  source     = "../../modules/development-backend"
   project_id = module.project.project_id
   name       = var.backend_name
-  network    = var.backend_network
+  network    = module.backend-vpc.network.id
   subnet     = module.backend-vpc.subnet_self_links["${var.backend_subnet.region}/${var.backend_subnet.name}"]
   region     = var.backend_region
 }

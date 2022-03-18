@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,7 @@
  * limitations under the License.
  */
 
-output "instance_endpoints" {
-  description = "Map of instance name -> internal runtime endpoint IP address"
-  value = tomap({
-    for name, instance in module.apigee-x-instance : name => instance.endpoint
-  })
-}
-
-output "org_id" {
-  description = "Apigee Organization ID"
-  value       = module.apigee.org_id
+output "psc_endpoint_attachment_host" {
+    description = "Hostname of the PSC endpoint attachment."
+    value = module.southbound-psc.endpoint_attachment_host
 }

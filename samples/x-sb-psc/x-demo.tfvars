@@ -21,7 +21,7 @@ apigee_environments = ["test1", "test2"]
 apigee_envgroups = {
   test = {
     environments = ["test1", "test2"]
-    hostnames    = ["test.api.example.com"] // + ${group_name}-api.internal
+    hostnames    = ["test.api.example.com"]
   }
 }
 
@@ -33,20 +33,23 @@ apigee_instances = {
   }
 }
 
-backend = {
-  name        = "demo"
-  region      = "europe-west1"
-  subnet      = "demo-backend"
-  subnet_cidr = "10.100.0.0/24"
-}
-
-dns = {
-  name   = "intenal-dns"
-  domain = "internal."
-}
-
 network = "apigee-network"
 
 peering_range = "10.0.0.0/22"
 
 support_range = "10.1.0.0/28"
+
+backend_network = "backend-network"
+backend_region  = "europe-west1"
+backend_subnet = {
+  name               = "backend-euw1"
+  ip_cidr_range      = "10.200.0.0/28"
+  region             = "europe-west1"
+  secondary_ip_range = null
+}
+backend_psc_nat_subnet = {
+  ip_cidr_range      = "10.0.4.0/22"
+  name               = "psc-nat-euw1"
+}
+
+psc_name = "demopsc"
