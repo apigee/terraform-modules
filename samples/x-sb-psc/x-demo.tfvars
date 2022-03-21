@@ -48,8 +48,8 @@ backend_subnet = {
   secondary_ip_range = null
 }
 backend_psc_nat_subnet = {
-  ip_cidr_range      = "10.0.4.0/22"
-  name               = "psc-nat-euw1"
+  ip_cidr_range = "10.0.4.0/22"
+  name          = "psc-nat-euw1"
 }
 
 psc_name = "demopsc"

@@ -68,21 +68,21 @@ module "backend-example" {
 }
 
 resource "google_compute_subnetwork" "psc_nat_subnet" {
-  name   = var.backend_psc_nat_subnet.name
-  project = module.project.project_id
-  region = var.backend_region
+  name          = var.backend_psc_nat_subnet.name
+  project       = module.project.project_id
+  region        = var.backend_region
   network       = module.backend-vpc.network.id
   ip_cidr_range = var.backend_psc_nat_subnet.ip_cidr_range
-  purpose       =  "PRIVATE_SERVICE_CONNECT"
+  purpose       = "PRIVATE_SERVICE_CONNECT"
 }
 
 
 module "southbound-psc" {
-  source     = "../../modules/sb-psc-attachment"
-  project_id = module.project.project_id
-  name       = var.psc_name
-  region     = var.backend_region
+  source              = "../../modules/sb-psc-attachment"
+  project_id          = module.project.project_id
+  name                = var.psc_name
+  region              = var.backend_region
   apigee_organization = module.apigee-x-core.org_id
-  nat_subnets = [google_compute_subnetwork.psc_nat_subnet.id]
-  target_service = module.backend-example.ilb_forwarding_rule_self_link
+  nat_subnets         = [google_compute_subnetwork.psc_nat_subnet.id]
+  target_service      = module.backend-example.ilb_forwarding_rule_self_link
 }

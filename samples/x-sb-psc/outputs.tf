@@ -15,6 +15,6 @@
  */
 
 output "psc_endpoint_attachment_host" {
-    description = "Hostname of the PSC endpoint attachment."
-    value = module.southbound-psc.endpoint_attachment_host
+  description = "Hostname of the PSC endpoint attachment."
+  value       = module.southbound-psc.endpoint_attachment_host
 }

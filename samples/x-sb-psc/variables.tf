@@ -20,7 +20,7 @@ variable "project_id" {
 }
 
 variable "ax_region" {
-  description = "GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli)."
+  description = "GCP region for storing Apigee analytics data (sxee https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli)."
   type        = string
 }
 
@@ -115,12 +115,12 @@ variable "backend_subnet" {
 variable "backend_psc_nat_subnet" {
   description = "Subnet to host the PSC NAT."
   type = object({
-    name               = string
-    ip_cidr_range      = string
+    name          = string
+    ip_cidr_range = string
   })
 }
 
 variable "psc_name" {
   description = "PSC name."
-  type = string
+  type        = string
 }
