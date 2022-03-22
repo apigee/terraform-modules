@@ -33,13 +33,14 @@ To deploy the sample, first create a copy of the example variables and edit acco
 * [X with DNS peering](samples/x-dns-peering) for a basic Apigee X setup with DNS peering with a private DNS Zone containing records for Apigee and an example backend.
 * [X with Shared VPC](samples/x-shared-vpc) for an Apigee X setup in a Shared VPC that is exposed via a global external L7 load balancer.
 * [X with Multi Region](samples/x-multi-region) for an Apigee X setup in a Shared VPC exposed in multiple GCP Regions via a global L7 load balancer. Note that the sample uses an EVAL Apigee X Organization and hence a single Apigee X Instance only. In case you have a PROD Apigee X Organization then you will be able to easily extend the sample accordingly.
+* [X with IaC Automation Pipeline](samples/x-iac-pipeline) for an IaC Automation Pipeline Apigee X setup in a Shared VPC exposed in multiple GCP Regions via a global L7 load balancer. Note that the sample uses an EVAL Apigee X Organization and hence a single Apigee X Instance only. In case you have a PROD Apigee X Organization then you will be able to easily extend the sample accordingly.
 
 ```sh
 cd samples/... # Sample from above
 cp ./x-demo.tfvars ./my-config.tfvars
 ```
 
-Decide on a [backend](https://www.terraform.io/docs/language/settings/backends/index.html) and create the necessary config. To use a backend on Google Cloud Storage (GCS) use:
+Decide on a [backend](https://www.terraform.io/language/settings/backends) and create the necessary config. To use a backend on Google Cloud Storage (GCS) use:
 
 ```sh
 gsutil mb "gs://$PROJECT_ID-tf"
