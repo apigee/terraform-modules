@@ -7,6 +7,8 @@ This sample deploys in a slightly different manner than you might be used to in 
 Deploying this sample happens in two stages.
 1. As a first step the Terraform scripts in this directory will create a Bootstrap [GCP Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) with all the resources required to deploy Apigee X with an Infrastructure as Code (IaC) Automation Pipeline.
 2. The second step will leverage two [Cloud Source Repositories](https://cloud.google.com/source-repositories) and [Cloud Build](https://cloud.google.com/build) for deploying Apigee X with the surrounding resources as well as a simple [httpbin](https://httpbin.org) proxy.
+* **infra-repo** A repo that contains the Terraform Resources to provision Apigee X and the additional components.
+* **app-repo** An Apigee example proxy repository.
 
 The below diagram depicts the Bootstrap GCP Project setup.
 
@@ -46,7 +48,7 @@ Draw a copy of the x-demo.tfvars to customize your Terraform Input Variables.
 
 ```sh
 cp ./x-demo.tfvars ./my-config.tfvars
-cp ./infra/environments/poc/x-demo.tfvars .infra/environments/poc/my-config.tfvars
+cp ./infra/environments/poc/x-demo.tfvars ./infra/environments/poc/my-config.tfvars
 ```
 
 In case the three GCP Projects for which you set the Project IDs above do not exist yet and you do want to automate their creation you have to set the following variables in your my-config.tfvars:
@@ -82,6 +84,14 @@ and provision the Bootstrap GCP Project:
 terraform apply --var-file=./my-config.tfvars -var "project_id=$PROJECT_ID" -var "apigee_project_id=$APIGEE_PROJECT_ID" -var "host_project_id=$HOST_PROJECT_ID"
 ```
 
+The scripts in the following steps will require that you have your git config initialized.
+In case you have not done so in your environment already please run the following two commands (using your details).
+
+```sh
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
+
 Create the Infrastructure as Code (takes roughly 25min):
 
 ```sh
@@ -102,7 +112,7 @@ cd ../app/
 
 ### Prerequisits
 Before you can test your sample setup you need to wait until the provisioning of the cloud resources has come to completion.  
-A good proxy for the overall status is to check the status of the [managed SSL certificate](https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs) that the pipeline provisions for you.  
+A good signal for the overall status is to check the status of the [managed SSL certificate](https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs) that the pipeline provisions for you.  
 Run the following command in your [Cloud Shell](https://cloud.google.com/shell) to confirm that the status reads **ACTIVE** before you continue.
 
 ```
