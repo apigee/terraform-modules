@@ -37,7 +37,7 @@ variable "project_id" {
 variable "name" {
   description = "Name for the bridge VMs/MIG (using apigee-$REGION as a fallback)."
   type        = string
-  default = null
+  default     = null
 }
 
 variable "network_tags" {
