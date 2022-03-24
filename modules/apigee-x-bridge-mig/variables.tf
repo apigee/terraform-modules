@@ -34,7 +34,13 @@ variable "project_id" {
   type        = string
 }
 
-variable "bridge_tags" {
+variable "name" {
+  description = "Name for the bridge VMs/MIG (using apigee-$REGION as a fallback)."
+  type        = string
+  default = null
+}
+
+variable "network_tags" {
   description = "Network tags for the Bridge VMs."
   type        = list(string)
   default     = ["apigee-bridge"]

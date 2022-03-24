@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
+locals {
+  bridge_name = var.name == null ? "apigee-${var.region}" : var.name
+}
+
 module "bridge-template" {
   source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v14.0.0"
   project_id    = var.project_id
-  name          = "apigee-${var.region}"
+  name          = local.bridge_name
   zone          = "${var.region}-b"
-  tags          = var.bridge_tags
+  tags          = var.network_tags
   instance_type = var.machine_type
   network_interfaces = [{
     network    = var.network,
@@ -47,7 +51,7 @@ module "bridge-mig" {
   project_id  = var.project_id
   location    = var.region
   regional    = true
-  name        = "apigee-bridge-mig-${var.region}"
+  name        = local.bridge_name
   target_size = 2
   default_version = {
     instance_template = module.bridge-template.template.self_link
@@ -71,16 +75,12 @@ module "bridge-mig" {
   }
 }
 
-resource "random_id" "fw" {
-  byte_length = 4
-}
-
 resource "google_compute_firewall" "allow_glb_to_mig_bridge" {
-  name          = "allow-glb-bridge-${random_id.fw.hex}"
+  name          = "hc-${local.bridge_name}"
   project       = split("/", "google_compute_network.${var.network}")[1]
   network       = var.network
   source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
-  target_tags   = var.bridge_tags
+  target_tags   = var.network_tags
   allow {
     protocol = "tcp"
     ports    = ["443"]
