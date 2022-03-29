@@ -54,6 +54,12 @@ variable "network" {
   type        = string
 }
 
+variable "network_tags" {
+  description = "mTLS proxy network tags"
+  type        = list(string)
+  default     = ["apigee-mtls-proxy"]
+}
+
 variable "exposure_subnets" {
   description = "Subnets for exposing Apigee services."
   type = list(object({

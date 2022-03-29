@@ -1,5 +1,37 @@
 # Apigee X with Internal L4 Load Balancer and Client Authentication (mTLS)
 
+This sample provides a envoy-based managed instance group behind an internal
+load balancer that can terminate mutual TLS (mTLS) to authenticate API clients.
+
+## Preparation
+
+This example assumes that you have TLS credentials for the server as well as
+the clients available and set their path in the .tfvars file.
+
+To try it out you can create a set of self signed certs:
+
+```sh
+mkdir ./certs && cd ./certs
+openssl req -newkey rsa:2048 -nodes -keyform PEM -keyout server-ca.key -x509 -days 3650 -outform PEM -out server-ca.crt -subj "/CN=Test Server CA"
+openssl genrsa -out server.key 2048
+openssl req -new -key server.key -out server.csr -subj "/CN=test.api.example.com"
+openssl x509 -req -in server.csr -CA server-ca.crt -CAkey server-ca.key -set_serial 100 -days 365 -outform PEM -out server.crt
+
+openssl req -newkey rsa:2048 -nodes -keyform PEM -keyout client-ca.key -x509 -days 3650 -outform PEM -out client-ca.crt -subj "/CN=Test Client CA"
+openssl genrsa -out example-client.key 2048
+openssl req -new -key example-client.key -out example-client.csr -subj "/CN=Test Client"
+openssl x509 -req -in example-client.csr -CA client-ca.crt -CAkey client-ca.key -set_serial 101 -days 365 -outform PEM -out example-client.crt
+cd ..
+```
+
+And reference them in your tf.vars
+
+```tf
+ca_cert_path  = "./certs/client-ca.crt"
+tls_cert_path = "./certs/server.crt"
+tls_key_path  = "./certs/server.key"
+```
+
 ## Setup Instructions
 
 Please see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
@@ -8,7 +40,9 @@ for detailed instructions.
 <!-- BEGIN_TF_DOCS -->
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
 
 ## Modules
 
@@ -22,7 +56,9 @@ No providers.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [google_compute_firewall.allow_ilb_hc](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 
 ## Inputs
 
@@ -36,6 +72,7 @@ No resources.
 | <a name="input_ca_cert_path"></a> [ca\_cert\_path](#input\_ca\_cert\_path) | Path to User CA Cert File (pem). | `string` | n/a | yes |
 | <a name="input_exposure_subnets"></a> [exposure\_subnets](#input\_exposure\_subnets) | Subnets for exposing Apigee services. | <pre>list(object({<br>    name               = string<br>    ip_cidr_range      = string<br>    region             = string<br>    secondary_ip_range = map(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_network"></a> [network](#input\_network) | VPC name. | `string` | n/a | yes |
+| <a name="input_network_tags"></a> [network\_tags](#input\_network\_tags) | mTLS proxy network tags | `list(string)` | <pre>[<br>  "apigee-mtls-proxy"<br>]</pre> | no |
 | <a name="input_peering_range"></a> [peering\_range](#input\_peering\_range) | Peering CIDR range | `string` | n/a | yes |
 | <a name="input_project_create"></a> [project\_create](#input\_project\_create) | Create project. When set to false, uses a data source to reference existing project. | `bool` | `false` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id (also used for the Apigee Organization). | `string` | n/a | yes |

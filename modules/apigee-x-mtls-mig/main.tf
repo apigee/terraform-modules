@@ -70,7 +70,7 @@ module "apigee-mtls-proxy-template" {
   name          = "apigee-nb-mtls-proxy"
   zone          = "${var.region}-b"
   instance_type = var.machine_type
-  tags          = ["apigee-mtls-proxy"]
+  tags          = var.network_tags
   network_interfaces = [{
     network    = var.network,
     subnetwork = var.subnet
@@ -90,6 +90,12 @@ module "apigee-mtls-proxy-template" {
   }
   service_account        = module.mtls-proxy-sa.email
   service_account_scopes = ["cloud-platform"]
+  depends_on = [
+    google_storage_bucket_object.setup_script,
+    google_storage_bucket_object.ca_cert,
+    google_storage_bucket_object.tls_cert,
+    google_storage_bucket_object.tls_key,
+  ]
 }
 
 module "apigee-mtls-proxy-mig" {
