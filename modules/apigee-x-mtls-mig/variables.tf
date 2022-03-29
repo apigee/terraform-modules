@@ -39,6 +39,11 @@ variable "tls_key_path" {
   type        = string
 }
 
+variable "network_tags" {
+  description = "network tags for the mTLS mig"
+  type        = list(string)
+}
+
 variable "network" {
   description = "VPC network for running the MIGs (needs to be peered with the Apigee tenant project)."
   type        = string

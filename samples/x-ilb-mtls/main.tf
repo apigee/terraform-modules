@@ -64,6 +64,7 @@ module "apigee-x-mtls-mig" {
   tls_cert_path = var.tls_cert_path
   tls_key_path  = var.tls_key_path
   network       = var.network
+  network_tags  = var.network_tags
   subnet        = module.vpc.subnet_self_links[local.subnet_region_name[each.value.region]]
   region        = each.value.region
 }
@@ -90,5 +91,17 @@ module "ilb" {
     check   = { port = 443 }
     config  = {}
     logging = true
+  }
+}
+
+resource "google_compute_firewall" "allow_ilb_hc" {
+  name          = "hc-mtls-ilb"
+  project       = module.project.project_id
+  network       = var.network
+  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
+  target_tags   = var.network_tags
+  allow {
+    protocol = "tcp"
+    ports    = ["443"]
   }
 }
