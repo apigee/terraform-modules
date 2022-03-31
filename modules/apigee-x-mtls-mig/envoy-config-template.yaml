@@ -38,7 +38,6 @@ static_resources:
                         - match:
                             prefix: "/"
                           route:
-                            # host_rewrite_literal: apige.example.com
                             cluster: apigee_instance_1
           transport_socket:
             name: envoy.transport_sockets.tls
