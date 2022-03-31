@@ -67,7 +67,7 @@ module "apigee-x-core" {
 }
 
 module "backend-example" {
-  source     = "../../modules/httpbin-development-backend"
+  source     = "../../modules/development-backend"
   project_id = module.project.project_id
   name       = var.backend.name
   network    = module.vpc.self_link
@@ -83,7 +83,7 @@ module "private-dns" {
   domain          = var.dns.domain
   client_networks = [module.vpc.self_link]
   recordsets = merge(
-    { "A ${var.backend.name}" = { type = "A", ttl = 300, records = [module.backend-example.ilb_ip] } },
+    { "A ${var.backend.name}" = { type = "A", ttl = 300, records = [module.backend-example.ilb_forwarding_rule_address] } },
     { for eg_name in keys(var.apigee_envgroups) : "A ${eg_name}-api" => { type = "A", ttl = 300, records = values(module.apigee-x-core.instance_endpoints) } }
   )
 }

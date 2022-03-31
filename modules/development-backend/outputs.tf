@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-output "instance_endpoints" {
-  description = "Map of instance name -> internal runtime endpoint IP address"
-  value = tomap({
-    for name, instance in module.apigee-x-instance : name => instance.endpoint
-  })
+output "instance_group" {
+  description = "Backend Service MIG."
+  value       = module.demo-backend-mig.group_manager.instance_group
 }
 
-output "org_id" {
-  description = "Apigee Organization ID"
-  value       = module.apigee.org_id
+output "ilb_forwarding_rule_address" {
+  description = "ILB forwarding rule IP address."
+  value       = module.ilb-backend.forwarding_rule_address
+}
+
+output "ilb_forwarding_rule_self_link" {
+  description = "ILB forwarding rule self link."
+  value       = module.ilb-backend.forwarding_rule_self_link
 }

@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,11 @@
 
 
 import os
+import pprint
 import pytest
 from .utils import *
 
-FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "../../samples/x-dns-peering")
+FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "../../samples/x-sb-psc")
 
 
 @pytest.fixture(scope="module")
@@ -33,7 +34,7 @@ def resources(recursive_plan_runner):
 
 def test_resource_count(resources):
     "Test total number of resources created."
-    assert len(resources) == 39
+    assert len(resources) == 37
 
 
 def test_apigee_instance(resources):
@@ -51,21 +52,29 @@ def test_envgroup_attachment(resources):
     assert_envgroup_attachment(resources, ["test1", "test2"])
 
 
+
 def test_envgroup(resources):
     "Test env group."
     assert_envgroup_name(resources, "test")
 
-def test_envgroup_hostnames(resources):
-    "Test env group."
-    assert_envgroup_hostnames(resources, ["test-api.internal", "test.api.example.com"])
+def test_vpcs(resources):
+    "Test two different VPCs."
+    attachments = [
+        r["values"]
+        for r in resources
+        if r["type"] == "google_compute_network"
+    ]
+    assert len(attachments) == 2
+    assert set(a["name"] for a in attachments) == set(["apigee-network", "backend-network"])
 
-def test_dns_entries(resources):
-    "Test the necessary DNS entries"
-    record_sets = [
-        r["values"] for r in resources if r["type"] == "google_dns_record_set"
+def test_same_region(resources):
+    "Test that the service attachment and the endpoint attachment are in the same region."
+    endpointAttachments = [
+        r for r in resources if r["type"] == "google_apigee_endpoint_attachment"
     ]
-    assert len(record_sets) == 2
-    record_names = [
-        r["name"] for  r in record_sets if r["type"] == "A"
+    serviceAttachments = [
+        r for r in resources if r["type"] == "google_compute_service_attachment"
     ]
-    assert set(record_names) == set(["test-api.internal.", "demo.internal."])
+    assert len(endpointAttachments) == 1
+    assert len(serviceAttachments) == 1
+    assert endpointAttachments[0]["values"]["location"] == serviceAttachments[0]["values"]["region"]
