@@ -6,7 +6,6 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_google"></a> [google](#provider\_google) | >= 4.0.0 |
-| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | >= 4.0.0 |
 
 ## Modules
 
@@ -16,11 +15,10 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [google-beta_google_compute_target_tcp_proxy.proxy](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_compute_target_tcp_proxy) | resource |
 | [google_compute_backend_service.mig_backend](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service) | resource |
 | [google_compute_global_forwarding_rule.forwarding_rule](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_forwarding_rule) | resource |
 | [google_compute_health_check.mig_lb_hc](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_health_check) | resource |
-| [google_compute_url_map.url_map](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map) | resource |
+| [google_compute_target_tcp_proxy.proxy](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_target_tcp_proxy) | resource |
 
 ## Inputs
 

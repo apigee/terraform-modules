@@ -84,5 +84,7 @@ for detailed instructions.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_nip_hostnames"></a> [nip\_hostnames](#output\_nip\_hostnames) | Map of envgroup name -> hostnames. |
 <!-- END_TF_DOCS -->
