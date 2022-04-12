@@ -15,46 +15,43 @@
 
 def assert_envgroup_attachment(resources, envs):
     "Test Apigee Envgroup Attachments."
-    attachments = [
-        r["values"]
-        for r in resources
-        if r["type"] == "google_apigee_envgroup_attachment"
-    ]
-    assert len(attachments) == 2
-    assert set(a["environment"] for a in attachments) == set(envs)
+    attachments = resources_by_type(resources, "google_apigee_envgroup_attachment")
+    assert len(attachments) == len(envs)
+    assert set(a["values"]["environment"] for a in attachments) == set(envs)
 
 
-def assert_envgroup_name(resources, name):
+def assert_envgroup_name(resources, name, index=0):
     "Test env group."
-    envgroups = [
-        r["values"] for r in resources if r["type"] == "google_apigee_envgroup"
-    ]
-    assert len(envgroups) == 1
-    assert envgroups[0]["name"] == name
+    envgroups = resources_by_type(resources, "google_apigee_envgroup")
+    assert len(envgroups) >= index+1
+    assert envgroups[index]["values"]["name"] == name
 
-def assert_envgroup_hostnames(resources, hostnames):
+def assert_envgroup_hostnames(resources, hostnames, index=0):
     "Test env group hostnames."
-    envgroups = [
-        r["values"] for r in resources if r["type"] == "google_apigee_envgroup"
-    ]
-    assert set(envgroups[0]["hostnames"]) == set(hostnames)
+    envgroups = resources_by_type(resources, "google_apigee_envgroup")
+    assert len(envgroups) >= index+1
+    assert set(envgroups[index]["values"]["hostnames"]) == set(hostnames)
 
-def assert_instance(resources, location, ip_range):
+def assert_instance(resources, location, ip_range, index=0):
     "Test Apigee Instance Resource"
-    instances = [
-        r["values"] for r in resources if r["type"] == "google_apigee_instance"
-    ]
-    assert len(instances) == 1
-    assert instances[0]["location"] == location
-    assert instances[0]["ip_range"] == ip_range
+    instances = resources_by_type(resources, "google_apigee_instance")
+    assert len(instances) >= index+1
+    assert instances[index]["values"]["location"] == location
+    assert instances[index]["values"]["ip_range"] == ip_range
 
 
 def assert_instance_attachment(resources, envs):
     "Test Apigee Instance Attachments."
-    attachments = [
-        r["values"]
-        for r in resources
-        if r["type"] == "google_apigee_instance_attachment"
-    ]
-    assert len(attachments) == 2
-    assert set(a["environment"] for a in attachments) == set(envs)
+    attachments = resources_by_type(resources, "google_apigee_instance_attachment")
+    assert len(attachments) == len(envs)
+    assert set(a["values"]["environment"] for a in attachments) == set(envs)
+
+def resources_by_type(resources, resourceType):
+    "Filter resources by type."
+    return [r for r in resources if r["type"] == resourceType ]
+
+def resource_by_address(resources, address):
+    "Finds resource by address and fails if address is not unique or does not exist."
+    matched = [r for r in resources if r["address"] == address ]
+    assert len(matched) == 1
+    return matched[0]
