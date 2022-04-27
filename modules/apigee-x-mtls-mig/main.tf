@@ -74,7 +74,7 @@ module "apigee-mtls-proxy-template" {
   network_interfaces = [{
     network    = var.network,
     subnetwork = var.subnet
-    nat        = true
+    nat        = false
     addresses  = null
     alias_ips  = null
   }]
@@ -95,6 +95,7 @@ module "apigee-mtls-proxy-template" {
     google_storage_bucket_object.ca_cert,
     google_storage_bucket_object.tls_cert,
     google_storage_bucket_object.tls_key,
+    module.nat
   ]
 }
 
@@ -105,8 +106,19 @@ module "apigee-mtls-proxy-mig" {
   regional    = true
   name        = "apigee-mtls-proxy-${var.region}"
   target_size = 2
+  named_ports = {
+    https = 443
+  }
   default_version = {
     instance_template = module.apigee-mtls-proxy-template.template.self_link
     name              = "default"
   }
+}
+
+module "nat" {
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat?ref=v14.0.0"
+  project_id     = var.project_id
+  region         = var.region
+  name           = "nat-${var.region}"
+  router_network = var.network
 }

@@ -10,7 +10,8 @@ Currently the following modules are a available and can be used either as part o
 * [Apigee X Core](modules/apigee-x-core) Configures a complete Apigee X organization with multiple instances, environment groups, and environments.
 * [Apigee X Bridge MIG](modules/apigee-x-bridge-mig) Configures a managed instance group of network bridge GCE instances (VMs) that can be used as a load balancer backend and forward traffic to the internal Apigee X endpoint.
 * [Apigee X mTLS MIG](modules/apigee-x-mtls-mig) Configures a managed instance group of Envoy proxies that can be used to terminate mutual TLS and forward traffic to the internal Apigee X endpoint.
-* [L7 external LB for MIG](modules/mig-l7xlb) Configures an external HTTPS Cloud Load Balancer that fronts a managed instance groups.
+* [L7 external LB for MIG](modules/mig-l7xlb) Configures an external HTTPS Cloud Load Balancer that fronts managed instance groups.
+* [L4 external LB for MIG](modules/mig-l7xlb) Configures an external TCP Proxy that fronts managed instance groups.
 * [Routing Appliance](modules/routing-appliance) Configures a routing appliance and custom routes to overcome transitive peering problems.
 * [Southbound PSC Backend](modules/sb-psc-attachment) Private Service Connect (PSC) service attachment and Apigee endpoint attachment.
 * [Development Backend](modules/development-backend) Configures an example HTTP backend and an internal load balancer.
@@ -30,6 +31,7 @@ Select one of the available sample deployments:
 * [X with external L7 LB](samples/x-l7xlb) for an Apigee X setup that is exposed via a global external L7 load balancer.
 * [X with southbound PSC (Preview)](samples/x-sb-psc) for an Apigee X setup that uses Private Service Connect (PSC) to connect to a backend service in another VPC.
 * [X with internal L4 LB and mTLS](samples/x-ilb-mtls) for a basic Apigee X setup plus exposure via regional L4 load balancer and envoy proxy to terminate mTLS.
+* [X with external L4 LB and mTLS](samples/x-l4xlb-mtls) for a basic Apigee X setup plus exposure via global external L4 load balancer and envoy proxy to terminate mTLS.
 * [X with network appliance for transitive peering](samples/x-transitive-peering) for an Apigee X organization that is peered to a network is transitively peered to another VPC that contains the backend.
 To deploy the sample, first create a copy of the example variables and edit according to your requirements.
 * [X with DNS peering](samples/x-dns-peering) for a basic Apigee X setup with DNS peering with a private DNS Zone containing records for Apigee and an example backend.

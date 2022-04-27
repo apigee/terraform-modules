@@ -1,6 +1,6 @@
-# Apigee X with an Internal L4 Load Balancer and Client Authentication (mTLS)
+# Apigee X with an External L4 Load Balancer and Client Authentication (mTLS)
 
-This sample provides a envoy-based managed instance group behind an internal
+This sample provides a envoy-based managed instance group behind an external
 load balancer that can terminate mutual TLS (mTLS) to authenticate API clients.
 
 ## Preparation
@@ -11,7 +11,7 @@ the clients available and set their path in the .tfvars file.
 To try it out you can create a set of self signed certs:
 
 ```sh
-mkdir ./certs && cd ./certs
+mkdir -p ./certs && cd ./certs
 openssl req -newkey rsa:2048 -nodes -keyform PEM -keyout server-ca.key -x509 -days 3650 -outform PEM -out server-ca.crt -subj "/CN=Test Server CA"
 openssl genrsa -out server.key 2048
 openssl req -new -key server.key -out server.csr -subj "/CN=test.api.example.com"
@@ -50,7 +50,8 @@ for detailed instructions.
 |------|--------|---------|
 | <a name="module_apigee-x-core"></a> [apigee-x-core](#module\_apigee-x-core) | ../../modules/apigee-x-core | n/a |
 | <a name="module_apigee-x-mtls-mig"></a> [apigee-x-mtls-mig](#module\_apigee-x-mtls-mig) | ../../modules/apigee-x-mtls-mig | n/a |
-| <a name="module_ilb"></a> [ilb](#module\_ilb) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb | v14.0.0 |
+| <a name="module_mig-l4xlb"></a> [mig-l4xlb](#module\_mig-l4xlb) | ../../modules/l4xlb | n/a |
+| <a name="module_nip-development-hostname"></a> [nip-development-hostname](#module\_nip-development-hostname) | ../../modules/nip-development-hostname | n/a |
 | <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v14.0.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v14.0.0 |
 
@@ -58,7 +59,7 @@ for detailed instructions.
 
 | Name | Type |
 |------|------|
-| [google_compute_firewall.allow_ilb_hc](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.allow_xlb_hc](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 
 ## Inputs
 
@@ -83,5 +84,7 @@ for detailed instructions.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_nip_hostnames"></a> [nip\_hostnames](#output\_nip\_hostnames) | Map of envgroup name -> hostnames. |
 <!-- END_TF_DOCS -->

@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,11 @@
 
 
 import os
+from pprint import pprint
 import pytest
 from .utils import *
 
-FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "../../samples/x-ilb-mtls")
+FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "../../samples/x-l4xlb-mtls")
 
 
 @pytest.fixture(scope="module")
@@ -33,7 +34,7 @@ def resources(recursive_plan_runner):
 
 def test_resource_count(resources):
     "Test total number of resources created."
-    assert len(resources) == 43
+    assert len(resources) == 46
 
 
 def test_apigee_instance(resources):
@@ -54,3 +55,10 @@ def test_envgroup_attachment(resources):
 def test_envgroup(resources):
     "Test env group."
     assert_envgroup_name(resources, "test")
+
+def test_named_ports_match(resources):
+    migBackendMatches = [r for r in resources if r['address'] == 'module.mig-l4xlb.google_compute_backend_service.mig_backend']
+    instanceGroups = [r for r in resources if r['address'] == 'module.apigee-x-mtls-mig["euw1-instance"].module.apigee-mtls-proxy-mig.google_compute_region_instance_group_manager.default[0]']
+    assert len(migBackendMatches) == 1
+    assert len(instanceGroups) == 1
+    assert migBackendMatches[0]['values']['port_name'] == instanceGroups[0]['values']['named_port'][0]['name']
