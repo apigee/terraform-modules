@@ -38,7 +38,10 @@ module "vpc" {
       apigee-range         = var.peering_range
       apigee-support-range = var.support_range
     }
-    routes = null
+    routes = {
+      export = true
+      import = false
+    }
   }
 }
 
@@ -50,14 +53,6 @@ module "apigee-x-core" {
   apigee_envgroups    = var.apigee_envgroups
   network             = module.vpc.network.id
   apigee_instances    = var.apigee_instances
-}
-
-resource "google_compute_network_peering_routes_config" "peering_primary_routes" {
-  project              = module.project.project_id
-  peering              = "servicenetworking-googleapis-com"
-  network              = module.vpc.name
-  import_custom_routes = false
-  export_custom_routes = true
 }
 
 module "nat" {

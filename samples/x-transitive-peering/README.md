@@ -49,7 +49,6 @@ for detailed instructions.
 |------|------|
 | [google_compute_firewall.allow-appliance-ingress](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.allow-backend-ingress](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
-| [google_compute_network_peering_routes_config.peering_primary_routes](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network_peering_routes_config) | resource |
 
 ## Inputs
 

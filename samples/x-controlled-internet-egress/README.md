@@ -40,7 +40,6 @@ for detailed instructions.
 | Name | Type |
 |------|------|
 | [google_compute_firewall.allow_glb_to_mig_bridge](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
-| [google_compute_network_peering_routes_config.peering_primary_routes](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network_peering_routes_config) | resource |
 | [google_compute_route.egress_via_firewall](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_route) | resource |
 | [google_compute_route.firewall_to_internet](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_route) | resource |
 
