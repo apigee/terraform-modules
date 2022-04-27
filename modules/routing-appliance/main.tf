@@ -19,13 +19,13 @@ resource "random_id" "bucket" {
 }
 
 module "appliance-sa" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v14.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v15.0.0"
   project_id = var.project_id
   name       = "sa-${var.name}"
 }
 
 module "config-bucket" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v14.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v15.0.0"
   project_id = var.project_id
   name       = "appliance-${random_id.bucket.dec}"
   location   = "EU"
@@ -41,7 +41,7 @@ resource "google_storage_bucket_object" "setup_script" {
 }
 
 module "routing-appliance-template" {
-  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v14.0.0"
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v15.0.0"
   project_id     = var.project_id
   name           = var.name
   zone           = "${var.region}-b"
@@ -73,7 +73,7 @@ module "routing-appliance-template" {
 }
 
 module "routing-appliance-mig" {
-  source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v14.0.0"
+  source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v15.0.0"
   project_id  = var.project_id
   location    = var.region
   regional    = true
@@ -86,7 +86,7 @@ module "routing-appliance-mig" {
 }
 
 module "ilb-appliance" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb?ref=v14.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb?ref=v15.0.0"
   project_id    = var.project_id
   region        = var.region
   name          = var.name

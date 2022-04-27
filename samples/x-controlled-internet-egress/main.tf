@@ -15,7 +15,7 @@
  */
 
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v14.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v15.0.0"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -29,16 +29,18 @@ module "project" {
 }
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v14.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v15.0.0"
   project_id = module.project.project_id
   name       = var.network
   subnets    = [var.firewall_appliance_subnet]
-  psa_ranges = {
-    apigee-range         = var.peering_range
-    apigee-support-range = var.support_range
+  psa_config = {
+    ranges = {
+      apigee-range         = var.peering_range
+      apigee-support-range = var.support_range
+    }
+    routes = null
   }
 }
-
 
 module "apigee-x-core" {
   source              = "../../modules/apigee-x-core"
@@ -59,7 +61,7 @@ resource "google_compute_network_peering_routes_config" "peering_primary_routes"
 }
 
 module "nat" {
-  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat?ref=v14.0.0"
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat?ref=v15.0.0"
   project_id     = module.project.project_id
   region         = var.firewall_appliance_subnet.region
   name           = "nat"
@@ -76,17 +78,17 @@ resource "google_compute_route" "egress_via_firewall" {
 }
 
 resource "google_compute_route" "firewall_to_internet" {
-  project           = module.project.project_id
-  name              = "egress-for-fw-only"
-  dest_range        = "0.0.0.0/0"
-  network           = module.vpc.name
+  project          = module.project.project_id
+  name             = "egress-for-fw-only"
+  dest_range       = "0.0.0.0/0"
+  network          = module.vpc.name
   next_hop_gateway = "default-internet-gateway"
-  tags              = var.firewall_appliance_tags
-  priority          = 750
+  tags             = var.firewall_appliance_tags
+  priority         = 750
 }
 
 module "mock-firewall" {
-  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v14.0.0"
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v15.0.0"
   project_id     = module.project.project_id
   zone           = var.firewall_appliance_zone
   can_ip_forward = true
