@@ -15,7 +15,7 @@
  */
 
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v14.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v15.0.0"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -29,13 +29,19 @@ module "project" {
 }
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v14.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v15.0.0"
   project_id = module.project.project_id
   name       = var.apigee_network
   subnets    = [var.appliance_subnet]
-  psa_ranges = {
-    apigee-range         = var.peering_range
-    apigee-support-range = var.support_range
+  psa_config = {
+    ranges = {
+      apigee-range         = var.peering_range
+      apigee-support-range = var.support_range
+    }
+    routes = {
+      export = true
+      import = false
+    }
   }
 }
 
@@ -52,14 +58,6 @@ module "apigee-x-core" {
     }
   }
   network = module.vpc.network.id
-}
-
-resource "google_compute_network_peering_routes_config" "peering_primary_routes" {
-  project              = module.project.project_id
-  peering              = "servicenetworking-googleapis-com"
-  network              = module.vpc.name
-  import_custom_routes = false
-  export_custom_routes = true
 }
 
 module "routing-appliance" {
@@ -85,14 +83,14 @@ resource "google_compute_firewall" "allow-appliance-ingress" {
 }
 
 module "backend-vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v14.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v15.0.0"
   project_id = module.project.project_id
   name       = var.backend_network
   subnets    = [var.backend_subnet]
 }
 
 module "peering-apigee-backend" {
-  source                     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc-peering?ref=v14.0.0"
+  source                     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc-peering?ref=v15.0.0"
   prefix                     = "peering-apigee-backend"
   export_local_custom_routes = true
 

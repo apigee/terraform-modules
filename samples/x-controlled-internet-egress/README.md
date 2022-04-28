@@ -30,17 +30,16 @@ for detailed instructions.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_apigee-x-core"></a> [apigee-x-core](#module\_apigee-x-core) | ../../modules/apigee-x-core | n/a |
-| <a name="module_mock-firewall"></a> [mock-firewall](#module\_mock-firewall) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v14.0.0 |
-| <a name="module_nat"></a> [nat](#module\_nat) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat | v14.0.0 |
-| <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v14.0.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v14.0.0 |
+| <a name="module_mock-firewall"></a> [mock-firewall](#module\_mock-firewall) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v15.0.0 |
+| <a name="module_nat"></a> [nat](#module\_nat) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat | v15.0.0 |
+| <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v15.0.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v15.0.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
 | [google_compute_firewall.allow_glb_to_mig_bridge](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
-| [google_compute_network_peering_routes_config.peering_primary_routes](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network_peering_routes_config) | resource |
 | [google_compute_route.egress_via_firewall](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_route) | resource |
 | [google_compute_route.firewall_to_internet](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_route) | resource |
 

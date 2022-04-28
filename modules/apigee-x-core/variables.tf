@@ -29,6 +29,12 @@ variable "network" {
   type        = string
 }
 
+variable "billing_type" {
+  description = "Billing type of the Apigee organization."
+  type        = string
+  default     = null
+}
+
 variable "apigee_envgroups" {
   description = "Apigee Environment Groups."
   type = map(object({
@@ -43,7 +49,6 @@ variable "apigee_environments" {
   type        = list(string)
   default     = []
 }
-
 
 variable "apigee_instances" {
   description = "Apigee Instances (only one instance for EVAL)."
