@@ -3,6 +3,10 @@
 
 This repository provides terraform modules and ready to use end-to-end examples for Apigee.
 
+## Prerequisites
+
+* [terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) cli on your PATH in version >= 1.1 (or according to the version constraint in the respective module).
+
 ## Modules
 
 Currently the following modules are a available and can be used either as part of the end-to-end examples or as part of your own scripting:
