@@ -5,6 +5,12 @@
 Please see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
 for detailed instructions.
 
+## Limitations
+
+* Currently only one PSC NEG is supported on an XLB
+* PSC NEG needs to be in the same region as the Apigee instance
+* PSC NEG currently does not support a custom network and subnet to be specified see [issue](https://github.com/hashicorp/terraform-provider-google/issues/11631#issuecomment-1137049176).
+
 <!-- BEGIN_TF_DOCS -->
 ## Providers
 
@@ -19,7 +25,7 @@ No providers.
 | <a name="module_nip-development-hostname"></a> [nip-development-hostname](#module\_nip-development-hostname) | ../../modules/nip-development-hostname | n/a |
 | <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v15.0.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v15.0.0 |
-| <a name="module_vpc-patch"></a> [vpc-patch](#module\_vpc-patch) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v15.0.0 |
+| <a name="module_vpc-ingress"></a> [vpc-ingress](#module\_vpc-ingress) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v15.0.0 |
 
 ## Resources
 
