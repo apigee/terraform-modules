@@ -21,6 +21,13 @@ output "instance_endpoints" {
   })
 }
 
+output "instance_service_attachments" {
+  description = "Map of instance region -> instance PSC service attachment"
+  value = tomap({
+    for name, instance in module.apigee-x-instance : instance.instance.location => instance.instance.service_attachment
+  })
+}
+
 output "org_id" {
   description = "Apigee Organization ID"
   value       = module.apigee.org_id
