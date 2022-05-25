@@ -17,7 +17,7 @@ Currently the following modules are a available and can be used either as part o
 * [L7 external LB for MIG](modules/mig-l7xlb) Configures an external HTTPS Cloud Load Balancer that fronts managed instance groups.
 * [L4 external LB for MIG](modules/mig-l7xlb) Configures an external TCP Proxy that fronts managed instance groups.
 * [Routing Appliance](modules/routing-appliance) Configures a routing appliance and custom routes to overcome transitive peering problems.
-* [Southbound PSC Backend](modules/sb-psc-attachment) Private Service Connect (PSC) service attachment and Apigee endpoint attachment.
+* [Northbound PSC Backend](modules/nb-psc-l7xlb) Private Service Connect (PSC) Network Endpoint Group (NEG) backend with an HTTPS external load balancer.
 * [Southbound PSC Backend](modules/sb-psc-attachment) Private Service Connect (PSC) service attachment and Apigee endpoint attachment.
 * [Development Backend](modules/development-backend) Configures an example HTTP backend and an internal load balancer.
 * [NIP.io Development Hostname](modules/nip-development-hostname) Configures an external IP address and hostname based on the IP and the nip.io mechanism as well as a Google-managed SSL certificate.
