@@ -17,6 +17,7 @@ Currently the following modules are a available and can be used either as part o
 * [L7 external LB for MIG](modules/mig-l7xlb) Configures an external HTTPS Cloud Load Balancer that fronts managed instance groups.
 * [L4 external LB for MIG](modules/mig-l7xlb) Configures an external TCP Proxy that fronts managed instance groups.
 * [Routing Appliance](modules/routing-appliance) Configures a routing appliance and custom routes to overcome transitive peering problems.
+* [Northbound PSC Backend](modules/nb-psc-l7xlb) Private Service Connect (PSC) Network Endpoint Group (NEG) backend with an HTTPS external load balancer.
 * [Southbound PSC Backend](modules/sb-psc-attachment) Private Service Connect (PSC) service attachment and Apigee endpoint attachment.
 * [Development Backend](modules/development-backend) Configures an example HTTP backend and an internal load balancer.
 * [NIP.io Development Hostname](modules/nip-development-hostname) Configures an external IP address and hostname based on the IP and the nip.io mechanism as well as a Google-managed SSL certificate.
@@ -33,6 +34,7 @@ Select one of the available sample deployments:
 
 * [X Basic](samples/x-basic) for a basic Apigee X setup with the raw instance endpoints exposed as internal IP addresses.
 * [X with external L7 LB](samples/x-l7xlb) for an Apigee X setup that is exposed via a global external L7 load balancer.
+* [X with external L7 LB and northbound PSC (Preview)](samples/x-nb-psc-xlb) for an Apigee X setup that uses a global external L7 load balancer and a Private Service Connect (PSC) Network Endpoint Group (NEG) to connect to an Apigee instance's service attachment.
 * [X with southbound PSC (Preview)](samples/x-sb-psc) for an Apigee X setup that uses Private Service Connect (PSC) to connect to a backend service in another VPC.
 * [X with internal L4 LB and mTLS](samples/x-ilb-mtls) for a basic Apigee X setup plus exposure via regional L4 load balancer and envoy proxy to terminate mTLS.
 * [X with external L4 LB and mTLS](samples/x-l4xlb-mtls) for a basic Apigee X setup plus exposure via global external L4 load balancer and envoy proxy to terminate mTLS.
