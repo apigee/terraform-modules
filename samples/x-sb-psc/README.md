@@ -39,6 +39,7 @@ psc_endpoint_attachment_host = "7.0.5.2"
 
 | Name | Type |
 |------|------|
+| [google_compute_firewall.allow_psc_nat_to_backend](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_subnetwork.psc_nat_subnet](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork) | resource |
 
 ## Inputs
