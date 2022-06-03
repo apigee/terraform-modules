@@ -79,7 +79,6 @@ resource "google_compute_subnetwork" "psc_nat_subnet" {
   purpose       = "PRIVATE_SERVICE_CONNECT"
 }
 
-
 module "southbound-psc" {
   source              = "../../modules/sb-psc-attachment"
   project_id          = module.project.project_id
@@ -88,4 +87,19 @@ module "southbound-psc" {
   apigee_organization = module.apigee-x-core.org_id
   nat_subnets         = [google_compute_subnetwork.psc_nat_subnet.id]
   target_service      = module.backend-example.ilb_forwarding_rule_self_link
+  depends_on = [
+    module.apigee-x-core.instance_endpoints
+  ]
+}
+
+resource "google_compute_firewall" "allow_psc_nat_to_backend" {
+  name          = "psc-nat-to-demo-backend"
+  project       = module.project.project_id
+  network       = module.backend-vpc.network.id
+  source_ranges = [var.backend_psc_nat_subnet.ip_cidr_range]
+  target_tags   = [var.backend_name]
+  allow {
+    protocol = "tcp"
+    ports    = ["80", "443"]
+  }
 }
