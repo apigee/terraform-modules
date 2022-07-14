@@ -14,86 +14,86 @@
 
 ---
 steps:
-  - id: 'branch name'
-    name: 'alpine'
-    entrypoint: 'sh'
+  - id: "branch name"
+    name: "alpine"
+    entrypoint: "sh"
     args:
-      - '-c'
+      - "-c"
       - |
-          echo "***********************"
-          echo "$BRANCH_NAME"
-          echo "***********************"
+        echo "***********************"
+        echo "$BRANCH_NAME"
+        echo "***********************"
   - id: display-sa-token
     name: gcr.io/cloud-builders/gcloud-slim
-    entrypoint: 'bash'
+    entrypoint: "bash"
     args:
-      - '-c'
+      - "-c"
       - |
-          # Fetch a GCP bearer token
-          gcloud auth describe ${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com
-  - id: 'tf init'
-    name: 'hashicorp/terraform:1.1.6'
-    entrypoint: 'sh'
+        # Fetch a GCP bearer token
+        gcloud auth describe ${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com
+  - id: "tf init"
+    name: "hashicorp/terraform:1.1.6"
+    entrypoint: "sh"
     args:
-      - '-c'
+      - "-c"
       - |
-          if [ -d "environments/$BRANCH_NAME/" ]; then
-            cd environments/$BRANCH_NAME
-            terraform init -backend-config="bucket=${_TF_BUCKET}"
-          else
-            for dir in environments/*/
-            do
-              cd ${dir}
-              env=${dir%*/}
-              env=${env#*/}
-              echo ""
-              echo "*************** TERRAFORM INIT ******************"
-              echo "******* At environment: ${env} ********"
-              echo "*************************************************"
-              terraform init -backend-config="bucket=${_TF_BUCKET}" || exit 1
-              cd ../../
-            done
-          fi
+        if [ -d "environments/$BRANCH_NAME/" ]; then
+          cd environments/$BRANCH_NAME
+          terraform init -backend-config="bucket=${_TF_BUCKET}"
+        else
+          for dir in environments/*/
+          do
+            cd ${dir}
+            env=${dir%*/}
+            env=${env#*/}
+            echo ""
+            echo "*************** TERRAFORM INIT ******************"
+            echo "******* At environment: ${env} ********"
+            echo "*************************************************"
+            terraform init -backend-config="bucket=${_TF_BUCKET}" || exit 1
+            cd ../../
+          done
+        fi
   # [START tf-plan]
-  - id: 'tf plan'
-    name: 'hashicorp/terraform:1.1.6'
-    entrypoint: 'sh'
+  - id: "tf plan"
+    name: "hashicorp/terraform:1.1.6"
+    entrypoint: "sh"
     args:
-      - '-c'
+      - "-c"
       - |
-          if [ -d "environments/$BRANCH_NAME/" ]; then
-            cd environments/$BRANCH_NAME
+        if [ -d "environments/$BRANCH_NAME/" ]; then
+          cd environments/$BRANCH_NAME
+          terraform plan --var-file=./my-config.tfvars -var "apigee_project_id=${_APIGEE_PROJECT_ID}"  -var "host_project_id=${_HOST_PROJECT_ID}" -var "billing_account=${_BILLING_ID}"
+        else
+          for dir in environments/*/
+          do
+            cd ${dir}
+            env=${dir%*/}
+            env=${env#*/}
+            echo ""
+            echo "*************** TERRAFOM PLAN ******************"
+            echo "******* At environment: ${env} ********"
+            echo "*************************************************"
             terraform plan --var-file=./my-config.tfvars -var "apigee_project_id=${_APIGEE_PROJECT_ID}"  -var "host_project_id=${_HOST_PROJECT_ID}" -var "billing_account=${_BILLING_ID}"
-          else
-            for dir in environments/*/
-            do
-              cd ${dir}
-              env=${dir%*/}
-              env=${env#*/}
-              echo ""
-              echo "*************** TERRAFOM PLAN ******************"
-              echo "******* At environment: ${env} ********"
-              echo "*************************************************"
-              terraform plan --var-file=./my-config.tfvars -var "apigee_project_id=${_APIGEE_PROJECT_ID}"  -var "host_project_id=${_HOST_PROJECT_ID}" -var "billing_account=${_BILLING_ID}"
-              cd ../../
-            done
-          fi
+            cd ../../
+          done
+        fi
   # [END tf-plan]
   # [START tf-apply]
-  - id: 'tf apply'
-    name: 'hashicorp/terraform:1.1.6'
-    entrypoint: 'sh'
+  - id: "tf apply"
+    name: "hashicorp/terraform:1.1.6"
+    entrypoint: "sh"
     args:
-      - '-c'
+      - "-c"
       - |
-          if [ -d "environments/$BRANCH_NAME/" ]; then
-            cd environments/$BRANCH_NAME
-            #export TF_LOG="TRACE"
-            terraform apply -auto-approve --var-file=./my-config.tfvars -var "apigee_project_id=${_APIGEE_PROJECT_ID}" -var "host_project_id=${_HOST_PROJECT_ID}" -var "billing_account=${_BILLING_ID}"
-          else
-            echo "***************************** SKIPPING APPLYING *******************************"
-            echo "Branch '$BRANCH_NAME' does not represent an oficial environment."
-            echo "*******************************************************************************"
-          fi
+        if [ -d "environments/$BRANCH_NAME/" ]; then
+          cd environments/$BRANCH_NAME
+          #export TF_LOG="TRACE"
+          terraform apply -auto-approve --var-file=./my-config.tfvars -var "apigee_project_id=${_APIGEE_PROJECT_ID}" -var "host_project_id=${_HOST_PROJECT_ID}" -var "billing_account=${_BILLING_ID}"
+        else
+          echo "***************************** SKIPPING APPLYING *******************************"
+          echo "Branch '$BRANCH_NAME' does not represent an oficial environment."
+          echo "*******************************************************************************"
+        fi
   # [END tf-apply]
 timeout: 7200s
