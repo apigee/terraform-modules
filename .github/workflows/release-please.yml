@@ -1,0 +1,15 @@
+name: release-workflow
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: terraform-module
+          package-name: apigee-terraform-modules
