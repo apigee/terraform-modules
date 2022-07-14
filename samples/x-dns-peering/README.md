@@ -28,9 +28,9 @@ for detailed instructions.
 |------|--------|---------|
 | <a name="module_apigee-x-core"></a> [apigee-x-core](#module\_apigee-x-core) | ../../modules/apigee-x-core | n/a |
 | <a name="module_backend-example"></a> [backend-example](#module\_backend-example) | ../../modules/development-backend | n/a |
-| <a name="module_private-dns"></a> [private-dns](#module\_private-dns) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/dns | v15.0.0 |
-| <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v15.0.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v15.0.0 |
+| <a name="module_private-dns"></a> [private-dns](#module\_private-dns) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/dns | v16.0.0 |
+| <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v16.0.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v16.0.0 |
 
 ## Resources
 
