@@ -1,4 +1,4 @@
-name: release-workflow
+name: Release Please
 on:
   push:
     branches:
