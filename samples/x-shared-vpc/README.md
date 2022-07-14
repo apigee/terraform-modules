@@ -16,11 +16,11 @@ No providers.
 |------|--------|---------|
 | <a name="module_apigee-x-bridge-mig"></a> [apigee-x-bridge-mig](#module\_apigee-x-bridge-mig) | ../../modules/apigee-x-bridge-mig | n/a |
 | <a name="module_apigee-x-core"></a> [apigee-x-core](#module\_apigee-x-core) | ../../modules/apigee-x-core | n/a |
-| <a name="module_host-project"></a> [host-project](#module\_host-project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v15.0.0 |
+| <a name="module_host-project"></a> [host-project](#module\_host-project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v16.0.0 |
 | <a name="module_mig-l7xlb"></a> [mig-l7xlb](#module\_mig-l7xlb) | ../../modules/mig-l7xlb | n/a |
 | <a name="module_nip-development-hostname"></a> [nip-development-hostname](#module\_nip-development-hostname) | ../../modules/nip-development-hostname | n/a |
-| <a name="module_service-project"></a> [service-project](#module\_service-project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v15.0.0 |
-| <a name="module_shared-vpc"></a> [shared-vpc](#module\_shared-vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v15.0.0 |
+| <a name="module_service-project"></a> [service-project](#module\_service-project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v16.0.0 |
+| <a name="module_shared-vpc"></a> [shared-vpc](#module\_shared-vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v16.0.0 |
 
 ## Resources
 

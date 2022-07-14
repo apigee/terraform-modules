@@ -12,11 +12,11 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_apigee-mtls-proxy-mig"></a> [apigee-mtls-proxy-mig](#module\_apigee-mtls-proxy-mig) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig | v15.0.0 |
-| <a name="module_apigee-mtls-proxy-template"></a> [apigee-mtls-proxy-template](#module\_apigee-mtls-proxy-template) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v15.0.0 |
-| <a name="module_config-bucket"></a> [config-bucket](#module\_config-bucket) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs | v15.0.0 |
-| <a name="module_mtls-proxy-sa"></a> [mtls-proxy-sa](#module\_mtls-proxy-sa) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account | v15.0.0 |
-| <a name="module_nat"></a> [nat](#module\_nat) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat | v15.0.0 |
+| <a name="module_apigee-mtls-proxy-mig"></a> [apigee-mtls-proxy-mig](#module\_apigee-mtls-proxy-mig) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig | v16.0.0 |
+| <a name="module_apigee-mtls-proxy-template"></a> [apigee-mtls-proxy-template](#module\_apigee-mtls-proxy-template) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm | v16.0.0 |
+| <a name="module_config-bucket"></a> [config-bucket](#module\_config-bucket) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs | v16.0.0 |
+| <a name="module_mtls-proxy-sa"></a> [mtls-proxy-sa](#module\_mtls-proxy-sa) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account | v16.0.0 |
+| <a name="module_nat"></a> [nat](#module\_nat) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat | v16.0.0 |
 
 ## Resources
 
