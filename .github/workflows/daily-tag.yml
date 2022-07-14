@@ -37,8 +37,8 @@ jobs:
 
           if [ "x$CHANGES" != "x" ] ; then
             TAG="daily-$(date +%Y.%m.%d)"
-            git tag $TAG
-            git push origin $TAG
+            git tag "$TAG"
+            git push origin "$TAG"
 
             echo "Created new tag: $TAG"
           else
