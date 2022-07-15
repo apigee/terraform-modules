@@ -27,3 +27,14 @@ information on using pull requests.
 
 This project follows
 [Google's Open Source Community Guidelines](https://opensource.google/conduct/).
+
+## Commits
+
+All commit messages should adhere to the
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standards.
+
+e.g.
+
+`feat: Added New Feature`
+
+Would indicate a new feature and a minor [SemVer](https://semver.org/) version increase.

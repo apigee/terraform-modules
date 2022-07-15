@@ -49,3 +49,13 @@ jobs:
           TERRAFORM_TERRASCAN_DISABLE_ERRORS: true
           MARKDOWN_MARKDOWN_LINK_CHECK_FILTER_REGEX_EXCLUDE: 'CONTRIBUTING.md'
           LINTER_RULES_PATH: '.'
+  commitlint:
+    name: Conventional Commits Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v4
+        with:
+          failOnWarnings: true
