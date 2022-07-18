@@ -22,8 +22,10 @@ jobs:
   release-please:
     name: Create Release
     runs-on: ubuntu-latest
+    environment: tf_modules
     steps:
       - uses: google-github-actions/release-please-action@v3
         with:
+          token: ${{ secrets.RELEASE_PR_TOKEN }}
           release-type: terraform-module
           package-name: apigee-terraform-modules
