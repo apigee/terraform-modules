@@ -31,7 +31,9 @@
 | <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL). | <pre>map(object({<br>    region       = string<br>    ip_range     = string<br>    environments = list(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
 | <a name="input_billing_type"></a> [billing\_type](#input\_billing\_type) | Billing type of the Apigee organization. | `string` | `null` | no |
+| <a name="input_instance_key_rotation_period"></a> [instance\_key\_rotation\_period](#input\_instance\_key\_rotation\_period) | Rotaton period for the instance disk encryption key | `string` | `"2592000s"` | no |
 | <a name="input_network"></a> [network](#input\_network) | Network (self-link) to peer with the Apigee tennant project. | `string` | n/a | yes |
+| <a name="input_org_key_rotation_period"></a> [org\_key\_rotation\_period](#input\_org\_key\_rotation\_period) | Rotaton period for the organization DB encryption key | `string` | `"2592000s"` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id (also used for the Apigee Organization). | `string` | n/a | yes |
 
 ## Outputs

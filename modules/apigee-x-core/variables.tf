@@ -59,3 +59,15 @@ variable "apigee_instances" {
   }))
   default = {}
 }
+
+variable "org_key_rotation_period" {
+  description = "Rotaton period for the organization DB encryption key"
+  type = string
+  default = "2592000s"
+}
+
+variable "instance_key_rotation_period" {
+  description = "Rotaton period for the instance disk encryption key"
+  type = string
+  default = "2592000s"
+}
