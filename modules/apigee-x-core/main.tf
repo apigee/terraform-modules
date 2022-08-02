@@ -33,7 +33,7 @@ module "kms-org-db" {
     name     = "apigee-x-org"
   }
   keys = {
-    org-db = null
+    org-db = { rotation_period = var.org_key_rotation_period, labels = null }
   }
 }
 
@@ -67,7 +67,7 @@ module "kms-inst-disk" {
     name     = "apigee-${each.key}"
   }
   keys = {
-    inst-disk = null
+    inst-disk = { rotation_period = var.instance_key_rotation_period, labels = null }
   }
 }
 
