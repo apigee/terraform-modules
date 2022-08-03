@@ -1,4 +1,4 @@
 {
-    "type": "service_account",
-    "project_id": "test-only"
+  "type": "service_account",
+  "project_id": "test-only"
 }

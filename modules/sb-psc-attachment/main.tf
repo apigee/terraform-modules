@@ -17,7 +17,7 @@
 resource "google_compute_service_attachment" "psc_service_attachment" {
   name        = var.name
   region      = var.region
-  project = var.project_id
+  project     = var.project_id
   description = "A service attachment to be used by Apigee"
 
   enable_proxy_protocol = false

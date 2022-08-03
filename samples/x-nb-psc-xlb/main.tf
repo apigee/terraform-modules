@@ -73,9 +73,9 @@ module "apigee-x-core" {
 # currently the VPC is hard coded to use the default network
 # see https://github.com/hashicorp/terraform-provider-google/issues/11631#issuecomment-1137049176
 module "vpc-ingress" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v16.0.0"
-  project_id = module.project.project_id
-  name       = "default"
+  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v16.0.0"
+  project_id              = module.project.project_id
+  name                    = "default"
   auto_create_subnetworks = true
 }
 
@@ -86,7 +86,7 @@ module "nb-psc-l7xlb" {
   psc_service_attachments = module.apigee-x-core.instance_service_attachments
   ssl_certificate         = module.nip-development-hostname.ssl_certificate
   external_ip             = module.nip-development-hostname.ip_address
-  neg_single_region = var.neg_single_region
+  neg_single_region       = var.neg_single_region
   depends_on = [
     module.vpc-ingress
   ]

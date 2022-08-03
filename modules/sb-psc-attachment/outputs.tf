@@ -15,7 +15,7 @@
  */
 
 output "endpoint_attachment_host" {
-    description = "Host for the endpoint attachment to be used in Apigee."
-    value = google_apigee_endpoint_attachment.endpoint_attachment.host
+  description = "Host for the endpoint attachment to be used in Apigee."
+  value       = google_apigee_endpoint_attachment.endpoint_attachment.host
 }
 

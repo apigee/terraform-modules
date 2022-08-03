@@ -97,10 +97,10 @@ resource "google_compute_firewall" "allow_xlb_hc" {
 }
 
 module "mig-l4xlb" {
-  source          = "../../modules/l4xlb"
-  project_id      = module.project.project_id
-  name            = "apigee-l4xlb"
-  backend_migs    = [for _, mig in module.apigee-x-mtls-mig : mig.instance_group]
-  external_ip     = module.nip-development-hostname.ip_address
+  source       = "../../modules/l4xlb"
+  project_id   = module.project.project_id
+  name         = "apigee-l4xlb"
+  backend_migs = [for _, mig in module.apigee-x-mtls-mig : mig.instance_group]
+  external_ip  = module.nip-development-hostname.ip_address
 }
 
