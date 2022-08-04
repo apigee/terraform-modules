@@ -26,10 +26,10 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
 }
 
 resource "google_compute_backend_service" "psc_backend" {
-  project   = var.project_id
-  name      = "psc-neg-backend"
-  port_name = "https"
-  protocol  = "HTTPS"
+  project               = var.project_id
+  name                  = "psc-neg-backend"
+  port_name             = "https"
+  protocol              = "HTTPS"
   load_balancing_scheme = "EXTERNAL_MANAGED"
   backend {
     group = google_compute_region_network_endpoint_group.psc_neg.id

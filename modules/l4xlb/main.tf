@@ -18,7 +18,7 @@ resource "google_compute_health_check" "mig_lb_hc" {
   project = var.project_id
   name    = "${var.name}-hc"
   tcp_health_check {
-    port         = "443"
+    port = "443"
   }
 }
 
@@ -32,7 +32,7 @@ resource "google_compute_backend_service" "mig_backend" {
   dynamic "backend" {
     for_each = var.backend_migs
     content {
-      group = backend.value
+      group           = backend.value
       balancing_mode  = "UTILIZATION"
       max_utilization = 1.0
       capacity_scaler = 1.0
@@ -49,7 +49,7 @@ resource "google_compute_global_forwarding_rule" "forwarding_rule" {
 }
 
 resource "google_compute_target_tcp_proxy" "proxy" {
-  project    = var.project_id
+  project         = var.project_id
   name            = "${var.name}-tcp-proxy"
   backend_service = google_compute_backend_service.mig_backend.id
 }

@@ -16,5 +16,5 @@
 
 output "nip_hostnames" {
   description = "Map of envgroup name -> hostnames."
-  value = [for name, _ in var.apigee_envgroups : "${name}.${module.nip-development-hostname.hostname}"]
+  value       = [for name, _ in var.apigee_envgroups : "${name}.${module.nip-development-hostname.hostname}"]
 }
