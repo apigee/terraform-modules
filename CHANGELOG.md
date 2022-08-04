@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/apigee/terraform-modules/compare/v0.2.0...v0.2.1) (2022-08-04)
+
+
+### Bug Fixes
+
+* code structure cleanup ([12075d0](https://github.com/apigee/terraform-modules/commit/12075d0f8706ed15cee742c7eef58eb56760f0c6))
+
 ## [0.2.0](https://github.com/apigee/terraform-modules/compare/v0.1.0...v0.2.0) (2022-08-02)
 
 
