@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/apigee/terraform-modules/compare/v0.2.1...v0.2.2) (2022-08-10)
+
+
+### Bug Fixes
+
+* add typed config to envoy sample ([61dd701](https://github.com/apigee/terraform-modules/commit/61dd7018fb94675ebe1124cc1136a266fc2d1ea5))
+
 ## [0.2.1](https://github.com/apigee/terraform-modules/compare/v0.2.0...v0.2.1) (2022-08-04)
 
 
