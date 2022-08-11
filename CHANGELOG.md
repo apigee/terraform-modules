@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/apigee/terraform-modules/compare/v0.2.2...v0.3.0) (2022-08-11)
+
+
+### Features
+
+* add org kms key ring custom name logic ([0a29fc0](https://github.com/apigee/terraform-modules/commit/0a29fc006f49012cd078319f39fda6ec54a1371e))
+
 ## [0.2.2](https://github.com/apigee/terraform-modules/compare/v0.2.1...v0.2.2) (2022-08-10)
 
 
