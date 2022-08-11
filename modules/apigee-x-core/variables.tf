@@ -71,3 +71,9 @@ variable "instance_key_rotation_period" {
   type        = string
   default     = "2592000s"
 }
+
+variable "apigee_org_kms_keyring_name" {
+  description = "Name of the KMS Key Ring for Apigee Organization DB."
+  type        = string
+  default     = "apigee-x-org"
+}
