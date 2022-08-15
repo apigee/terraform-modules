@@ -15,7 +15,16 @@
  */
 
 locals {
-  bridge_name = var.name == null ? "apigee-${var.region}" : var.name
+  region_shorthand = {
+    "northamerica-northeast1" = "nrtam-nrteast1",
+    "northamerica-northeast2" = "nrtam-nrteast2",
+    "southamerica-west1"      = "stham-west1",
+    "southamerica-east1"      = "stham-east1",
+    "europe-southwest1"       = "europe-sthwest1",
+    "australia-southeast1"    = "au-stheast1",
+    "australia-southeast2"    = "au-stheast2"
+  } # Shorthands for regions with long names.
+  bridge_name = var.name == null ? "apigee-${lookup(local.region_shorthand, var.region)}" : var.name
 }
 
 module "bridge-template" {
