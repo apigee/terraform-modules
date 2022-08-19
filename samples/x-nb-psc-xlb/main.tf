@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-locals {
-  subnet_region_name = { for subnet in var.exposure_subnets :
-    subnet.region => "${subnet.region}/${subnet.name}"
-  }
-}
-
 module "project" {
   source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v16.0.0"
   name            = var.project_id
@@ -83,6 +77,8 @@ module "nb-psc-l7xlb" {
   source                  = "../../modules/nb-psc-l7xlb"
   project_id              = module.project.project_id
   name                    = "apigee-xlb-psc"
+  network                 = module.vpc.network.id
+  subnet                  = module.vpc.subnet_self_links["${var.neg_single_region}/apigee-psc"]
   psc_service_attachments = module.apigee-x-core.instance_service_attachments
   ssl_certificate         = module.nip-development-hostname.ssl_certificate
   external_ip             = module.nip-development-hostname.ip_address

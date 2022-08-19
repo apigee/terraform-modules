@@ -45,3 +45,13 @@ variable "neg_single_region" {
   description = "Apigee instance to use for NEG (can only be one at this point)."
   type        = string
 }
+
+variable "network" {
+  description = "Network for the PSC NEG"
+  type        = string
+}
+
+variable "subnet" {
+  description = "Subnetwork for the PSC NEG"
+  type        = string
+}

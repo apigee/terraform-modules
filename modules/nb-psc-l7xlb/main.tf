@@ -18,6 +18,8 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
   project               = var.project_id
   name                  = "psc-neg-${var.neg_single_region}"
   region                = var.neg_single_region
+  network               = var.network
+  subnetwork            = var.subnet
   network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
   psc_target_service    = var.psc_service_attachments[var.neg_single_region]
   lifecycle {

@@ -37,7 +37,7 @@ network = "apigee-network"
 
 exposure_subnets = [
   {
-    name               = "apigee-exposure"
+    name               = "apigee-psc"
     ip_cidr_range      = "10.100.0.0/24"
     region             = "europe-west1"
     secondary_ip_range = null
