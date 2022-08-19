@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/apigee/terraform-modules/compare/v0.3.0...v0.4.0) (2022-08-19)
+
+
+### Features
+
+* configurable network and subnet for PSC NEG ([9e75b21](https://github.com/apigee/terraform-modules/commit/9e75b210406e7b901afe4219803d0f45b9bbec8c))
+
+
+### Bug Fixes
+
+* remove issue reference from PSC NEG readme ([027277d](https://github.com/apigee/terraform-modules/commit/027277df65a0db6c716571a90d77675f1f6646a1))
+
 ## [0.3.0](https://github.com/apigee/terraform-modules/compare/v0.2.2...v0.3.0) (2022-08-11)
 
 
