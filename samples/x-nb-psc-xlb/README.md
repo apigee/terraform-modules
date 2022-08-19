@@ -9,7 +9,6 @@ for detailed instructions.
 
 * Currently only one PSC NEG is supported on an XLB
 * PSC NEG needs to be in the same region as the Apigee instance
-* PSC NEG currently does not support a custom network and subnet to be specified see [issue](https://github.com/hashicorp/terraform-provider-google/issues/11631#issuecomment-1137049176).
 
 <!-- BEGIN_TF_DOCS -->
 ## Providers
