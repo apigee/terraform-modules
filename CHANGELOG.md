@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/apigee/terraform-modules/compare/v0.4.0...v0.5.0) (2022-09-12)
+
+
+### Features
+
+* add security_policy to l7xlb module ([686e549](https://github.com/apigee/terraform-modules/commit/686e5498ec42c4315f2812de3da3dcd38f8c5bd9))
+
 ## [0.4.0](https://github.com/apigee/terraform-modules/compare/v0.3.0...v0.4.0) (2022-08-19)
 
 
