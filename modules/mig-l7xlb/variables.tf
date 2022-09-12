@@ -30,7 +30,7 @@ variable "ssl_certificate" {
 }
 
 variable "external_ip" {
-  description = "External IP for the L7 XLB."
+  description = "(Optional) External IP for the L7 XLB."
   type        = string
   default     = null
 }
@@ -38,4 +38,10 @@ variable "external_ip" {
 variable "name" {
   description = "External LB name."
   type        = string
+}
+
+variable "security_policy" {
+  description = "(Optional) The security policy associated with this backend service."
+  type        = string
+  default     = null
 }
