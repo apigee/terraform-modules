@@ -24,12 +24,13 @@ resource "google_compute_health_check" "mig_lb_hc" {
 }
 
 resource "google_compute_backend_service" "mig_backend" {
-  project       = var.project_id
-  name          = "${var.name}-backend"
-  port_name     = "https"
-  protocol      = "HTTPS"
-  timeout_sec   = 10
-  health_checks = [google_compute_health_check.mig_lb_hc.id]
+  project         = var.project_id
+  name            = "${var.name}-backend"
+  port_name       = "https"
+  protocol        = "HTTPS"
+  timeout_sec     = 10
+  health_checks   = [google_compute_health_check.mig_lb_hc.id]
+  security_policy = var.security_policy
   dynamic "backend" {
     for_each = var.backend_migs
     content {
