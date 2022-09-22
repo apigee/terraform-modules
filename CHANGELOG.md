@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/apigee/terraform-modules/compare/v0.5.0...v0.5.1) (2022-09-22)
+
+
+### Bug Fixes
+
+* expose instance object on Apigee core module ([b81e9e6](https://github.com/apigee/terraform-modules/commit/b81e9e60598769c9de610a8e795f6b1ca1dde01e))
+
 ## [0.5.0](https://github.com/apigee/terraform-modules/compare/v0.4.0...v0.5.0) (2022-09-12)
 
 
