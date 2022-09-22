@@ -28,6 +28,13 @@ output "instance_service_attachments" {
   })
 }
 
+output "instance_map" {
+  description = "Map of instance region -> instance object"
+  value = tomap({
+    for name, instance in module.apigee-x-instance : instance.instance.location => instance.instance
+  })
+}
+
 output "org_id" {
   description = "Apigee Organization ID"
   value       = module.apigee.org_id
