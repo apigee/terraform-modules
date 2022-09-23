@@ -19,3 +19,7 @@ output "endpoint_attachment_host" {
   value       = google_apigee_endpoint_attachment.endpoint_attachment.host
 }
 
+output "endpoint_attachment_connection_state" {
+  description = "Underlying connection state for the endpoint attachment."
+  value       = google_apigee_endpoint_attachment.endpoint_attachment.connection_state
+}

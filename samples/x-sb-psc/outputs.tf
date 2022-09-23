@@ -18,3 +18,8 @@ output "psc_endpoint_attachment_host" {
   description = "Hostname of the PSC endpoint attachment."
   value       = module.southbound-psc.endpoint_attachment_host
 }
+
+output "psc_endpoint_attachment_connection_state" {
+  description = "Underlying connection state of the PSC endpoint attachment."
+  value       = module.southbound-psc.endpoint_attachment_connection_state
+}

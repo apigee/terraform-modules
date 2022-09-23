@@ -15,6 +15,7 @@ use for your target server in Apigee:
 Outputs:
 
 psc_endpoint_attachment_host = "7.0.5.2"
+psc_endpoint_attachment_connection_state = "ACCEPTED"
 ```
 
 <!-- BEGIN_TF_DOCS -->
@@ -69,4 +70,5 @@ psc_endpoint_attachment_host = "7.0.5.2"
 | Name | Description |
 |------|-------------|
 | <a name="output_psc_endpoint_attachment_host"></a> [psc\_endpoint\_attachment\_host](#output\_psc\_endpoint\_attachment\_host) | Hostname of the PSC endpoint attachment. |
+| <a name="output_psc_endpoint_attachment_connection_state"></a> [psc\_endpoint\_attachment\_connection_state](#output\_psc\_endpoint\_attachment\_connection_state) | Underlying connection state of the PSC endpoint attachment. |
 <!-- END_TF_DOCS -->
