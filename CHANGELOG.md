@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/apigee/terraform-modules/compare/v0.5.1...v0.6.0) (2022-09-28)
+
+
+### Features
+
+* **psc-sb:** add connection_state output for endpoint attachment ([f3835f8](https://github.com/apigee/terraform-modules/commit/f3835f8f0dc97200feb22a8ebbee730ff6e79324))
+
 ## [0.5.1](https://github.com/apigee/terraform-modules/compare/v0.5.0...v0.5.1) (2022-09-22)
 
 
