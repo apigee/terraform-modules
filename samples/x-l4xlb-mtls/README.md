@@ -34,8 +34,26 @@ tls_key_path  = "./certs/server.key"
 
 ## Setup Instructions
 
-Please see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
+Ensure that your tf variables file (.apigee_envgroups.test.hostnames[])
+contains the same hostname as you used in the CN of your certificate.
+
+For the rest see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
 for detailed instructions.
+
+## Testing
+
+If you used a hostname for which you don't have a DNS entry you can use:
+
+```sh
+INGRESS_IP=$(gcloud compute addresses describe apigee-external --global --format="get(address)")
+curl https://test.api.example.com/my-proxy --resolve test.api.example.com:443:$INGRESS_IP --cert ./certs/example-client.crt --key ./certs/example-client.key --cacert ./certs/server-ca.crt -v
+```
+
+Otherwise use:
+
+```sh
+curl https://my-domain.com/my-proxy --cert ./certs/example-client.crt --key ./certs/example-client.key --cacert ./certs/server-ca.crt -v
+```
 
 <!-- BEGIN_TF_DOCS -->
 ## Providers

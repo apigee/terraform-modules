@@ -31,6 +31,6 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_endpoint_attachment_connection_state"></a> [endpoint\_attachment\_connection\_state](#output\_endpoint\_attachment\_connection\_state) | Underlying connection state for the endpoint attachment. |
 | <a name="output_endpoint_attachment_host"></a> [endpoint\_attachment\_host](#output\_endpoint\_attachment\_host) | Host for the endpoint attachment to be used in Apigee. |
-| <a name="output_endpoint_attachment_connection_state"></a> [endpoint\_attachment\_connection_state](#output\_endpoint\_attachment\_connection_state) | Underlying connection state for the endpoint attachment. |
 <!-- END_TF_DOCS -->

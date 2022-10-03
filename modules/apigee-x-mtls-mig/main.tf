@@ -95,6 +95,7 @@ module "apigee-mtls-proxy-template" {
     google_storage_bucket_object.ca_cert,
     google_storage_bucket_object.tls_cert,
     google_storage_bucket_object.tls_key,
+    google_storage_bucket_object.envoy_config,
     module.nat
   ]
 }
