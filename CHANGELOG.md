@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/apigee/terraform-modules/compare/v0.6.0...v0.7.0) (2022-10-03)
+
+
+### Features
+
+* improve mTLS documentation and dependencies ([da2bfa4](https://github.com/apigee/terraform-modules/commit/da2bfa48b6ca34c3b4e91208c39c05fd62a40f57))
+
 ## [0.6.0](https://github.com/apigee/terraform-modules/compare/v0.5.1...v0.6.0) (2022-09-28)
 
 
