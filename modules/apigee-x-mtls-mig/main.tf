@@ -101,12 +101,13 @@ module "apigee-mtls-proxy-template" {
 }
 
 module "apigee-mtls-proxy-mig" {
-  source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v16.0.0"
-  project_id  = var.project_id
-  location    = var.region
-  regional    = true
-  name        = "apigee-mtls-proxy-${var.region}"
-  target_size = 2
+  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v16.0.0"
+  project_id        = var.project_id
+  location          = var.region
+  regional          = true
+  name              = "apigee-mtls-proxy-${var.region}"
+  target_size       = var.target_size
+  autoscaler_config = var.autoscaler_config
   named_ports = {
     https = 443
   }
