@@ -102,7 +102,7 @@ variable "gke_cluster" {
   default = {
     location = "europe-west1"
     master_authorized_ranges = {
-      "intenret" = "0.0.0.0/0"
+      "internet" = "0.0.0.0/0"
     }
     master_ip_cidr = "192.168.0.0/28"
     name =  "hybrid-cluster"
