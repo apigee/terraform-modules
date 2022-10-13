@@ -39,3 +39,13 @@ output "org_id" {
   description = "Apigee Organization ID"
   value       = module.apigee.org_id
 }
+
+output "organization" {
+  description = "Apigee Organization."
+  value       = module.apigee.org
+}
+
+output "environments" {
+  description = "Apigee Organization ID"
+  value       = module.apigee.envs
+}

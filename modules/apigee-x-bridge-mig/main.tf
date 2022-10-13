@@ -47,12 +47,13 @@ module "bridge-template" {
 }
 
 module "bridge-mig" {
-  source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v16.0.0"
-  project_id  = var.project_id
-  location    = var.region
-  regional    = true
-  name        = local.bridge_name
-  target_size = 2
+  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v16.0.0"
+  project_id        = var.project_id
+  location          = var.region
+  regional          = true
+  name              = local.bridge_name
+  target_size       = var.target_size
+  autoscaler_config = var.autoscaler_config
   default_version = {
     instance_template = module.bridge-template.template.self_link
     name              = "default"

@@ -41,8 +41,10 @@
 
 | Name | Description |
 |------|-------------|
+| <a name="output_environments"></a> [environments](#output\_environments) | Apigee Organization ID |
 | <a name="output_instance_endpoints"></a> [instance\_endpoints](#output\_instance\_endpoints) | Map of instance name -> internal runtime endpoint IP address |
 | <a name="output_instance_map"></a> [instance\_map](#output\_instance\_map) | Map of instance region -> instance object |
 | <a name="output_instance_service_attachments"></a> [instance\_service\_attachments](#output\_instance\_service\_attachments) | Map of instance region -> instance PSC service attachment |
 | <a name="output_org_id"></a> [org\_id](#output\_org\_id) | Apigee Organization ID |
+| <a name="output_organization"></a> [organization](#output\_organization) | Apigee Organization. |
 <!-- END_TF_DOCS -->

@@ -64,3 +64,28 @@ variable "machine_type" {
   type        = string
   default     = "e2-small"
 }
+
+variable "target_size" {
+  description = "Group target size, leave null when using an autoscaler."
+  type        = number
+  default     = 2
+}
+
+variable "autoscaler_config" {
+  description = "Optional autoscaler configuration. Only one of 'cpu_utilization_target' 'load_balancing_utilization_target' or 'metric' can be not null."
+  type = object({
+    max_replicas                      = number
+    min_replicas                      = number
+    cooldown_period                   = number
+    cpu_utilization_target            = number
+    load_balancing_utilization_target = number
+    metric = object({
+      name                       = string
+      single_instance_assignment = number
+      target                     = number
+      type                       = string # GAUGE, DELTA_PER_SECOND, DELTA_PER_MINUTE
+      filter                     = string
+    })
+  })
+  default = null
+}
