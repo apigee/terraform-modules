@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-ax_region = "europe-west1"
-
-apigee_environments = ["test1", "test2"]
-
-apigee_envgroups = {
-  test = {
-    environments = ["test1", "test2"]
-    hostnames    = ["test.api.example.com"]
-  }
+output "cluster_name" {
+  description = "Cluster name."
+  value       = module.gke-cluster.name
 }
 
-subnets = [{
-  name               = "hybrid-europe-west1"
-  ip_cidr_range      = "10.0.0.0/24"
-  region             = "europe-west1"
-  secondary_ip_range = {
-    pods = "10.100.0.0/20"
-    services = "10.101.0.0/23"
-  }
-}]
+output "cluster_region" {
+  description = "Cluster location."
+  value       = module.gke-cluster.location
+}
 
-cluster_location = "europe-west1"
-cluster_region = "europe-west1"
+output "apigee_envgroups" {
+  description = "Apigee Env Groups."
+  value       = local.env_groups
+}
+
