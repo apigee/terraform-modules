@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.0](https://github.com/apigee/terraform-modules/compare/v0.7.0...v0.8.0) (2022-10-13)
+
+
+### Features
+
+* add Apigee X org outputs ([c4c3bf8](https://github.com/apigee/terraform-modules/commit/c4c3bf84f2ff982840f11501ca204b9edbcb71c3))
+* allow for autoscale and target size variables ([05eeee8](https://github.com/apigee/terraform-modules/commit/05eeee8d7a327b635ed3cdeaf80e77d33b473719))
+
 ## [0.7.0](https://github.com/apigee/terraform-modules/compare/v0.6.0...v0.7.0) (2022-10-03)
 
 
