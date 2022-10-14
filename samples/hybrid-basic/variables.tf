@@ -62,9 +62,9 @@ variable "project_create" {
 }
 
 variable "network" {
-    description = "Network name to be used for hosting the Apigee hybrid cluster."
-    type = string
-    default = "apigee-network"
+  description = "Network name to be used for hosting the Apigee hybrid cluster."
+  type        = string
+  default     = "apigee-network"
 }
 
 variable "subnets" {
@@ -79,24 +79,24 @@ variable "subnets" {
 }
 
 variable "cluster_region" {
-    description = "Region for where to create the cluster."
-    type = string
+  description = "Region for where to create the cluster."
+  type        = string
 }
 
 variable "cluster_location" {
-    description = "Region/Zone for where to create the cluster."
-    type = string
+  description = "Region/Zone for where to create the cluster."
+  type        = string
 }
 
 variable "gke_cluster" {
   description = "GKE Cluster Specification"
   type = object({
-    name = string
-    region = string
-    location = string
-    master_ip_cidr = string
+    name                     = string
+    region                   = string
+    location                 = string
+    master_ip_cidr           = string
     master_authorized_ranges = map(string)
-    secondary_range_pods = string
+    secondary_range_pods     = string
     secondary_range_services = string
   })
   default = {
@@ -104,10 +104,22 @@ variable "gke_cluster" {
     master_authorized_ranges = {
       "internet" = "0.0.0.0/0"
     }
-    master_ip_cidr = "192.168.0.0/28"
-    name =  "hybrid-cluster"
-    region = "europe-west1"
-    secondary_range_pods = "pods"
+    master_ip_cidr           = "192.168.0.0/28"
+    name                     = "hybrid-cluster"
+    region                   = "europe-west1"
+    secondary_range_pods     = "pods"
     secondary_range_services = "services"
   }
+}
+
+variable "node_preemptible_runtime" {
+  description = "Use preemptible VMs for runtime node pool"
+  type = bool
+  default = null
+}
+
+variable "node_locations_data" {
+  description = "List of locations for the data node pool"
+  type = list(string)
+  default = null
 }

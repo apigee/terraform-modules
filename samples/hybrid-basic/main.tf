@@ -77,6 +77,7 @@ module "gke-nodepool-runtime" {
   location           = module.gke-cluster.location
   name               = "apigee-runtime"
   node_machine_type  = "e2-standard-4"
+  node_preemptible   = var.node_preemptible_runtime
   initial_node_count = 1
   node_tags          = ["apigee-hybrid", "apigee-runtime"]
 }
@@ -90,6 +91,7 @@ module "gke-nodepool-data" {
   node_machine_type  = "e2-standard-4"
   initial_node_count = 1
   node_tags          = ["apigee-hybrid", "apigee-data"]
+  node_locations     = var.node_locations_data
 }
 
 resource "google_sourcerepo_repository" "apigee-override" {
@@ -141,10 +143,10 @@ module "nat" {
 }
 
 module "apigee-service-account" {
-  source             = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v16.0.0"
-  project_id         = module.project.project_id
-  name               = "apigee-all-sa"
-  iam       = {
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v16.0.0"
+  project_id = module.project.project_id
+  name       = "apigee-all-sa"
+  iam = {
     "roles/iam.serviceAccountUser" = [
       "serviceAccount:${module.project.project_id}.svc.id.goog[apigee/apigee-cassandra-schema-setup-svc-account-${module.project.project_id}]",
       "serviceAccount:${module.project.project_id}.svc.id.goog[apigee/apigee-cassandra-user-setup-svc-account-${module.project.project_id}]",
