@@ -47,6 +47,12 @@ cd apigee-hybrid-install
 
 ### Seal the secrets (Optional but recommended for GitOps)
 
+Prerequisites admin workstation:
+
+* [kubeseal](https://github.com/bitnami-labs/sealed-secrets#overview)
+* csplit (use `alias csplit=alias csplit=gcsplit` on MacOS)
+
+
 ```sh
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.18.5/controller.yaml
 seal_secret () {
@@ -57,12 +63,15 @@ seal_secret () {
   mv "$secret_file_name" "$plain_file_name"
 
   if grep -q -- '---' "$plain_file_name"; then
-    for k8s_secret in $(kubectl apply -f "$plain_file_name" --dry-run=client -o json | jq -cr '.items[]'); do
-      echo -E $k8s_secret | kubeseal | kubectl apply --dry-run=client -o yaml -f - >> "$secret_file_name"
-      echo '---' >> "$secret_file_name"
+    parent_dir=$(dirname $plain_file_name)
+    csplit "$plain_file_name" --elide-empty-files --prefix="$parent_dir/plain.secret-split" --suffix-format='%03d.yaml' /---/ '{*}'
+    for split_file in $parent_dir/plain.secret-split*; do
+        cat $split_file | kubeseal -o yaml >> "$secret_file_name"
+        echo '---' >> "$secret_file_name"
+        rm $split_file
     done
   else
-    kubeseal<"$plain_file_name" | kubectl apply --dry-run=client -o yaml -f - > "$secret_file_name"
+    kubeseal -o yaml <"$plain_file_name" > "$secret_file_name"
   fi
 }
 
@@ -103,8 +112,8 @@ kubectl wait deployment/apigee-controller-manager deployment/apigee-ingressgatew
 for INSTANCE_DIR in ${INSTALL_DIR}/overlays/instances/*; do
   kubectl apply -f ${INSTANCE_DIR}/datastore/secrets.yaml
   kubectl apply -f ${INSTANCE_DIR}/redis/secrets.yaml
-  for ENV_DIR in ${INSTANCE_DIR}/environments/*; do
-    kubectl apply -f ${ENV_DIR}/secrets.yaml
+  for ENV_DIR in ${INSTANCE_DIR}/environments/*/; do
+    kubectl apply -f ${ENV_DIR}secrets.yaml
   done
   kubectl apply -f ${INSTANCE_DIR}/organization/secrets.yaml
 
@@ -122,17 +131,15 @@ kubectl get pod -n apigee
 
 ```sh
 INGRESS_IP=$(kubectl get service -n apigee -l app=apigee-ingressgateway --output jsonpath='{.items[0].status.loadBalancer.ingress[0].ip}')
-curl -k --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-proxy"
+curl -kv --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-proxy"
 ```
 
 
 ### Next Steps
 
-* Use workload identity
-* Use nodepool annotations
+* Use workload identity (through the kustomize components)
+* Use nodepool annotations (through the kustomize components)
 * Implement CD for TF and k8s resources
-
-
 
 <!-- BEGIN_TF_DOCS -->
 ## Providers
