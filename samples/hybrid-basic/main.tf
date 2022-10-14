@@ -76,7 +76,7 @@ module "gke-nodepool-runtime" {
   cluster_name       = module.gke-cluster.name
   location           = module.gke-cluster.location
   name               = "apigee-runtime"
-  node_machine_type  = "e2-standard-4"
+  node_machine_type  = var.node_machine_type_runtime
   node_preemptible   = var.node_preemptible_runtime
   initial_node_count = 1
   node_tags          = ["apigee-hybrid", "apigee-runtime"]
@@ -88,20 +88,15 @@ module "gke-nodepool-data" {
   cluster_name       = module.gke-cluster.name
   location           = module.gke-cluster.location
   name               = "apigee-data"
-  node_machine_type  = "e2-standard-4"
+  node_machine_type  = var.node_machine_type_data
   initial_node_count = 1
   node_tags          = ["apigee-hybrid", "apigee-data"]
   node_locations     = var.node_locations_data
 }
 
-resource "google_sourcerepo_repository" "apigee-override" {
-  project = module.project.project_id
-  name    = "apigee-override"
-}
-
 resource "google_sourcerepo_repository" "apigee-k8s" {
   project = module.project.project_id
-  name    = "apigee-k8s-resources"
+  name    = "apigee-config"
 }
 
 resource "google_compute_firewall" "allow-master-webhook" {

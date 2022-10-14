@@ -123,3 +123,15 @@ variable "node_locations_data" {
   type = list(string)
   default = null
 }
+
+variable "node_machine_type_runtime" {
+  description = "Machine type for runtime node pool"
+  type = string
+  default = "e2-standard-4"
+}
+
+variable "node_machine_type_data" {
+  description = "Machine type for data node pool"
+  type = string
+  default = "e2-standard-4"
+}
