@@ -50,8 +50,6 @@ cd apigee-hybrid-install
 Prerequisites admin workstation:
 
 * [kubeseal](https://github.com/bitnami-labs/sealed-secrets#overview)
-* csplit (use `alias csplit=alias csplit=gcsplit` on MacOS)
-
 
 ```sh
 kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.18.5/controller.yaml
@@ -64,12 +62,14 @@ seal_secret () {
 
   if grep -q -- '---' "$plain_file_name"; then
     parent_dir=$(dirname $plain_file_name)
-    csplit "$plain_file_name" --elide-empty-files --prefix="$parent_dir/plain.secret-split" --suffix-format='%03d.yaml' /---/ '{*}'
-    for split_file in $parent_dir/plain.secret-split*; do
+    tmp_split_dir='./tmp-splits'
+    mkdir -p "$tmp_split_dir"
+    awk 'BEGIN {SR=1} /^-+$/{SR++} !/^-+$/{out="./tmp-splits/secret-"SR ".yaml"; print > out}' $plain_file_name
+    for split_file in $tmp_split_dir/secret-*.yaml; do
         cat $split_file | kubeseal -o yaml >> "$secret_file_name"
         echo '---' >> "$secret_file_name"
-        rm $split_file
     done
+    rm -rf "$tmp_split_dir"
   else
     kubeseal -o yaml <"$plain_file_name" > "$secret_file_name"
   fi
