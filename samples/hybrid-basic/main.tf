@@ -18,6 +18,18 @@ locals {
   env_groups = var.apigee_envgroups
 }
 
+data "google_client_config" "provider" {}
+
+provider "helm" {
+  kubernetes {
+    host  = "https://${module.gke-cluster.endpoint}"
+    token = data.google_client_config.provider.access_token
+    cluster_ca_certificate = base64decode(
+      module.gke-cluster.ca_certificate,
+    )
+  }
+}
+
 module "project" {
   source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v16.0.0"
   name            = var.project_id
@@ -112,6 +124,26 @@ resource "google_compute_firewall" "allow-master-webhook" {
   source_ranges = [
     var.gke_cluster.master_ip_cidr,
   ]
+}
+
+resource "helm_release" "cert-manager" {
+  name       = "cert-manager"
+  repository = "https://charts.jetstack.io"
+  chart      = "cert-manager"
+  version    = "1.7.3"
+
+  namespace        = "cert-manager"
+  create_namespace = true
+
+  set {
+    name  = "installCRDs"
+    value = "true"
+  }
+
+  depends_on = [
+    module.gke-cluster
+  ]
+
 }
 
 resource "google_compute_firewall" "allow-master-kubeseal" {

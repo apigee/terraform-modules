@@ -21,12 +21,10 @@ ENV_NAME=$(echo $ENV_GROUPS | jq -r "to_entries[0].value.environments[0]")
 INGRESS_DOMAIN=$(echo $ENV_GROUPS | jq -r "to_entries[0].value.hostnames[0]")
 ```
 
-### Log into the cluster and install Cert Manager
+### Log into the cluster
 
 ```
 gcloud container clusters get-credentials "$CLUSTER_NAME" --region "$CLUSTER_REGION" --project "$PROJECT_ID"
-
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.3/cert-manager.yaml
 ```
 
 ### Prepare the Workload Configuration
@@ -52,13 +50,13 @@ Prerequisites admin workstation:
 * [kubeseal](https://github.com/bitnami-labs/sealed-secrets#overview)
 
 ```sh
-kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.18.5/controller.yaml
 seal_secret () {
   secret_file_name="$1"
   echo "Sealing Secret in: $secret_file_name"
   plain_file_name="$(dirname $secret_file_name)/plain.$(basename $secret_file_name)"
   echo "Plain Secret is still available in $plain_file_name"
-  mv "$secret_file_name" "$plain_file_name"
+  mv "kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.18.5/controller.yaml
+$secret_file_name" "$plain_file_name"
 
   if grep -q -- '---' "$plain_file_name"; then
     parent_dir=$(dirname $plain_file_name)
