@@ -149,6 +149,7 @@ curl -kv --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-p
 | Name | Version |
 |------|---------|
 | <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
 
 ## Modules
 
@@ -170,7 +171,9 @@ curl -kv --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-p
 | [google_compute_firewall.allow-master-kubeseal](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_compute_firewall.allow-master-webhook](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
 | [google_sourcerepo_repository.apigee-k8s](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sourcerepo_repository) | resource |
-| [google_sourcerepo_repository.apigee-override](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sourcerepo_repository) | resource |
+| [helm_release.cert-manager](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.sealed-secrets](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [google_client_config.provider](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_config) | data source |
 
 ## Inputs
 
@@ -182,8 +185,13 @@ curl -kv --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-p
 | <a name="input_billing_account"></a> [billing\_account](#input\_billing\_account) | Billing account id. | `string` | `null` | no |
 | <a name="input_cluster_location"></a> [cluster\_location](#input\_cluster\_location) | Region/Zone for where to create the cluster. | `string` | n/a | yes |
 | <a name="input_cluster_region"></a> [cluster\_region](#input\_cluster\_region) | Region for where to create the cluster. | `string` | n/a | yes |
-| <a name="input_gke_cluster"></a> [gke\_cluster](#input\_gke\_cluster) | GKE Cluster Specification | <pre>object({<br>    name = string<br>    region = string<br>    location = string<br>    master_ip_cidr = string<br>    master_authorized_ranges = map(string)<br>    secondary_range_pods = string<br>    secondary_range_services = string<br>  })</pre> | <pre>{<br>  "location": "europe-west1",<br>  "master_authorized_ranges": {<br>    "internet": "0.0.0.0/0"<br>  },<br>  "master_ip_cidr": "192.168.0.0/28",<br>  "name": "hybrid-cluster",<br>  "region": "europe-west1",<br>  "secondary_range_pods": "pods",<br>  "secondary_range_services": "services"<br>}</pre> | no |
+| <a name="input_deploy_sealed_secrets"></a> [deploy\_sealed\_secrets](#input\_deploy\_sealed\_secrets) | Deploy the sealed-secrets operator (see https://github.com/bitnami-labs/sealed-secrets). | `bool` | `true` | no |
+| <a name="input_gke_cluster"></a> [gke\_cluster](#input\_gke\_cluster) | GKE Cluster Specification | <pre>object({<br>    name                     = string<br>    region                   = string<br>    location                 = string<br>    master_ip_cidr           = string<br>    master_authorized_ranges = map(string)<br>    secondary_range_pods     = string<br>    secondary_range_services = string<br>  })</pre> | <pre>{<br>  "location": "europe-west1",<br>  "master_authorized_ranges": {<br>    "internet": "0.0.0.0/0"<br>  },<br>  "master_ip_cidr": "192.168.0.0/28",<br>  "name": "hybrid-cluster",<br>  "region": "europe-west1",<br>  "secondary_range_pods": "pods",<br>  "secondary_range_services": "services"<br>}</pre> | no |
 | <a name="input_network"></a> [network](#input\_network) | Network name to be used for hosting the Apigee hybrid cluster. | `string` | `"apigee-network"` | no |
+| <a name="input_node_locations_data"></a> [node\_locations\_data](#input\_node\_locations\_data) | List of locations for the data node pool | `list(string)` | `null` | no |
+| <a name="input_node_machine_type_data"></a> [node\_machine\_type\_data](#input\_node\_machine\_type\_data) | Machine type for data node pool | `string` | `"e2-standard-4"` | no |
+| <a name="input_node_machine_type_runtime"></a> [node\_machine\_type\_runtime](#input\_node\_machine\_type\_runtime) | Machine type for runtime node pool | `string` | `"e2-standard-4"` | no |
+| <a name="input_node_preemptible_runtime"></a> [node\_preemptible\_runtime](#input\_node\_preemptible\_runtime) | Use preemptible VMs for runtime node pool | `bool` | `null` | no |
 | <a name="input_project_create"></a> [project\_create](#input\_project\_create) | Create project. When set to false, uses a data source to reference existing project. | `bool` | `false` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id (also used for the Apigee Organization). | `string` | n/a | yes |
 | <a name="input_project_parent"></a> [project\_parent](#input\_project\_parent) | Parent folder or organization in 'folders/folder\_id' or 'organizations/org\_id' format. | `string` | `null` | no |

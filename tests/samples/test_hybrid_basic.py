@@ -15,11 +15,10 @@
 
 import os
 import pytest
+import subprocess
 from .utils import *
 
 FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "../../samples/hybrid-basic")
-
-os.environ['KUBERNETES_MASTER'] = 'test-only'
 
 @pytest.fixture(scope="module")
 def resources(recursive_plan_runner):
@@ -34,12 +33,7 @@ def resources(recursive_plan_runner):
 
 def test_resource_count(resources):
     "Test total number of resources created."
-    assert len(resources) == 35
-
-def test_apigee_instance_attachment(resources):
-    "Test Apigee Instance Attachments."
-    assert_instance_attachment(resources, ["test1", "test2"])
-
+    assert len(resources) == 36
 
 def test_envgroup_attachment(resources):
     "Test Apigee Envgroup Attachments."
