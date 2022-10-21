@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.9.0](https://github.com/apigee/terraform-modules/compare/v0.8.0...v0.9.0) (2022-10-21)
+
+
+### Features
+
+* add instructions for installing hybrid ([16cf357](https://github.com/apigee/terraform-modules/commit/16cf357a11c4e74423e62cc4ff3848f711b89655))
+* better yaml splitting for sealed secrets in hybrid demo ([9e17cc3](https://github.com/apigee/terraform-modules/commit/9e17cc3eadaa45977eadaf1d843733d59f22490f))
+* configurable machine type for hybrid cluster ([f02db36](https://github.com/apigee/terraform-modules/commit/f02db36ae86a2bfd1b8d442bcc06e5867b360949))
+* hybrid example with reduced infra costs ([cedd1ff](https://github.com/apigee/terraform-modules/commit/cedd1ff9af41bd2fb95141d60040da3bf255a3ba))
+* **hybrid-basic:** deploy sealed secrets as helm chart ([b88ab1c](https://github.com/apigee/terraform-modules/commit/b88ab1c169d47e0d946ba8ba4507e1834dc1719b))
+* move cert manager to helm chart ([2aff39d](https://github.com/apigee/terraform-modules/commit/2aff39d0b8b728d2fd64733c187725c48a76be37))
+* replace csplit with awk for better multi-platform support ([a9b636b](https://github.com/apigee/terraform-modules/commit/a9b636b1dccbef2fc6ac8e63d02f9bc2efc57804))
+
 ## [0.8.0](https://github.com/apigee/terraform-modules/compare/v0.7.0...v0.8.0) (2022-10-13)
 
 
