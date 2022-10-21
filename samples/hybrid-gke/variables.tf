@@ -141,3 +141,9 @@ variable "deploy_sealed_secrets" {
   type        = bool
   default     = true
 }
+
+variable "kubernetes_access_token" {
+  description = "Kubernetes Access Token (set to null to use the default Google Auth Context)"
+  type        = string
+  default     = null
+}

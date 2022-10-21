@@ -46,6 +46,8 @@ To deploy the sample, first create a copy of the example variables and edit acco
 * [X with Multi Region](samples/x-multi-region) for an Apigee X setup in a Shared VPC exposed in multiple GCP Regions via a global L7 load balancer. Note that the sample uses an EVAL Apigee X Organization and hence a single Apigee X Instance only. In case you have a PROD Apigee X Organization then you will be able to easily extend the sample accordingly.
 * [X with IaC Automation Pipeline](samples/x-iac-pipeline) for an IaC Automation Pipeline Apigee X setup in a Shared VPC exposed in multiple GCP Regions via a global L7 load balancer. Note that the sample uses an EVAL Apigee X Organization and hence a single Apigee X Instance only. In case you have a PROD Apigee X Organization then you will be able to easily extend the sample accordingly.
 
+* [Hybrid on GKE (Preview)](samples/hybrid-gke) for an Apigee hybrid setup on Google Kubernetes Engine that uses the new [installation tooling](https://github.com/apigee/apigee-hybrid-install) based on kustomize.
+
 ```sh
 cd samples/... # Sample from above
 cp ./x-demo.tfvars ./my-config.tfvars
