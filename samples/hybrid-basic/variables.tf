@@ -114,24 +114,30 @@ variable "gke_cluster" {
 
 variable "node_preemptible_runtime" {
   description = "Use preemptible VMs for runtime node pool"
-  type = bool
-  default = null
+  type        = bool
+  default     = null
 }
 
 variable "node_locations_data" {
   description = "List of locations for the data node pool"
-  type = list(string)
-  default = null
+  type        = list(string)
+  default     = null
 }
 
 variable "node_machine_type_runtime" {
   description = "Machine type for runtime node pool"
-  type = string
-  default = "e2-standard-4"
+  type        = string
+  default     = "e2-standard-4"
 }
 
 variable "node_machine_type_data" {
   description = "Machine type for data node pool"
-  type = string
-  default = "e2-standard-4"
+  type        = string
+  default     = "e2-standard-4"
+}
+
+variable "deploy_sealed_secrets" {
+  description = "Deploy the sealed-secrets operator (see https://github.com/bitnami-labs/sealed-secrets)."
+  type        = bool
+  default     = true
 }

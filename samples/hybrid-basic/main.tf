@@ -146,7 +146,22 @@ resource "helm_release" "cert-manager" {
 
 }
 
+resource "helm_release" "sealed-secrets" {
+  count      = var.deploy_sealed_secrets ? 1 : 0
+  name       = "sealed-secrets-controller"
+  repository = "https://bitnami-labs.github.io/sealed-secrets"
+  chart      = "sealed-secrets"
+  version    = "2.7.0"
+  namespace  = "kube-system"
+
+  depends_on = [
+    module.gke-cluster
+  ]
+
+}
+
 resource "google_compute_firewall" "allow-master-kubeseal" {
+  count     = var.deploy_sealed_secrets ? 1 : 0
   project   = module.project.project_id
   name      = "gke-master-kubeseal"
   network   = module.vpc.self_link

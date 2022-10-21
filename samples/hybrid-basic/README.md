@@ -45,6 +45,11 @@ cd apigee-hybrid-install
 
 ### Seal the secrets (Optional but recommended for GitOps)
 
+By default the sealed secrets operator is installed as part of the terraform module.
+It allows you to create Kubernetes secrets as encrypted secrets that can only be decrypted by the Kubernetes master.
+
+If you wish to hold on to the unencrypted secrets or manage your secrets using another mechanism you can skip this section.
+
 Prerequisites admin workstation:
 
 * [kubeseal](https://github.com/bitnami-labs/sealed-secrets#overview)
@@ -55,8 +60,7 @@ seal_secret () {
   echo "Sealing Secret in: $secret_file_name"
   plain_file_name="$(dirname $secret_file_name)/plain.$(basename $secret_file_name)"
   echo "Plain Secret is still available in $plain_file_name"
-  mv "kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.18.5/controller.yaml
-$secret_file_name" "$plain_file_name"
+  mv "$secret_file_name" "$plain_file_name"
 
   if grep -q -- '---' "$plain_file_name"; then
     parent_dir=$(dirname $plain_file_name)
@@ -84,7 +88,7 @@ for INSTANCE_DIR in ${INSTALL_DIR}/overlays/instances/*; do
 done
 ```
 
-Check the Sealed Secrets and remove the plain text
+Check the sealed secrets and remove the plain text
 
 ```
 find . -type f -name 'plain.secrets.yaml' -delete
