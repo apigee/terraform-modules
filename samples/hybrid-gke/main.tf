@@ -23,7 +23,7 @@ data "google_client_config" "provider" {}
 provider "helm" {
   kubernetes {
     host  = "https://${module.gke-cluster.endpoint}"
-    token = var.kubernetes_access_token != null ? var.kubernetes_access_token : data.google_client_config.provider.access_token
+    token = data.google_client_config.provider.access_token
     cluster_ca_certificate = base64decode(
       module.gke-cluster.ca_certificate,
     )
