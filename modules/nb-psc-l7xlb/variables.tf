@@ -41,17 +41,18 @@ variable "name" {
   type        = string
 }
 
-variable "neg_single_region" {
-  description = "Apigee instance to use for NEG (can only be one at this point)."
-  type        = string
-}
-
 variable "network" {
   description = "Network for the PSC NEG"
   type        = string
 }
 
-variable "subnet" {
-  description = "Subnetwork for the PSC NEG"
+variable "security_policy" {
+  description = "(Optional) The security policy associated with this backend service."
   type        = string
+  default     = null
+}
+
+variable "psc_negs" {
+  description = "List of PSC NEGs to be used as backends."
+  type        = list(string)
 }

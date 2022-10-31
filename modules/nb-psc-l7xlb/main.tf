@@ -14,27 +14,18 @@
  * limitations under the License.
  */
 
-resource "google_compute_region_network_endpoint_group" "psc_neg" {
-  project               = var.project_id
-  name                  = "psc-neg-${var.neg_single_region}"
-  region                = var.neg_single_region
-  network               = var.network
-  subnetwork            = var.subnet
-  network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
-  psc_target_service    = var.psc_service_attachments[var.neg_single_region]
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 resource "google_compute_backend_service" "psc_backend" {
   project               = var.project_id
-  name                  = "psc-neg-backend"
+  name                  = "${var.name}-backend"
   port_name             = "https"
   protocol              = "HTTPS"
   load_balancing_scheme = "EXTERNAL_MANAGED"
-  backend {
-    group = google_compute_region_network_endpoint_group.psc_neg.id
+  security_policy       = var.security_policy
+  dynamic "backend" {
+    for_each = var.psc_negs
+    content {
+      group = backend.value
+    }
   }
   lifecycle {
     create_before_destroy = true
@@ -49,14 +40,14 @@ resource "google_compute_url_map" "url_map" {
 
 resource "google_compute_target_https_proxy" "https_proxy" {
   project          = var.project_id
-  name             = "${var.name}-target-proxy"
+  name             = "${var.name}-proxy"
   url_map          = google_compute_url_map.url_map.id
   ssl_certificates = [var.ssl_certificate]
 }
 
 resource "google_compute_global_forwarding_rule" "forwarding_rule" {
   project               = var.project_id
-  name                  = "${var.name}-forwarding-rule"
+  name                  = "${var.name}-fr"
   target                = google_compute_target_https_proxy.https_proxy.id
   ip_address            = var.external_ip != null ? var.external_ip : null
   port_range            = "443"

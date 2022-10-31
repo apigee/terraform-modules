@@ -63,7 +63,7 @@ def test_vpcs(resources):
         if r["type"] == "google_compute_network"
     ]
     assert len(attachments) == 2
-    assert set(a["name"] for a in attachments) == set(["apigee-network", "default"])
+    assert set(a["name"] for a in attachments) == set(["apigee-network", "psc-ingress"])
 
 def test_same_region(resources):
     "Test that Apigee instance and the NEG are in the same region."

@@ -5,15 +5,12 @@
 Please see the main [README](https://github.com/apigee/terraform-modules#deploying-end-to-end-samples)
 for detailed instructions.
 
-## Limitations
-
-* Currently only one PSC NEG is supported on an XLB
-* PSC NEG needs to be in the same region as the Apigee instance
-
 <!-- BEGIN_TF_DOCS -->
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
 
 ## Modules
 
@@ -23,12 +20,14 @@ No providers.
 | <a name="module_nb-psc-l7xlb"></a> [nb-psc-l7xlb](#module\_nb-psc-l7xlb) | ../../modules/nb-psc-l7xlb | n/a |
 | <a name="module_nip-development-hostname"></a> [nip-development-hostname](#module\_nip-development-hostname) | ../../modules/nip-development-hostname | n/a |
 | <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v16.0.0 |
+| <a name="module_psc-ingress-vpc"></a> [psc-ingress-vpc](#module\_psc-ingress-vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v16.0.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v16.0.0 |
-| <a name="module_vpc-ingress"></a> [vpc-ingress](#module\_vpc-ingress) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v16.0.0 |
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [google_compute_region_network_endpoint_group.psc_neg](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_region_network_endpoint_group) | resource |
 
 ## Inputs
 
@@ -39,13 +38,13 @@ No resources.
 | <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one for EVAL). | <pre>map(object({<br>    region       = string<br>    ip_range     = string<br>    environments = list(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
 | <a name="input_billing_account"></a> [billing\_account](#input\_billing\_account) | Billing account id. | `string` | `null` | no |
-| <a name="input_exposure_subnets"></a> [exposure\_subnets](#input\_exposure\_subnets) | Subnets for exposing Apigee services | <pre>list(object({<br>    name               = string<br>    ip_cidr_range      = string<br>    region             = string<br>    secondary_ip_range = map(string)<br>  }))</pre> | `[]` | no |
-| <a name="input_neg_single_region"></a> [neg\_single\_region](#input\_neg\_single\_region) | Apigee instance to use for NEG (can only be one at this point). | `string` | n/a | yes |
 | <a name="input_network"></a> [network](#input\_network) | VPC name. | `string` | n/a | yes |
 | <a name="input_peering_range"></a> [peering\_range](#input\_peering\_range) | Peering CIDR range | `string` | n/a | yes |
 | <a name="input_project_create"></a> [project\_create](#input\_project\_create) | Create project. When set to false, uses a data source to reference existing project. | `bool` | `false` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id (also used for the Apigee Organization). | `string` | n/a | yes |
 | <a name="input_project_parent"></a> [project\_parent](#input\_project\_parent) | Parent folder or organization in 'folders/folder\_id' or 'organizations/org\_id' format. | `string` | `null` | no |
+| <a name="input_psc_ingress_network"></a> [psc\_ingress\_network](#input\_psc\_ingress\_network) | PSC ingress VPC name. | `string` | n/a | yes |
+| <a name="input_psc_ingress_subnets"></a> [psc\_ingress\_subnets](#input\_psc\_ingress\_subnets) | Subnets for exposing Apigee services via PSC | <pre>list(object({<br>    name               = string<br>    ip_cidr_range      = string<br>    region             = string<br>    secondary_ip_range = map(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_support_range"></a> [support\_range](#input\_support\_range) | Support CIDR range of length /28 (required by Apigee for troubleshooting purposes). | `string` | n/a | yes |
 
 ## Outputs

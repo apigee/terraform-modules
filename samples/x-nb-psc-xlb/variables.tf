@@ -49,17 +49,6 @@ variable "apigee_instances" {
   default = {}
 }
 
-variable "exposure_subnets" {
-  description = "Subnets for exposing Apigee services"
-  type = list(object({
-    name               = string
-    ip_cidr_range      = string
-    region             = string
-    secondary_ip_range = map(string)
-  }))
-  default = []
-}
-
 variable "network" {
   description = "VPC name."
   type        = string
@@ -97,8 +86,19 @@ variable "project_create" {
   default     = false
 }
 
-
-variable "neg_single_region" {
-  description = "Apigee instance to use for NEG (can only be one at this point)."
+variable "psc_ingress_network" {
+  description = "PSC ingress VPC name."
   type        = string
 }
+
+variable "psc_ingress_subnets" {
+  description = "Subnets for exposing Apigee services via PSC"
+  type = list(object({
+    name               = string
+    ip_cidr_range      = string
+    region             = string
+    secondary_ip_range = map(string)
+  }))
+  default = []
+}
+

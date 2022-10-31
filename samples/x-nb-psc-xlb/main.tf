@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
+locals {
+  psc_subnet_region_name = { for subnet in var.psc_ingress_subnets :
+    subnet.region => "${subnet.region}/${subnet.name}"
+  }
+}
+
 module "project" {
   source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v16.0.0"
   name            = var.project_id
@@ -32,7 +38,6 @@ module "vpc" {
   source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v16.0.0"
   project_id = module.project.project_id
   name       = var.network
-  subnets    = var.exposure_subnets
   psa_config = {
     ranges = {
       apigee-range         = var.peering_range
@@ -64,26 +69,35 @@ module "apigee-x-core" {
   network = module.vpc.network.id
 }
 
-# currently the VPC is hard coded to use the default network
-# see https://github.com/hashicorp/terraform-provider-google/issues/11631#issuecomment-1137049176
-module "vpc-ingress" {
+module "psc-ingress-vpc" {
   source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v16.0.0"
   project_id              = module.project.project_id
-  name                    = "default"
-  auto_create_subnetworks = true
+  name                    = var.psc_ingress_network
+  auto_create_subnetworks = false
+  subnets                 = var.psc_ingress_subnets
+}
+
+resource "google_compute_region_network_endpoint_group" "psc_neg" {
+  project               = var.project_id
+  for_each              = var.apigee_instances
+  name                  = "psc-neg-${each.value.region}"
+  region                = each.value.region
+  network               = module.psc-ingress-vpc.network.id
+  subnetwork            = module.psc-ingress-vpc.subnet_self_links[local.psc_subnet_region_name[each.value.region]]
+  network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
+  psc_target_service    = module.apigee-x-core.instance_service_attachments[each.value.region]
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 module "nb-psc-l7xlb" {
   source                  = "../../modules/nb-psc-l7xlb"
   project_id              = module.project.project_id
   name                    = "apigee-xlb-psc"
-  network                 = module.vpc.network.id
-  subnet                  = module.vpc.subnet_self_links["${var.neg_single_region}/apigee-psc"]
+  network                 = module.psc-ingress-vpc.network.id
   psc_service_attachments = module.apigee-x-core.instance_service_attachments
   ssl_certificate         = module.nip-development-hostname.ssl_certificate
   external_ip             = module.nip-development-hostname.ip_address
-  neg_single_region       = var.neg_single_region
-  depends_on = [
-    module.vpc-ingress
-  ]
+  psc_negs                = [for _, psc_neg in google_compute_region_network_endpoint_group.psc_neg : psc_neg.id]
 }
