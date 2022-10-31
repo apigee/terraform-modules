@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.10.0](https://github.com/apigee/terraform-modules/compare/v0.9.0...v0.10.0) (2022-10-31)
+
+
+### Features
+
+* adding PSC NB support for custom VPCs and PSC NEGs in multiple regions ([b2fbd7f](https://github.com/apigee/terraform-modules/commit/b2fbd7f5f452a363ac8e01b6ea5aef534db1b5a3))
+
+
+### Bug Fixes
+
+* reference breaking hyperlink ([85cb9d7](https://github.com/apigee/terraform-modules/commit/85cb9d7d7d9a9361756bd320c13e84aee2862b3c))
+
 ## [0.9.0](https://github.com/apigee/terraform-modules/compare/v0.8.0...v0.9.0) (2022-10-21)
 
 
