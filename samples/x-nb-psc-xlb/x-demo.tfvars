@@ -35,9 +35,11 @@ apigee_envgroups = {
 
 network = "apigee-network"
 
-exposure_subnets = [
+psc_ingress_network = "psc-ingress"
+
+psc_ingress_subnets = [
   {
-    name               = "apigee-psc"
+    name               = "apigee-psc-euw1"
     ip_cidr_range      = "10.100.0.0/24"
     region             = "europe-west1"
     secondary_ip_range = null
@@ -46,5 +48,3 @@ exposure_subnets = [
 
 peering_range = "10.0.0.0/22"
 support_range = "10.1.0.0/28"
-
-neg_single_region = "europe-west1"
