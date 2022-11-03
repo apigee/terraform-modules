@@ -33,7 +33,7 @@ module "bridge-template" {
     alias_ips  = null
   }]
   boot_disk = {
-    image = "debian-cloud/debian-10"
+    image = "debian-cloud/debian-11"
     type  = "pd-standard"
     size  = 20
   }
