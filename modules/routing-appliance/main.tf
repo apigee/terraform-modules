@@ -56,7 +56,7 @@ module "routing-appliance-template" {
     alias_ips  = null
   }]
   boot_disk = {
-    image = "projects/debian-cloud/global/images/family/debian-10"
+    image = "projects/debian-cloud/global/images/family/debian-11"
     type  = "pd-standard"
     size  = 10
   }
