@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.12.0](https://github.com/apigee/terraform-modules/compare/v0.11.0...v0.12.0) (2022-11-11)
+
+
+### Features
+
+* cloud build for hybrid resources ([0109373](https://github.com/apigee/terraform-modules/commit/0109373ca3964ba74d7d57b7f1ef923b931c5826))
+
+
+### Bug Fixes
+
+* remove cloud build default substitution values ([d61f5a7](https://github.com/apigee/terraform-modules/commit/d61f5a795cff1299451ba0a8a788845252b18f91))
+
 ## [0.11.0](https://github.com/apigee/terraform-modules/compare/v0.10.0...v0.11.0) (2022-11-03)
 
 
