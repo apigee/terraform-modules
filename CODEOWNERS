@@ -1,13 +1,1 @@
-*       @danistrebel
-
-modules/apigee-x-bridge-mig             @danistrebel
-modules/apigee-x-core                   @danistrebel
-modules/apigee-x-mtls-mig               @danistrebel
-modules/mig-l7xlb                       @danistrebel
-modules/nip-development-hostname        @danistrebel
-
-samples/x-basic                         @danistrebel
-samples/x-dns-peering                   @danistrebel
-samples/x-ilb-mtls                      @danistrebel
-samples/x-l7xlb                         @danistrebel
-samples/x-transitive-peering            @danistrebel
+*       @danistrebel @g-greatdevaks
