@@ -1,0 +1,84 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+steps:
+  - id: apply CRDs
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        # Get cluster credentials
+        gcloud container clusters get-credentials "$_CLUSTER_NAME" --region "$_CLUSTER_REGION" --project "$PROJECT_ID"
+        kubectl apply --server-side --force-conflicts -k apigee-hybrid-install/overlays/initialization/crds
+
+  - id: apply controller
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        # Get cluster credentials
+        gcloud container clusters get-credentials "$_CLUSTER_NAME" --region "$_CLUSTER_REGION" --project "$PROJECT_ID"
+        kubectl apply -f apigee-hybrid-install/overlays/initialization/namespace.yaml
+        kubectl apply -k apigee-hybrid-install/overlays/initialization/certificates
+        kubectl apply -k apigee-hybrid-install/overlays/initialization/webhooks
+        kubectl apply -k apigee-hybrid-install/overlays/initialization/rbac
+        kubectl apply -k apigee-hybrid-install/overlays/initialization/ingress
+        kubectl apply -k apigee-hybrid-install/overlays/controllers
+
+        echo "Waiting for the controller to be available"
+        kubectl wait deployment/apigee-controller-manager deployment/apigee-ingressgateway-manager -n apigee --for=condition=available --timeout=2m
+
+  - id: apply instance config
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        # Get cluster credentials
+        gcloud container clusters get-credentials "$_CLUSTER_NAME" --region "$_CLUSTER_REGION" --project "$PROJECT_ID"
+        for INSTANCE_DIR in apigee-hybrid-install/overlays/instances/*; do
+          echo "Configuring instance $$INSTANCE_DIR"
+          kubectl apply -f $${INSTANCE_DIR}/datastore/secrets.yaml
+          kubectl apply -f $${INSTANCE_DIR}/redis/secrets.yaml
+          for ENV_DIR in $${INSTANCE_DIR}/environments/*/; do
+            kubectl apply -f $${ENV_DIR}secrets.yaml
+          done
+          kubectl apply -f $${INSTANCE_DIR}/organization/secrets.yaml
+
+          kubectl kustomize $${INSTANCE_DIR} --reorder none | kubectl apply -f -
+        done
+
+
+  - id: print connectivity information
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        # Get cluster credentials
+        gcloud container clusters get-credentials "$_CLUSTER_NAME" --region "$_CLUSTER_REGION" --project "$PROJECT_ID"
+        INGRESS_IP=$$(kubectl get service -n apigee -l app=apigee-ingressgateway --output jsonpath='{.items[0].status.loadBalancer.ingress[0].ip}')
+        echo "******************************"
+        echo "Please wait for Apigee Resources to be scheduled."
+        echo "******************************"
+        echo "Once your cluster deployed you can reach your ingress with the following command:"
+        echo "curl -kv --resolve $_INGRESS_DOMAIN:443:$$INGRESS_IP https://$_INGRESS_DOMAIN/my-proxy"
+substitutions:
+  # Name of tke k8s cluster where Apigee should be installed
+  _CLUSTER_NAME: "hybrid-cluster"
+  _CLUSTER_REGION: "europe-west1"
+  _INGRESS_DOMAIN: "test.api.example.com"

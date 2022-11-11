@@ -29,7 +29,7 @@ gcloud container clusters get-credentials "$CLUSTER_NAME" --region "$CLUSTER_REG
 
 ### Prepare the Workload Configuration
 
-```
+```sh
 git clone https://github.com/apigee/apigee-hybrid-install.git
 cd apigee-hybrid-install
 
@@ -41,6 +41,17 @@ cd apigee-hybrid-install
   --cluster-name "$CLUSTER_NAME" \
   --cluster-region "$CLUSTER_REGION" \
   --gcp-project-id "$PROJECT_ID"
+```
+
+and enable the sychonrizer for accessing the control plane
+
+```sh
+TOKEN=$(gcloud auth print-access-token)
+
+curl -X POST -H "Authorization: Bearer ${TOKEN}" \
+  -H "Content-Type:application/json" \
+  "https://apigee.googleapis.com/v1/organizations/${PROJECT_ID}:setSyncAuthorization" \
+   -d "{\"identities\":[\"serviceAccount:apigee-all-sa@${PROJECT_ID}.iam.gserviceaccount.com\"]}"
 ```
 
 ### Seal the secrets (Optional but recommended for GitOps)
@@ -95,7 +106,21 @@ find . -type f -name 'plain.secrets.yaml' -delete
 ```
 
 
-### Apply the k8s resources on the cluster
+## Apply the k8s resources on the cluster
+
+### Option 1 Cloudbuild
+
+```sh
+PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member="serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com" \
+    --role="roles/container.admin"
+
+cd .. # go to samples/hybrid-gke folder
+gcloud builds submit --substitutions="_CLUSTER_NAME=$CLUSTER_NAME,_CLUSTER_REGION=$CLUSTER_REGION,_INGRESS_DOMAIN=$INGRESS_DOMAIN" --project $PROJECT_ID
+```
+
+### Option 2 Apply one by one
 
 ```sh
 INSTALL_DIR=$(pwd)
