@@ -77,8 +77,9 @@ steps:
         echo "******************************"
         echo "Once your cluster deployed you can reach your ingress with the following command:"
         echo "curl -kv --resolve $_INGRESS_DOMAIN:443:$$INGRESS_IP https://$_INGRESS_DOMAIN/my-proxy"
-substitutions:
-  # Name of tke k8s cluster where Apigee should be installed
-  _CLUSTER_NAME: "hybrid-cluster"
-  _CLUSTER_REGION: "europe-west1"
-  _INGRESS_DOMAIN: "test.api.example.com"
+
+# Make sure you pass the following substitutions when running this cloud build job:
+# substitutions:
+#   _CLUSTER_NAME: "hybrid-cluster"
+#   _CLUSTER_REGION: "europe-west1"
+#   _INGRESS_DOMAIN: "test.api.example.com"
