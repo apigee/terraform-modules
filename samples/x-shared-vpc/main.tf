@@ -95,12 +95,11 @@ module "apigee-x-core" {
   source              = "../../modules/apigee-x-core"
   project_id          = module.service-project.project_id
   ax_region           = var.ax_region
-  apigee_instances    = var.apigee_instances
   apigee_environments = var.apigee_environments
+  apigee_instances    = var.apigee_instances
   apigee_envgroups = {
     for name, env_group in var.apigee_envgroups : name => {
-      environments = env_group.environments
-      hostnames    = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
+      hostnames = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
     }
   }
   network = module.shared-vpc.network.id

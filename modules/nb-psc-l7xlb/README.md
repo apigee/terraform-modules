@@ -31,7 +31,6 @@ No modules.
 | <a name="input_psc_service_attachments"></a> [psc\_service\_attachments](#input\_psc\_service\_attachments) | Map of region to service attachment ID (currently only one map entry is allowed). | `map(string)` | `{}` | no |
 | <a name="input_security_policy"></a> [security\_policy](#input\_security\_policy) | (Optional) The security policy associated with this backend service. | `string` | `null` | no |
 | <a name="input_ssl_certificate"></a> [ssl\_certificate](#input\_ssl\_certificate) | SSL certificate for the HTTPS LB. | `string` | n/a | yes |
-| <a name="input_subnet"></a> [subnet](#input\_subnet) | Subnetwork for the PSC NEG | `string` | n/a | yes |
 
 ## Outputs
 

@@ -54,14 +54,15 @@ module "vpc" {
   subnets    = var.subnets
 }
 
-
 module "apigee" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization?ref=v16.0.0"
-  project_id          = module.project.project_id
-  analytics_region    = var.ax_region
-  runtime_type        = "HYBRID"
-  apigee_environments = var.apigee_environments
-  apigee_envgroups    = var.apigee_envgroups
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=daily-2022.11.28"
+  project_id = var.project_id
+  organization = {
+    runtime_type     = "HYBRID"
+    analytics_region = var.ax_region
+  }
+  envgroups    = local.envgroups
+  environments = var.apigee_environments
 }
 
 module "gke-cluster" {

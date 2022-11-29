@@ -44,11 +44,12 @@ def test_apigee_instance(resources):
 
 def test_apigee_instance_attachment(resources):
     "Test Apigee Instance Attachments."
-    assert_instance_attachment(resources, ["test1", "test2"])
+    assert_instance_attachment(resources, ["euw1-instance-test1", "euw1-instance-test2"])
 
 
 def test_envgroup_attachment(resources):
     "Test Apigee Envgroup Attachments."
+    pprint.pprint(resources)
     assert_envgroup_attachment(resources, ["test1", "test2"])
 
 

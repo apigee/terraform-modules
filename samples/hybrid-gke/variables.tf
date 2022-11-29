@@ -27,16 +27,20 @@ variable "ax_region" {
 variable "apigee_envgroups" {
   description = "Apigee Environment Groups."
   type = map(object({
-    environments = list(string)
-    hostnames    = list(string)
+    hostnames = list(string)
   }))
   default = {}
 }
 
 variable "apigee_environments" {
-  description = "List of Apigee Environment Names."
-  type        = list(string)
-  default     = []
+  description = "Apigee Environments."
+  type = map(object({
+    display_name = optional(string)
+    description  = optional(string)
+    iam          = optional(map(list(string)))
+    envgroups    = list(string)
+  }))
+  default = null
 }
 
 variable "billing_account" {

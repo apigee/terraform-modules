@@ -58,15 +58,10 @@ module "apigee-x-core" {
   source              = "../../modules/apigee-x-core"
   project_id          = module.project.project_id
   ax_region           = var.ax_region
-  apigee_instances    = var.apigee_instances
   apigee_environments = var.apigee_environments
-  apigee_envgroups = {
-    for name, env_group in var.apigee_envgroups : name => {
-      environments = env_group.environments
-      hostnames    = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
-    }
-  }
-  network = module.vpc.network.id
+  apigee_envgroups    = var.apigee_envgroups
+  apigee_instances    = var.apigee_instances
+  network             = module.vpc.network.id
 }
 
 module "psc-ingress-vpc" {

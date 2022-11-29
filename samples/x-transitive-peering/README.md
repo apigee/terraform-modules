@@ -54,9 +54,9 @@ for detailed instructions.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    environments = list(string)<br>    hostnames    = list(string)<br>  }))</pre> | `{}` | no |
-| <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environment Names. | `list(string)` | `[]` | no |
-| <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one for EVAL). | <pre>map(object({<br>    region       = string<br>    ip_range     = string<br>    environments = list(string)<br>  }))</pre> | `{}` | no |
+| <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    hostnames    = list(string)<br>  }))</pre> | `null` | no |
+| <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environments. | <pre>map(object({<br>    display_name = optional(string)<br>    description  = optional(string)<br>    node_config = optional(object({<br>      min_node_count               = optional(number)<br>      max_node_count               = optional(number)<br>      current_aggregate_node_count = number<br>    }))<br>    iam       = optional(map(list(string)))<br>    envgroups = list(string)<br>  }))</pre> | `null` | no |
+| <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL orgs). | <pre>map(object({<br>    region       = string<br>    ip_range     = string<br>    environments = list(string)<br>  }))</pre> | `null` | no |
 | <a name="input_apigee_network"></a> [apigee\_network](#input\_apigee\_network) | Apigee VPC name. | `string` | n/a | yes |
 | <a name="input_appliance_forwarded_ranges"></a> [appliance\_forwarded\_ranges](#input\_appliance\_forwarded\_ranges) | CDIR ranges that should route via the network appliance | <pre>map(object({<br>    range    = string<br>    priority = number<br>  }))</pre> | `{}` | no |
 | <a name="input_appliance_name"></a> [appliance\_name](#input\_appliance\_name) | Name for the routing appliance | `string` | `"routing-appliance"` | no |
