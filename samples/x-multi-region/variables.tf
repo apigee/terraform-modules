@@ -33,26 +33,35 @@ variable "ax_region" {
 variable "apigee_envgroups" {
   description = "Apigee Environment Groups."
   type = map(object({
-    environments = list(string)
-    hostnames    = list(string)
+    hostnames = list(string)
   }))
-  default = {}
-}
-
-variable "apigee_environments" {
-  description = "Apigee Environment Names."
-  type        = list(string)
-  default     = []
+  default = null
 }
 
 variable "apigee_instances" {
-  description = "Apigee Instances (only one for EVAL)."
+  description = "Apigee Instances (only one instance for EVAL orgs)."
   type = map(object({
     region       = string
     ip_range     = string
     environments = list(string)
   }))
-  default = {}
+  default = null
+}
+
+variable "apigee_environments" {
+  description = "Apigee Environments."
+  type = map(object({
+    display_name = optional(string)
+    description  = optional(string)
+    node_config = optional(object({
+      min_node_count               = optional(number)
+      max_node_count               = optional(number)
+      current_aggregate_node_count = number
+    }))
+    iam       = optional(map(list(string)))
+    envgroups = list(string)
+  }))
+  default = null
 }
 
 variable "exposure_subnets" {

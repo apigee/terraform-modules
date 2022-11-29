@@ -16,21 +16,23 @@
 
 ax_region = "europe-west1"
 
-apigee_environments = ["test1"]
+apigee_environments = {
+  test1 = {
+    envgroups = ["test"]
+  }
+}
 
+apigee_envgroups = {
+  test = {
+    hostnames    = ["test.api.example.com"]
+  }
+}
 apigee_instances = {
   # Single instance only for eval, add a second instance for prod setups
   euw1-instance = {
     region       = "europe-west1"
     ip_range     = "10.0.0.0/22"
     environments = ["test1"]
-  }
-}
-
-apigee_envgroups = {
-  test = {
-    environments = ["test1"]
-    hostnames    = ["test.api.example.com"]
   }
 }
 

@@ -14,6 +14,16 @@
  * limitations under the License.
  */
 
+locals {
+  envgroups = { for key, value in var.apigee_envgroups : key => value.hostnames }
+  instances = { for key, value in var.apigee_instances : key => {
+    region              = value.region
+    environments        = value.environments
+    psa_ip_cidr_range   = value.ip_range
+    disk_encryption_key = module.kms-inst-disk[key].key_ids["inst-disk"]
+  } }
+}
+
 resource "google_project_service_identity" "apigee_sa" {
   provider = google-beta
   project  = var.project_id
@@ -21,7 +31,7 @@ resource "google_project_service_identity" "apigee_sa" {
 }
 
 module "kms-org-db" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v16.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=daily-2022.11.28"
   project_id = var.project_id
   key_iam = {
     org-db = {
@@ -37,25 +47,9 @@ module "kms-org-db" {
   }
 }
 
-module "apigee" {
-  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization?ref=v16.0.0"
-  project_id              = var.project_id
-  analytics_region        = var.ax_region
-  runtime_type            = "CLOUD"
-  billing_type            = var.billing_type
-  authorized_network      = var.network
-  database_encryption_key = module.kms-org-db.key_ids["org-db"]
-  apigee_environments     = var.apigee_environments
-  apigee_envgroups        = var.apigee_envgroups
-  depends_on = [
-    google_project_service_identity.apigee_sa,
-    module.kms-org-db.id
-  ]
-}
-
 module "kms-inst-disk" {
   for_each   = var.apigee_instances
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v16.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=daily-2022.11.28"
   project_id = var.project_id
   key_iam = {
     inst-disk = {
@@ -71,17 +65,19 @@ module "kms-inst-disk" {
   }
 }
 
-module "apigee-x-instance" {
-  for_each            = var.apigee_instances
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-x-instance?ref=v16.0.0"
-  apigee_org_id       = module.apigee.org_id
-  name                = each.key
-  region              = each.value.region
-  ip_range            = each.value.ip_range
-  apigee_environments = each.value.environments
-  disk_encryption_key = module.kms-inst-disk[each.key].key_ids["inst-disk"]
-  depends_on = [
-    google_project_service_identity.apigee_sa,
-    module.kms-inst-disk.self_link
-  ]
+module "apigee" {
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=daily-2022.11.28"
+  project_id = var.project_id
+  organization = {
+    display_name            = var.org_display_name
+    description             = var.org_description
+    authorized_network      = var.network
+    runtime_type            = "CLOUD"
+    billing_type            = var.billing_type
+    database_encryption_key = module.kms-org-db.key_ids["org-db"]
+    analytics_region        = var.ax_region
+  }
+  envgroups    = local.envgroups
+  environments = var.apigee_environments
+  instances    = local.instances
 }

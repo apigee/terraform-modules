@@ -1,5 +1,7 @@
 # NIP.io Hostname for Development
 
+Creates an external IP address and a Google-managed certificate (for the hostname encoded IP) to be used with an external load balancer during development.
+
 <!-- BEGIN_TF_DOCS -->
 ## Providers
 

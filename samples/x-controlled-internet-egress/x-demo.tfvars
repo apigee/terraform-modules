@@ -16,12 +16,18 @@
 
 ax_region = "europe-west1"
 
-apigee_environments = ["test1", "test2"]
+apigee_environments = {
+  test1 = {
+    envgroups = ["test"]
+  }
+  test2 = {
+    envgroups = ["test"]
+  }
+}
 
 apigee_envgroups = {
   test = {
-    environments = ["test1", "test2"]
-    hostnames    = ["test.api.example.com"]
+    hostnames = ["test.api.example.com"]
   }
 }
 
@@ -40,8 +46,8 @@ support_range = "10.1.0.0/28"
 
 firewall_appliance_zone = "europe-west1-c"
 firewall_appliance_subnet = {
-  name = "egress"
-  region = "europe-west1"
-  ip_cidr_range = "10.100.0.0/28"
+  name               = "egress"
+  region             = "europe-west1"
+  ip_cidr_range      = "10.100.0.0/28"
   secondary_ip_range = null
 }

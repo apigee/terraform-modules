@@ -61,8 +61,7 @@ module "apigee-x-core" {
   ax_region           = var.ax_region
   apigee_envgroups = {
     for name, env_group in var.apigee_envgroups : name => {
-      environments = env_group.environments
-      hostnames    = concat(env_group.hostnames, [local.env_group_internal_hostnames[name]])
+      hostnames = concat(env_group.hostnames, [local.env_group_internal_hostnames[name]])
     }
   }
   network          = module.vpc.network.id

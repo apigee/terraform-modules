@@ -19,6 +19,18 @@ variable "project_id" {
   type        = string
 }
 
+variable "org_display_name" {
+  description = "Apigee org display name"
+  type        = string
+  default     = null
+}
+
+variable "org_description" {
+  description = "Apigee org description"
+  type        = string
+  default     = "Apigee org created in TF"
+}
+
 variable "ax_region" {
   description = "GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli)."
   type        = string
@@ -38,16 +50,25 @@ variable "billing_type" {
 variable "apigee_envgroups" {
   description = "Apigee Environment Groups."
   type = map(object({
-    environments = list(string)
-    hostnames    = list(string)
+    hostnames = list(string)
   }))
   default = {}
 }
 
 variable "apigee_environments" {
-  description = "Apigee Environment Names."
-  type        = list(string)
-  default     = []
+  description = "Apigee Environments."
+  type = map(object({
+    display_name = optional(string)
+    description  = optional(string)
+    node_config = optional(object({
+      min_node_count               = optional(number)
+      max_node_count               = optional(number)
+      current_aggregate_node_count = number
+    }))
+    iam       = optional(map(list(string)))
+    envgroups = list(string)
+  }))
+  default = null
 }
 
 variable "apigee_instances" {

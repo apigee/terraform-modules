@@ -17,21 +17,21 @@
 output "instance_endpoints" {
   description = "Map of instance name -> internal runtime endpoint IP address"
   value = tomap({
-    for name, instance in module.apigee-x-instance : name => instance.endpoint
+    for name, instance in module.apigee.instances : name => instance.host
   })
 }
 
 output "instance_service_attachments" {
   description = "Map of instance region -> instance PSC service attachment"
   value = tomap({
-    for name, instance in module.apigee-x-instance : instance.instance.location => instance.instance.service_attachment
+    for name, instance in module.apigee.instances : instance.location => instance.service_attachment
   })
 }
 
 output "instance_map" {
   description = "Map of instance region -> instance object"
   value = tomap({
-    for name, instance in module.apigee-x-instance : instance.instance.location => instance.instance
+    for name, instance in module.apigee.instances : instance.location => instance
   })
 }
 
@@ -42,10 +42,15 @@ output "org_id" {
 
 output "organization" {
   description = "Apigee Organization."
-  value       = module.apigee.org
+  value       = module.apigee.organization
 }
 
 output "environments" {
-  description = "Apigee Organization ID"
-  value       = module.apigee.envs
+  description = "Apigee Environments"
+  value       = module.apigee.environments
+}
+
+output "envgroups" {
+  description = "Apigee Environment Groups"
+  value       = module.apigee.envgroups
 }

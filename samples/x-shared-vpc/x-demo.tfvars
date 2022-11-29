@@ -16,8 +16,6 @@
 
 ax_region = "europe-west1"
 
-apigee_environments = ["test1", "test2"]
-
 apigee_instances = {
   euw1-instance = {
     region       = "europe-west1"
@@ -26,10 +24,18 @@ apigee_instances = {
   }
 }
 
+apigee_environments = {
+  test1 = {
+    envgroups = ["test"]
+  }
+  test2 = {
+    envgroups = ["test"]
+  }
+}
+
 apigee_envgroups = {
   test = {
-    environments = ["test1", "test2"]
-    hostnames    = ["test.api.example.com"]
+    hostnames = ["test.api.example.com"]
   }
 }
 
@@ -44,5 +50,5 @@ exposure_subnets = [
   }
 ]
 
-peering_range  = "10.0.0.0/22"
-support_range  = "10.1.0.0/28"
+peering_range = "10.0.0.0/22"
+support_range = "10.1.0.0/28"
