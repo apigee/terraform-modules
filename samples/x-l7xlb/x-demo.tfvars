@@ -23,12 +23,21 @@ apigee_instances = {
     environments = ["test1", "test2"]
   }
 }
+
 apigee_environments = {
   test1 = {
-    envgroups = ["test"]
+    display_name = "Test 1"
+    description  = "Environment created by apigee/terraform-modules"
+    node_config  = null
+    iam          = null
+    envgroups    = ["test"]
   }
   test2 = {
-    envgroups = ["test"]
+    display_name = "Test 2"
+    description  = "Environment created by apigee/terraform-modules"
+    node_config  = null
+    iam          = null
+    envgroups    = ["test"]
   }
 }
 
