@@ -18,13 +18,17 @@ ax_region = "europe-west1"
 
 apigee_environments = {
   test1 = {
-    envgroups = ["test"]
+    display_name = "Test 1"
+    description  = "Environment created by apigee/terraform-modules"
+    node_config  = null
+    iam          = null
+    envgroups    = ["test"]
   }
 }
 
 apigee_envgroups = {
   test = {
-    hostnames    = ["test.api.example.com"]
+    hostnames = ["test.api.example.com"]
   }
 }
 apigee_instances = {

@@ -205,7 +205,7 @@ curl -kv --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-p
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    hostnames    = list(string)<br>  }))</pre> | `{}` | no |
-| <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environments. | <pre>map(object({<br>    display_name = optional(string)<br>    description  = optional(string)<br>    iam       = optional(map(list(string)))<br>    envgroups = list(string)<br>  }))</pre> | `null` | no |
+| <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environments. | <pre>map(object({<br>    display_name = string<br>    description  = string<br>    iam       = optional(map(list(string)))<br>    envgroups = list(string)<br>  }))</pre> | `null` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
 | <a name="input_billing_account"></a> [billing\_account](#input\_billing\_account) | Billing account id. | `string` | `null` | no |
 | <a name="input_cluster_location"></a> [cluster\_location](#input\_cluster\_location) | Region/Zone for where to create the cluster. | `string` | n/a | yes |

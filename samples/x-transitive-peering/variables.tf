@@ -45,19 +45,18 @@ variable "apigee_instances" {
 variable "apigee_environments" {
   description = "Apigee Environments."
   type = map(object({
-    display_name = optional(string)
-    description  = optional(string)
-    node_config = optional(object({
-      min_node_count               = optional(number)
-      max_node_count               = optional(number)
+    display_name = string
+    description  = string
+    node_config = object({
+      min_node_count               = number
+      max_node_count               = number
       current_aggregate_node_count = number
-    }))
-    iam       = optional(map(list(string)))
+    })
+    iam       = map(list(string))
     envgroups = list(string)
   }))
   default = null
 }
-
 variable "apigee_network" {
   description = "Apigee VPC name."
   type        = string
