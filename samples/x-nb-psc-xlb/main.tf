@@ -61,11 +61,11 @@ module "apigee-x-core" {
   apigee_environments = var.apigee_environments
   apigee_envgroups = {
     for name, env_group in var.apigee_envgroups : name => {
-      hostnames    = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
+      hostnames = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
     }
   }
-  apigee_instances    = var.apigee_instances
-  network             = module.vpc.network.id
+  apigee_instances = var.apigee_instances
+  network          = module.vpc.network.id
 }
 
 module "psc-ingress-vpc" {
