@@ -58,4 +58,5 @@ resource "google_compute_global_forwarding_rule" "forwarding_rule" {
   target     = google_compute_target_https_proxy.https_proxy.id
   ip_address = var.external_ip != null ? var.external_ip : null
   port_range = "443"
+  labels     = var.labels
 }
