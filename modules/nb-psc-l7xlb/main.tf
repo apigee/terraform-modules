@@ -52,5 +52,6 @@ resource "google_compute_global_forwarding_rule" "forwarding_rule" {
   ip_address            = var.external_ip != null ? var.external_ip : null
   port_range            = "443"
   load_balancing_scheme = "EXTERNAL_MANAGED"
+  labels                = var.labels
 }
 

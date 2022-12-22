@@ -44,5 +44,5 @@ exposure_subnets = [
   }
 ]
 
-peering_range  = "10.0.0.0/22"
-support_range  = "10.1.0.0/28"
+peering_range = "10.0.0.0/22"
+support_range = "10.1.0.0/28"

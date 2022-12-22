@@ -26,19 +26,19 @@ apigee_envgroups = {
 }
 
 subnets = [{
-  name               = "hybrid-europe-west1"
-  ip_cidr_range      = "10.0.0.0/24"
-  region             = "europe-west1"
+  name          = "hybrid-europe-west1"
+  ip_cidr_range = "10.0.0.0/24"
+  region        = "europe-west1"
   secondary_ip_range = {
-    pods = "10.100.0.0/20"
+    pods     = "10.100.0.0/20"
     services = "10.101.0.0/23"
   }
 }]
 
 cluster_location = "europe-west1"
-cluster_region = "europe-west1"
+cluster_region   = "europe-west1"
 
 # POC settings to reduce infrastructure cost
 # reconsider using these for production!
 node_preemptible_runtime = true
-node_locations_data = ["europe-west1-b"]
+node_locations_data      = ["europe-west1-b"]
