@@ -38,8 +38,8 @@ variable "name" {
 variable "labels" {
   type        = map(string)
   default     = {}
-  description = <<EOD
-An optional map of label key:value pairs to assign to the forwarding rule.
-Default is an empty map.
-EOD
+  description = <<-EOD
+  An optional map of label key:value pairs to assign to the forwarding rule.
+  Default is an empty map.
+  EOD
 }
