@@ -56,3 +56,12 @@ variable "psc_negs" {
   description = "List of PSC NEGs to be used as backends."
   type        = list(string)
 }
+
+variable "labels" {
+  type        = map(string)
+  default     = {}
+  description = <<-EOD
+  An optional map of label key:value pairs to assign to the forwarding rule.
+  Default is an empty map.
+  EOD
+}

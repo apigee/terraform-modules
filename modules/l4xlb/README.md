@@ -26,6 +26,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_backend_migs"></a> [backend\_migs](#input\_backend\_migs) | List of MIGs to be used as backends. | `list(string)` | n/a | yes |
 | <a name="input_external_ip"></a> [external\_ip](#input\_external\_ip) | External IP for the L7 XLB. | `string` | `null` | no |
+| <a name="input_labels"></a> [labels](#input\_labels) | An optional map of label key:value pairs to assign to the forwarding rule.<br>Default is an empty map. | `map(string)` | `{}` | no |
 | <a name="input_name"></a> [name](#input\_name) | External LB name. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id. | `string` | n/a | yes |
 
