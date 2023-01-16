@@ -17,7 +17,7 @@ FROM python:3-alpine
 RUN apk add --no-cache \
     git
 
-ENV TERRAFORM_VERSION=1.1.7
+ENV TERRAFORM_VERSION=1.3.4
 
 RUN wget -q "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && rm "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
