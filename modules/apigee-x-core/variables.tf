@@ -59,7 +59,7 @@ variable "apigee_environments" {
   description = "Apigee Environments."
   type = map(object({
     display_name = optional(string)
-    description  = optional(string, "Terraform-managed")
+    description  = optional(string)
     node_config = optional(object({
       min_node_count = optional(number)
       max_node_count = optional(number)
