@@ -1,2 +1,2 @@
 ignored:
-  - DL3018
+  - DL3018 # Hadolint check for version pinning ignored. No need for version pinning as of now.
