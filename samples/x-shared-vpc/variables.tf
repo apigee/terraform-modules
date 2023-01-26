@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,14 +51,13 @@ variable "apigee_instances" {
 variable "apigee_environments" {
   description = "Apigee Environments."
   type = map(object({
-    display_name = string
-    description  = string
-    node_config = object({
-      min_node_count               = number
-      max_node_count               = number
-      current_aggregate_node_count = number
-    })
-    iam       = map(list(string))
+    display_name = optional(string)
+    description  = optional(string)
+    node_config = optional(object({
+      min_node_count = optional(number)
+      max_node_count = optional(number)
+    }))
+    iam       = optional(map(list(string)))
     envgroups = list(string)
   }))
   default = null
