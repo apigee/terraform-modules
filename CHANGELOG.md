@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.13.0](https://github.com/apigee/terraform-modules/compare/v0.12.0...v0.13.0) (2023-01-26)
+
+
+### Features
+
+* :sparkles: add labels to forwarding rule resources ([dc58039](https://github.com/apigee/terraform-modules/commit/dc58039c6210c072c77c2eb0e0ce10f6a1befde8))
+* bump Mega Linter version to v6 in GitHub Actions [d3bdcc9](https://github.com/apigee/terraform-modules/commit/d3bdcc9ecb8fc2b8340abed61a3079ec9720e5ab)
+* use v19.0.0 of Cloud Foundation Fabric Apigee module ([8a1a6dd](https://github.com/apigee/terraform-modules/commit/17d7abbf0e0794eb3b6fc85fb87e7bf73e72372d))
+
+
 ## [0.12.0](https://github.com/apigee/terraform-modules/compare/v0.11.0...v0.12.0) (2022-11-11)
 
 
