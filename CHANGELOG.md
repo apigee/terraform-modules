@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.13.0](https://github.com/apigee/terraform-modules/compare/v0.12.0...v0.13.0) (2023-01-26)
+
+
+### Features
+
+* :sparkles: add labels ([dc58039](https://github.com/apigee/terraform-modules/commit/dc58039c6210c072c77c2eb0e0ce10f6a1befde8))
+* use v19.0.0 of apigee fabric module ([648c7f2](https://github.com/apigee/terraform-modules/commit/648c7f2f55ce769b339f5225cecfd688adb858b9))
+* use v19.0.0 of apigee fabric module ([8a1a6dd](https://github.com/apigee/terraform-modules/commit/8a1a6dd135c32bc806bafe11bae8b0d89d29a030))
+
+
+### Bug Fixes
+
+* apigee env conf with optional PAYG node conf ([c409ca5](https://github.com/apigee/terraform-modules/commit/c409ca58fbb7b4f4be8359081eb99d809e0cc46b))
+* bump Apigee core to the new unified Apigee module in fabric ([06a113f](https://github.com/apigee/terraform-modules/commit/06a113f7d53ca24912562c53468e1075dcd2c588))
+* bump Apigee core to the new unified Apigee module in fabric ([5755f25](https://github.com/apigee/terraform-modules/commit/5755f259d4a0538d3b58bb06f6a259d815815873))
+* hybrid gke apigee sample ([e4c77f9](https://github.com/apigee/terraform-modules/commit/e4c77f9f908e37f63aef372cb2929b4609d5357c))
+* re-add auto-generated hostname to environment group ([fef2db6](https://github.com/apigee/terraform-modules/commit/fef2db6c59bb33a1c39d589c2c02e7da707b76c4))
+* re-add auto-generated hostname to environment group ([73514f2](https://github.com/apigee/terraform-modules/commit/73514f27ca75304f52d7ef42d93a86cec457c52f))
+* usage for tf optional variable type - v1.1.7 ([1744f9c](https://github.com/apigee/terraform-modules/commit/1744f9cbad386dcc8f666d6d959ee34e0697dfd0))
+* x-basic apigee sample fixed for env config ([8cce026](https://github.com/apigee/terraform-modules/commit/8cce02614c5f633b6823bcbb53ea479de8b05ddc))
+* x-controlled egress sample fixed for env conf ([4c8ec47](https://github.com/apigee/terraform-modules/commit/4c8ec4786c47c77db9a0e9e853f5703498cb0f47))
+* x-dns-peering sample fixed for env conf ([ca2c332](https://github.com/apigee/terraform-modules/commit/ca2c3329fda348739804e392adc7f6dd8b70884b))
+* x-iac-pipeline sample fixed for env conf ([b9f3bf4](https://github.com/apigee/terraform-modules/commit/b9f3bf4050360d9c6636b089ec62fbcb5092a198))
+* x-ilb-mtls sample fixed for env conf ([43ae50f](https://github.com/apigee/terraform-modules/commit/43ae50f9f942009d76c524b9fa3855336bd31867))
+* x-l4xlb-mtls sample fixed for env conf ([40d8c94](https://github.com/apigee/terraform-modules/commit/40d8c9447c5beb1ea7e787ea452e413ab19ffcd5))
+* x-l7xlb sample fixed for env conf ([f0e769c](https://github.com/apigee/terraform-modules/commit/f0e769c94bc65637b03bd46f38ed93a8199f0fd9))
+* x-multi-region sample fixed for env conf ([bc1ed58](https://github.com/apigee/terraform-modules/commit/bc1ed5889f03f49ed520495600968c165c99a58d))
+* x-nb-psc-xlb sample fixed for env conf ([0fc4e43](https://github.com/apigee/terraform-modules/commit/0fc4e432848a09015856ccb3a553892de80bc307))
+* x-sb-psc sample fixed for env conf ([1fd8f9c](https://github.com/apigee/terraform-modules/commit/1fd8f9ce3dcf50e8adcf5fd29f397c6927d9c334))
+* x-shared-vpc sample fixed for env conf ([f683dbc](https://github.com/apigee/terraform-modules/commit/f683dbcbf550769156b8aaab7cad0eda842d5d7a))
+* x-transitive-peering sample fixed for env conf ([b20288a](https://github.com/apigee/terraform-modules/commit/b20288a6646c011d2cb4469c615b0989d4183935))
+
 ## [0.12.0](https://github.com/apigee/terraform-modules/compare/v0.11.0...v0.12.0) (2022-11-11)
 
 
