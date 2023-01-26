@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,22 +90,21 @@ module "shared-vpc" {
 }
 
 module "nip-development-hostname" {
-  source             = "github.com/apigee/terraform-modules//modules/nip-development-hostname?ref=183b7fb3db9f95494f6b28fceb1111155996578c"
+  source             = "../../modules/nip-development-hostname"
   project_id         = module.service-project.project_id
   address_name       = "apigee-external"
   subdomain_prefixes = [for name, _ in var.apigee_envgroups : name]
 }
 
 module "apigee-x-core" {
-  source              = "github.com/apigee/terraform-modules//modules/apigee-x-core?ref=e8394bd84de2584b0ad380c4d9cf1e3a5fd6d6f6"
+  source              = "../../modules/apigee-x-core"
   project_id          = module.service-project.project_id
   ax_region           = var.ax_region
   apigee_instances    = var.apigee_instances
   apigee_environments = var.apigee_environments
   apigee_envgroups = {
     for name, env_group in var.apigee_envgroups : name => {
-      environments = env_group.environments
-      hostnames    = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
+      hostnames = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
     }
   }
   network = module.shared-vpc.network.id
@@ -113,7 +112,7 @@ module "apigee-x-core" {
 
 module "apigee-x-bridge-mig" {
   for_each    = local.subnet_region_name
-  source      = "github.com/apigee/terraform-modules//modules/apigee-x-bridge-mig?ref=e8394bd84de2584b0ad380c4d9cf1e3a5fd6d6f6"
+  source      = "../../modules/apigee-x-bridge-mig"
   project_id  = module.service-project.project_id
   network     = module.shared-vpc.network.id
   region      = each.key
@@ -122,7 +121,7 @@ module "apigee-x-bridge-mig" {
 }
 
 module "mig-l7xlb" {
-  source          = "github.com/apigee/terraform-modules//modules/mig-l7xlb?ref=183b7fb3db9f95494f6b28fceb1111155996578c"
+  source          = "../../modules/mig-l7xlb"
   project_id      = module.service-project.project_id
   name            = "apigee-xlb"
   backend_migs    = [for _, mig in module.apigee-x-bridge-mig : mig.instance_group]
