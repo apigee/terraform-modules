@@ -36,7 +36,7 @@ variable "apigee_environments" {
   description = "Apigee Environments."
   type = map(object({
     display_name = optional(string)
-    description  = optional(string, "Terraform-managed")
+    description  = optional(string)
     iam          = optional(map(list(string)))
     envgroups    = list(string)
   }))
