@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,8 +61,7 @@ module "apigee-x-core" {
   ax_region           = var.ax_region
   apigee_envgroups = {
     for name, env_group in var.apigee_envgroups : name => {
-      environments = env_group.environments
-      hostnames    = concat(env_group.hostnames, [local.env_group_internal_hostnames[name]])
+      hostnames = concat(env_group.hostnames, [local.env_group_internal_hostnames[name]])
     }
   }
   network          = module.vpc.network.id

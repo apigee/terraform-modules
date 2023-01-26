@@ -169,6 +169,10 @@ curl -kv --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-p
 * Implement CD for TF and k8s resources
 
 <!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
 ## Providers
 
 | Name | Version |
@@ -180,7 +184,7 @@ curl -kv --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-p
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_apigee"></a> [apigee](#module\_apigee) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization | v16.0.0 |
+| <a name="module_apigee"></a> [apigee](#module\_apigee) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee | v19.0.0 |
 | <a name="module_apigee-service-account"></a> [apigee-service-account](#module\_apigee-service-account) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account | v16.0.0 |
 | <a name="module_gke-cluster"></a> [gke-cluster](#module\_gke-cluster) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gke-cluster | v16.0.0 |
 | <a name="module_gke-nodepool-data"></a> [gke-nodepool-data](#module\_gke-nodepool-data) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gke-nodepool | v16.0.0 |
@@ -204,15 +208,14 @@ curl -kv --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-p
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    environments = list(string)<br>    hostnames    = list(string)<br>  }))</pre> | `{}` | no |
-| <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | List of Apigee Environment Names. | `list(string)` | `[]` | no |
+| <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    hostnames = list(string)<br>  }))</pre> | `{}` | no |
+| <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environments. | <pre>map(object({<br>    display_name = optional(string)<br>    description  = optional(string)<br>    iam          = optional(map(list(string)))<br>    envgroups    = list(string)<br>  }))</pre> | `null` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
 | <a name="input_billing_account"></a> [billing\_account](#input\_billing\_account) | Billing account id. | `string` | `null` | no |
 | <a name="input_cluster_location"></a> [cluster\_location](#input\_cluster\_location) | Region/Zone for where to create the cluster. | `string` | n/a | yes |
 | <a name="input_cluster_region"></a> [cluster\_region](#input\_cluster\_region) | Region for where to create the cluster. | `string` | n/a | yes |
 | <a name="input_deploy_sealed_secrets"></a> [deploy\_sealed\_secrets](#input\_deploy\_sealed\_secrets) | Deploy the sealed-secrets operator (see https://github.com/bitnami-labs/sealed-secrets). | `bool` | `true` | no |
 | <a name="input_gke_cluster"></a> [gke\_cluster](#input\_gke\_cluster) | GKE Cluster Specification | <pre>object({<br>    name                     = string<br>    region                   = string<br>    location                 = string<br>    master_ip_cidr           = string<br>    master_authorized_ranges = map(string)<br>    secondary_range_pods     = string<br>    secondary_range_services = string<br>  })</pre> | <pre>{<br>  "location": "europe-west1",<br>  "master_authorized_ranges": {<br>    "internet": "0.0.0.0/0"<br>  },<br>  "master_ip_cidr": "192.168.0.0/28",<br>  "name": "hybrid-cluster",<br>  "region": "europe-west1",<br>  "secondary_range_pods": "pods",<br>  "secondary_range_services": "services"<br>}</pre> | no |
-| <a name="input_kubernetes_access_token"></a> [kubernetes\_access\_token](#input\_kubernetes\_access\_token) | Kubernetes Access Token (set to null to use the default Google Auth Context) | `string` | `null` | no |
 | <a name="input_network"></a> [network](#input\_network) | Network name to be used for hosting the Apigee hybrid cluster. | `string` | `"apigee-network"` | no |
 | <a name="input_node_locations_data"></a> [node\_locations\_data](#input\_node\_locations\_data) | List of locations for the data node pool | `list(string)` | `null` | no |
 | <a name="input_node_machine_type_data"></a> [node\_machine\_type\_data](#input\_node\_machine\_type\_data) | Machine type for data node pool | `string` | `"e2-standard-4"` | no |
@@ -230,4 +233,8 @@ curl -kv --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-p
 | <a name="output_apigee_envgroups"></a> [apigee\_envgroups](#output\_apigee\_envgroups) | Apigee Env Groups. |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | Cluster name. |
 | <a name="output_cluster_region"></a> [cluster\_region](#output\_cluster\_region) | Cluster location. |
+
+## Copyright
+
+Copyright 2023 Google LLC. This software is provided as-is, without warranty or representation for any use or purpose. Your use of it is subject to your agreement with Google.
 <!-- END_TF_DOCS -->

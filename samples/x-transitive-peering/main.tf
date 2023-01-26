@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,15 +49,10 @@ module "apigee-x-core" {
   source              = "../../modules/apigee-x-core"
   project_id          = module.project.project_id
   ax_region           = var.ax_region
-  apigee_instances    = var.apigee_instances
   apigee_environments = var.apigee_environments
-  apigee_envgroups = {
-    for name, env_group in var.apigee_envgroups : name => {
-      environments = env_group.environments
-      hostnames    = env_group.hostnames
-    }
-  }
-  network = module.vpc.network.id
+  apigee_envgroups    = var.apigee_envgroups
+  apigee_instances    = var.apigee_instances
+  network             = module.vpc.network.id
 }
 
 module "routing-appliance" {

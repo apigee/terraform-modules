@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,29 +24,37 @@ variable "ax_region" {
   type        = string
 }
 
+variable "apigee_envgroups" {
+  description = "Apigee Environment Groups."
+  type = map(object({
+    hostnames = list(string)
+  }))
+  default = null
+}
+
 variable "apigee_instances" {
-  description = "Apigee Instances (only one for EVAL)."
+  description = "Apigee Instances (only one instance for EVAL orgs)."
   type = map(object({
     region       = string
     ip_range     = string
     environments = list(string)
   }))
-  default = {}
-}
-
-variable "apigee_envgroups" {
-  description = "Apigee Environment Groups."
-  type = map(object({
-    environments = list(string)
-    hostnames    = list(string)
-  }))
-  default = {}
+  default = null
 }
 
 variable "apigee_environments" {
-  description = "Apigee Environment Names."
-  type        = list(string)
-  default     = []
+  description = "Apigee Environments."
+  type = map(object({
+    display_name = optional(string)
+    description  = optional(string)
+    node_config = optional(object({
+      min_node_count = optional(number)
+      max_node_count = optional(number)
+    }))
+    iam       = optional(map(list(string)))
+    envgroups = list(string)
+  }))
+  default = null
 }
 
 variable "network" {

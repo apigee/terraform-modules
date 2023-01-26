@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,26 @@
 
 ax_region = "europe-west1"
 
-apigee_environments = ["test1", "test2"]
+apigee_environments = {
+  test1 = {
+    display_name = "Test 1"
+    description  = "Environment created by apigee/terraform-modules"
+    node_config  = null
+    iam          = null
+    envgroups    = ["test"]
+  }
+  test2 = {
+    display_name = "Test 2"
+    description  = "Environment created by apigee/terraform-modules"
+    node_config  = null
+    iam          = null
+    envgroups    = ["test"]
+  }
+}
 
 apigee_envgroups = {
   test = {
-    environments = ["test1", "test2"]
-    hostnames    = ["test.api.example.com"] // + ${group_name}-api.internal
+    hostnames = ["test.api.example.com"] // + ${group_name}-api.internal
   }
 }
 

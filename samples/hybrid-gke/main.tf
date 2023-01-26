@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-locals {
-  env_groups = var.apigee_envgroups
-}
 
 data "google_client_config" "provider" {}
 
@@ -54,14 +50,15 @@ module "vpc" {
   subnets    = var.subnets
 }
 
-
 module "apigee" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee-organization?ref=v16.0.0"
-  project_id          = module.project.project_id
-  analytics_region    = var.ax_region
-  runtime_type        = "HYBRID"
-  apigee_environments = var.apigee_environments
-  apigee_envgroups    = var.apigee_envgroups
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=v19.0.0"
+  project_id = var.project_id
+  organization = {
+    runtime_type     = "HYBRID"
+    analytics_region = var.ax_region
+  }
+  envgroups    = var.apigee_envgroups
+  environments = var.apigee_environments
 }
 
 module "gke-cluster" {

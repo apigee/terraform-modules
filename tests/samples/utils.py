@@ -12,11 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pprint
 
 def assert_envgroup_attachment(resources, envs):
     "Test Apigee Envgroup Attachments."
     attachments = resources_by_type(resources, "google_apigee_envgroup_attachment")
     assert len(attachments) == len(envs)
+    for a in attachments:
+        pprint.pprint(a)
     assert set(a["values"]["environment"] for a in attachments) == set(envs)
 
 
@@ -40,11 +43,12 @@ def assert_instance(resources, location, ip_range, index=0):
     assert instances[index]["values"]["ip_range"] == ip_range
 
 
-def assert_instance_attachment(resources, envs):
+def assert_instance_attachment(resources, attachment_ids):
     "Test Apigee Instance Attachments."
     attachments = resources_by_type(resources, "google_apigee_instance_attachment")
-    assert len(attachments) == len(envs)
-    assert set(a["values"]["environment"] for a in attachments) == set(envs)
+    assert len(attachments) == len(attachment_ids)
+    attachment_ids_found = set(a["index"] for a in attachments)
+    assert set(attachment_ids_found) == set(attachment_ids)
 
 def resources_by_type(resources, resourceType):
     "Filter resources by type."

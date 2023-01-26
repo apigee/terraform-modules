@@ -19,6 +19,10 @@ psc_endpoint_attachment_connection_state = "ACCEPTED"
 ```
 
 <!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
 ## Providers
 
 | Name | Version |
@@ -47,9 +51,9 @@ psc_endpoint_attachment_connection_state = "ACCEPTED"
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    environments = list(string)<br>    hostnames    = list(string)<br>  }))</pre> | `{}` | no |
-| <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | List of Apigee Environment Names. | `list(string)` | `[]` | no |
-| <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL orgs). | <pre>map(object({<br>    region       = string<br>    ip_range     = string<br>    environments = list(string)<br>  }))</pre> | `{}` | no |
+| <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    hostnames = list(string)<br>  }))</pre> | `null` | no |
+| <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environments. | <pre>map(object({<br>    display_name = optional(string)<br>    description  = optional(string)<br>    node_config = optional(object({<br>      min_node_count = optional(number)<br>      max_node_count = optional(number)<br>    }))<br>    iam       = optional(map(list(string)))<br>    envgroups = list(string)<br>  }))</pre> | `null` | no |
+| <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL orgs). | <pre>map(object({<br>    region       = string<br>    ip_range     = string<br>    environments = list(string)<br>  }))</pre> | `null` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (sxee https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
 | <a name="input_backend_name"></a> [backend\_name](#input\_backend\_name) | Name for the Demo Backend | `string` | `"demo-backend"` | no |
 | <a name="input_backend_network"></a> [backend\_network](#input\_backend\_network) | Peered Backend VPC name. | `string` | n/a | yes |
@@ -71,4 +75,7 @@ psc_endpoint_attachment_connection_state = "ACCEPTED"
 |------|-------------|
 | <a name="output_psc_endpoint_attachment_connection_state"></a> [psc\_endpoint\_attachment\_connection\_state](#output\_psc\_endpoint\_attachment\_connection\_state) | Underlying connection state of the PSC endpoint attachment. |
 | <a name="output_psc_endpoint_attachment_host"></a> [psc\_endpoint\_attachment\_host](#output\_psc\_endpoint\_attachment\_host) | Hostname of the PSC endpoint attachment. |
+
+## Copyright
+Copyright 2023 Google LLC. This software is provided as-is, without warranty or representation for any use or purpose. Your use of it is subject to your agreement with Google.
 <!-- END_TF_DOCS -->
