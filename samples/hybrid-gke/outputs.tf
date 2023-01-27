@@ -26,5 +26,5 @@ output "cluster_region" {
 
 output "apigee_envgroups" {
   description = "Apigee Env Groups."
-  value       = local.env_groups
+  value       = module.apigee.envgroups
 }
