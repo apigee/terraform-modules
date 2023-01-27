@@ -26,9 +26,7 @@ variable "ax_region" {
 
 variable "apigee_envgroups" {
   description = "Apigee Environment Groups."
-  type = map(object({
-    hostnames = list(string)
-  }))
+  type = map(list(string))
   default = {}
 }
 
