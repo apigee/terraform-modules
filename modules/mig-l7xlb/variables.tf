@@ -46,6 +46,27 @@ variable "security_policy" {
   default     = null
 }
 
+variable "logs_enabled" {
+  type        = bool
+  default     = false
+  description = "Whether to enable logging for the load balancer traffic served by this backend service."
+}
+
+variable "backend_timeout" {
+  type        = number
+  default     = 10
+  description = "Backend timeout in seconds"
+}
+
+variable "logs_sample_rate" {
+  default     = null
+  type        = number
+  description = <<-EOD
+  This field can only be specified if logging is enabled for this backend service. 
+  The value of the field must be in [0, 1]. 
+  EOD
+}
+
 variable "labels" {
   type        = map(string)
   default     = {}
