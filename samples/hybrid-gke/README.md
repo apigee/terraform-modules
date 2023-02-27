@@ -17,8 +17,9 @@ CLUSTER_REGION="$(terraform output -raw cluster_region)"
 CLUSTER_NAME="$(terraform output -raw cluster_name)"
 ENV_GROUPS=$(terraform output -json apigee_envgroups)
 ENV_GROUP_NAME=$(echo $ENV_GROUPS | jq -r "to_entries[0].key")
-ENV_NAME=$(echo $ENV_GROUPS | jq -r "to_entries[0].value.environments[0]")
 INGRESS_DOMAIN=$(echo $ENV_GROUPS | jq -r "to_entries[0].value.hostnames[0]")
+ENVS=$(terraform output -json apigee_environments)
+ENV_NAME=$(echo $ENVS | jq -r "to_entries[0].key")
 ```
 
 ### Log into the cluster
@@ -208,7 +209,7 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    hostnames = list(string)<br>  }))</pre> | `{}` | no |
+| <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | `map(list(string))` | `{}` | no |
 | <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environments. | <pre>map(object({<br>    display_name = optional(string)<br>    description  = optional(string)<br>    iam          = optional(map(list(string)))<br>    envgroups    = list(string)<br>  }))</pre> | `null` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
 | <a name="input_billing_account"></a> [billing\_account](#input\_billing\_account) | Billing account id. | `string` | `null` | no |
@@ -231,10 +232,11 @@ No requirements.
 | Name | Description |
 |------|-------------|
 | <a name="output_apigee_envgroups"></a> [apigee\_envgroups](#output\_apigee\_envgroups) | Apigee Env Groups. |
+| <a name="output_apigee_environments"></a> [apigee\_environments](#output\_apigee\_environments) | Apigee Environments |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | Cluster name. |
 | <a name="output_cluster_region"></a> [cluster\_region](#output\_cluster\_region) | Cluster location. |
+<!-- END_TF_DOCS -->
 
 ## Copyright
 
 Copyright 2023 Google LLC. This software is provided as-is, without warranty or representation for any use or purpose. Your use of it is subject to your agreement with Google.
-<!-- END_TF_DOCS -->
