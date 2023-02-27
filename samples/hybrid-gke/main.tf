@@ -52,7 +52,7 @@ module "vpc" {
 
 module "apigee" {
   source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=v19.0.0"
-  project_id = var.project_id
+  project_id = module.project.project_id
   organization = {
     runtime_type     = "HYBRID"
     analytics_region = var.ax_region
