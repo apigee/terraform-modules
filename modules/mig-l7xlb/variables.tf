@@ -75,3 +75,12 @@ variable "labels" {
   Default is an empty map.
   EOD
 }
+
+variable "ssl_policy" {
+  type        = string
+  default     = null
+  description = <<-EOD
+  A reference to the SslPolicy resource that will be associated with the TargetHttpsProxy resource. 
+  If not set, the TargetHttpsProxy resource will not have any SSL policy configured.
+  EOD
+}
