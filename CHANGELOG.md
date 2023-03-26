@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.14.0](https://github.com/apigee/terraform-modules/compare/v0.13.0...v0.14.0) (2023-03-26)
+
+
+### Features
+
+* adding logs and timeout parameters to external load balancer ([a444206](https://github.com/apigee/terraform-modules/commit/a444206cc7764f507906442ba1250deab51d18c1))
+* adding ssl policy capability ([f11131e](https://github.com/apigee/terraform-modules/commit/f11131e1870234271ae98a05c1ae0fc8f14b6928))
+
+
+### Bug Fixes
+
+* apigee envgroups usage for apigee module ([82b3364](https://github.com/apigee/terraform-modules/commit/82b3364d96e8037826e29eee9eb3884ba92641d7))
+* hybrid gke sample with envgroups and outputs ([35d24e9](https://github.com/apigee/terraform-modules/commit/35d24e9fea295eab199e8cbf52e189cb7ff91cf0))
+* interpolation only expr in hybrid gke samples ([0197c04](https://github.com/apigee/terraform-modules/commit/0197c04e210294091621404a789cb08b7f730bd8))
+* nb psc xlb sample for network usage ([7fa327d](https://github.com/apigee/terraform-modules/commit/7fa327d3b411b3761a46e2c65f78f93ed8525347))
+* remove unused tf vars from hybrid gke samples ([f0dd715](https://github.com/apigee/terraform-modules/commit/f0dd715225e4560e888c15585aa44116cde9eaf9))
+* sample for nb psc xlb usage ([0f4d7df](https://github.com/apigee/terraform-modules/commit/0f4d7dfb49d10fc4e5c944e898ffd04bde9686a0))
+* sb psc attach module endpoint attachment ([8040775](https://github.com/apigee/terraform-modules/commit/8040775771357ad6bb99fecd1d6927de60b9af25))
+* unused psc network conf for nbpscl7xlb module ([56ac556](https://github.com/apigee/terraform-modules/commit/56ac556dd6869bc70a880aa97b318820d24f5bc0))
+* unused tf refs in nbpscl7xlb module ([2ae0e9e](https://github.com/apigee/terraform-modules/commit/2ae0e9e3e66c8fe5182bae43424515b7e770d80d))
+
 ## [0.13.0](https://github.com/apigee/terraform-modules/compare/v0.12.0...v0.13.0) (2023-01-26)
 
 
