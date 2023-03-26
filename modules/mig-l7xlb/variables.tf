@@ -46,11 +46,41 @@ variable "security_policy" {
   default     = null
 }
 
+variable "logs_enabled" {
+  type        = bool
+  default     = false
+  description = "Whether to enable logging for the load balancer traffic served by this backend service."
+}
+
+variable "backend_timeout" {
+  type        = number
+  default     = 10
+  description = "Backend timeout in seconds"
+}
+
+variable "logs_sample_rate" {
+  default     = null
+  type        = number
+  description = <<-EOD
+  This field can only be specified if logging is enabled for this backend service. 
+  The value of the field must be in [0, 1]. 
+  EOD
+}
+
 variable "labels" {
   type        = map(string)
   default     = {}
   description = <<-EOD
   An optional map of label key:value pairs to assign to the forwarding rule.
   Default is an empty map.
+  EOD
+}
+
+variable "ssl_policy" {
+  type        = string
+  default     = null
+  description = <<-EOD
+  A reference to the SslPolicy resource that will be associated with the TargetHttpsProxy resource. 
+  If not set, the TargetHttpsProxy resource will not have any SSL policy configured.
   EOD
 }

@@ -28,7 +28,7 @@ resource "google_compute_backend_service" "mig_backend" {
   name            = "${var.name}-backend"
   port_name       = "https"
   protocol        = "HTTPS"
-  timeout_sec     = 10
+  timeout_sec     = var.backend_timeout
   health_checks   = [google_compute_health_check.mig_lb_hc.id]
   security_policy = var.security_policy
   dynamic "backend" {
@@ -36,6 +36,10 @@ resource "google_compute_backend_service" "mig_backend" {
     content {
       group = backend.value
     }
+  }
+  log_config {
+    enable      = var.logs_enabled
+    sample_rate = var.logs_sample_rate
   }
 }
 
@@ -50,6 +54,7 @@ resource "google_compute_target_https_proxy" "https_proxy" {
   name             = "${var.name}-target-proxy"
   url_map          = google_compute_url_map.url_map.id
   ssl_certificates = [var.ssl_certificate]
+  ssl_policy       = var.ssl_policy
 }
 
 resource "google_compute_global_forwarding_rule" "forwarding_rule" {
