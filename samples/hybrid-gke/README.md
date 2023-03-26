@@ -17,8 +17,9 @@ CLUSTER_REGION="$(terraform output -raw cluster_region)"
 CLUSTER_NAME="$(terraform output -raw cluster_name)"
 ENV_GROUPS=$(terraform output -json apigee_envgroups)
 ENV_GROUP_NAME=$(echo $ENV_GROUPS | jq -r "to_entries[0].key")
-ENV_NAME=$(echo $ENV_GROUPS | jq -r "to_entries[0].value.environments[0]")
 INGRESS_DOMAIN=$(echo $ENV_GROUPS | jq -r "to_entries[0].value.hostnames[0]")
+ENVS=$(terraform output -json apigee_environments)
+ENV_NAME=$(echo $ENVS | jq -r "to_entries[0].key")
 ```
 
 ### Log into the cluster
@@ -212,8 +213,6 @@ No requirements.
 | <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environments. | <pre>map(object({<br>    display_name = optional(string)<br>    description  = optional(string)<br>    iam          = optional(map(list(string)))<br>    envgroups    = list(string)<br>  }))</pre> | `null` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
 | <a name="input_billing_account"></a> [billing\_account](#input\_billing\_account) | Billing account id. | `string` | `null` | no |
-| <a name="input_cluster_location"></a> [cluster\_location](#input\_cluster\_location) | Region/Zone for where to create the cluster. | `string` | n/a | yes |
-| <a name="input_cluster_region"></a> [cluster\_region](#input\_cluster\_region) | Region for where to create the cluster. | `string` | n/a | yes |
 | <a name="input_deploy_sealed_secrets"></a> [deploy\_sealed\_secrets](#input\_deploy\_sealed\_secrets) | Deploy the sealed-secrets operator (see https://github.com/bitnami-labs/sealed-secrets). | `bool` | `true` | no |
 | <a name="input_gke_cluster"></a> [gke\_cluster](#input\_gke\_cluster) | GKE Cluster Specification | <pre>object({<br>    name                     = string<br>    region                   = string<br>    location                 = string<br>    master_ip_cidr           = string<br>    master_authorized_ranges = map(string)<br>    secondary_range_pods     = string<br>    secondary_range_services = string<br>  })</pre> | <pre>{<br>  "location": "europe-west1",<br>  "master_authorized_ranges": {<br>    "internet": "0.0.0.0/0"<br>  },<br>  "master_ip_cidr": "192.168.0.0/28",<br>  "name": "hybrid-cluster",<br>  "region": "europe-west1",<br>  "secondary_range_pods": "pods",<br>  "secondary_range_services": "services"<br>}</pre> | no |
 | <a name="input_network"></a> [network](#input\_network) | Network name to be used for hosting the Apigee hybrid cluster. | `string` | `"apigee-network"` | no |
@@ -231,10 +230,11 @@ No requirements.
 | Name | Description |
 |------|-------------|
 | <a name="output_apigee_envgroups"></a> [apigee\_envgroups](#output\_apigee\_envgroups) | Apigee Env Groups. |
+| <a name="output_apigee_environments"></a> [apigee\_environments](#output\_apigee\_environments) | Apigee Environments |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | Cluster name. |
 | <a name="output_cluster_region"></a> [cluster\_region](#output\_cluster\_region) | Cluster location. |
+<!-- END_TF_DOCS -->
 
 ## Copyright
 
 Copyright 2023 Google LLC. This software is provided as-is, without warranty or representation for any use or purpose. Your use of it is subject to your agreement with Google.
-<!-- END_TF_DOCS -->

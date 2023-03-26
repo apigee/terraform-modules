@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+locals {
+  envgroups = { for key, value in var.apigee_envgroups : key => value.hostnames }
+}
+
 data "google_client_config" "provider" {}
 
 provider "helm" {
@@ -52,12 +56,12 @@ module "vpc" {
 
 module "apigee" {
   source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=v19.0.0"
-  project_id = var.project_id
+  project_id = module.project.project_id
   organization = {
     runtime_type     = "HYBRID"
     analytics_region = var.ax_region
   }
-  envgroups    = var.apigee_envgroups
+  envgroups    = local.envgroups
   environments = var.apigee_environments
 }
 
@@ -205,7 +209,7 @@ module "apigee-service-account" {
     ]
   }
   iam_project_roles = {
-    "${module.project.project_id}" = [
+    "module.project.project_id" = [
       "roles/logging.logWriter",
       "roles/monitoring.metricWriter",
       "roles/storage.objectAdmin",

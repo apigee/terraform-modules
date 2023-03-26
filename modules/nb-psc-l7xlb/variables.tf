@@ -19,12 +19,6 @@ variable "project_id" {
   type        = string
 }
 
-variable "psc_service_attachments" {
-  description = "Map of region to service attachment ID (currently only one map entry is allowed)."
-  type        = map(string)
-  default     = {}
-}
-
 variable "ssl_certificate" {
   description = "SSL certificate for the HTTPS LB."
   type        = string
@@ -38,11 +32,6 @@ variable "external_ip" {
 
 variable "name" {
   description = "External LB name."
-  type        = string
-}
-
-variable "network" {
-  description = "Network for the PSC NEG"
   type        = string
 }
 
