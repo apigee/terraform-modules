@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+locals {
+  envgroups = { for key, value in var.apigee_envgroups : key => value.hostnames }
+}
+
 data "google_client_config" "provider" {}
 
 provider "helm" {
@@ -57,7 +61,7 @@ module "apigee" {
     runtime_type     = "HYBRID"
     analytics_region = var.ax_region
   }
-  envgroups    = var.apigee_envgroups
+  envgroups    = local.envgroups
   environments = var.apigee_environments
 }
 

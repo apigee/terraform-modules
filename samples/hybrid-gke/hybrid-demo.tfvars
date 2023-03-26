@@ -34,7 +34,9 @@ apigee_environments = {
 }
 
 apigee_envgroups = {
-  test = ["test.api.example.com"]
+  test = {
+    hostnames = ["test.api.example.com"]
+  }
 }
 
 subnets = [{
