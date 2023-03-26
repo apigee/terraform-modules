@@ -35,11 +35,6 @@ variable "name" {
   type        = string
 }
 
-variable "network" {
-  description = "Network for the PSC NEG"
-  type        = string
-}
-
 variable "security_policy" {
   description = "(Optional) The security policy associated with this backend service."
   type        = string
