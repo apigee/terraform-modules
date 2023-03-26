@@ -49,9 +49,6 @@ subnets = [{
   }
 }]
 
-cluster_location = "europe-west1"
-cluster_region   = "europe-west1"
-
 # POC settings to reduce infrastructure cost
 # reconsider using these for production!
 node_preemptible_runtime = true
