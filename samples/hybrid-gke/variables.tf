@@ -82,16 +82,6 @@ variable "subnets" {
   default = []
 }
 
-variable "cluster_region" {
-  description = "Region for where to create the cluster."
-  type        = string
-}
-
-variable "cluster_location" {
-  description = "Region/Zone for where to create the cluster."
-  type        = string
-}
-
 variable "gke_cluster" {
   description = "GKE Cluster Specification"
   type = object({
