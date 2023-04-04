@@ -31,7 +31,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | External LB name. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id. | `string` | n/a | yes |
 | <a name="input_security_policy"></a> [security\_policy](#input\_security\_policy) | (Optional) The security policy associated with this backend service. | `string` | `null` | no |
-| <a name="input_ssl_certificate"></a> [ssl\_certificate](#input\_ssl\_certificate) | SSL certificate for the HTTPS LB. | `string` | n/a | yes |
+| <a name="input_ssl_certificate"></a> [ssl\_certificate](#input\_ssl\_certificate) | SSL certificate for the HTTPS LB. | `list(string)` | n/a | yes |
 
 ## Outputs
 
