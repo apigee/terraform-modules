@@ -26,7 +26,7 @@ variable "backend_migs" {
 
 variable "ssl_certificate" {
   description = "SSL certificate for the HTTPS LB."
-  type        = string
+  type        = list(string)
 }
 
 variable "external_ip" {
