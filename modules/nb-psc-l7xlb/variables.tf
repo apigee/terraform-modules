@@ -20,8 +20,8 @@ variable "project_id" {
 }
 
 variable "ssl_certificate" {
-  description = "SSL certificate for the HTTPS LB."
-  type        = string
+  description = "A list of SSL certificates for the HTTPS LB."
+  type        = list(string)
 }
 
 variable "external_ip" {
