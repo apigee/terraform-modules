@@ -94,7 +94,7 @@ module "nb-psc-l7xlb" {
   source          = "../../modules/nb-psc-l7xlb"
   project_id      = module.project.project_id
   name            = "apigee-xlb-psc"
-  ssl_certificate = module.nip-development-hostname.ssl_certificate
+  ssl_certificate = [module.nip-development-hostname.ssl_certificate]
   external_ip     = module.nip-development-hostname.ip_address
   psc_negs        = [for _, psc_neg in google_compute_region_network_endpoint_group.psc_neg : psc_neg.id]
 }
