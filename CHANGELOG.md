@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.14.1](https://github.com/apigee/terraform-modules/compare/v0.14.0...v0.14.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* ssl_certificate variable as list of string ([2596121](https://github.com/apigee/terraform-modules/commit/25961210388765c5c5418a21eb78b4b899cd380c))
+* ssl_certificates usage for https target proxy ([df17c2c](https://github.com/apigee/terraform-modules/commit/df17c2c398bc0bb78d66607b51ba971b701099c3))
+
 ## [0.14.0](https://github.com/apigee/terraform-modules/compare/v0.13.0...v0.14.0) (2023-03-26)
 
 
