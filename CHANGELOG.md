@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.14.1](https://github.com/apigee/terraform-modules/compare/v0.14.0...v0.14.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* ssl_certificates usage for https target proxy ([df17c2c](https://github.com/apigee/terraform-modules/commit/df17c2c398bc0bb78d66607b51ba971b701099c3))
+
+### Build Changes
+
+* disable python ruff linter ([f3f298f](https://github.com/apigee/terraform-modules/commit/f3f298f04cad5c2be5eb01c398f8873d0ae9a041))
+
 ## [0.14.0](https://github.com/apigee/terraform-modules/compare/v0.13.0...v0.14.0) (2023-03-26)
 
 
