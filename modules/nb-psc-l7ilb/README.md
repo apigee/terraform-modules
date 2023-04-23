@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Apigee L7 ILB PSC NEG Northbound Module
+# Apigee X L7 ILB PSC NEG Northbound Module
 
 ## Requirements
 

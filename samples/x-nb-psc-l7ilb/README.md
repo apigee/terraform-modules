@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Apigee L7 ILB PSC NEG Northbound Sample
+# Apigee X L7 ILB PSC NEG Northbound Sample
 
 ## Requirements
 
