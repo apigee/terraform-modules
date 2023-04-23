@@ -18,7 +18,7 @@ ax_region = "europe-west1"
 
 project_id = "<gcp_project_id>"
 
-project_parent = "folders/<folder_id>" # Or "organizations<organization_id>"."
+project_parent = "folders/<folder_id>" # Or "organizations<organization_id>".
 
 project_create = false
 
