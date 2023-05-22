@@ -209,7 +209,7 @@ module "apigee-service-account" {
     ]
   }
   iam_project_roles = {
-    "module.project.project_id" = [
+    "${module.project.project_id}" = [
       "roles/logging.logWriter",
       "roles/monitoring.metricWriter",
       "roles/storage.objectAdmin",
