@@ -35,7 +35,7 @@ module "demo-backend-template" {
   }
   create_template = true
   metadata = {
-    startup-script = "sudo mkdir -p /var/www && cd /var/www && echo 'hello from demo' > index.html && python3 -m http.server 80"
+    startup-script = "sudo mkdir -p /var/www && cd /var/www && echo \"hello from $(hostname)\" > index.html && python3 -m http.server 80"
   }
   service_account_create = true
   service_account_scopes = ["cloud-platform"]
