@@ -84,7 +84,7 @@ module "southbound-psc" {
   project_id          = module.project.project_id
   name                = var.psc_name
   region              = var.backend_region
-  apigee_organization = module.apigee-x-core.org_id
+  apigee_organization = module.project.project_id
   nat_subnets         = [google_compute_subnetwork.psc_nat_subnet.id]
   target_service      = module.backend-example.ilb_forwarding_rule_self_link
   depends_on = [
