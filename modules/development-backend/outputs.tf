@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,4 +27,9 @@ output "ilb_forwarding_rule_address" {
 output "ilb_forwarding_rule_self_link" {
   description = "ILB forwarding rule self link."
   value       = module.ilb-backend.forwarding_rule_self_link
+}
+
+output "region" {
+  description = "Backend Service region."
+  value       = module.ilb-backend.forwarding_rule.region
 }
