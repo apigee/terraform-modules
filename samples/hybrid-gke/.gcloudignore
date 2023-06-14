@@ -1,4 +1,0 @@
-.terraform
-.terraform.lock.hcl
-*.tfstate*
-apigee-hybrid-install/service-accounts
