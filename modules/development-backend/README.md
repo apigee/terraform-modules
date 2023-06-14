@@ -37,4 +37,5 @@
 | <a name="output_ilb_forwarding_rule_address"></a> [ilb\_forwarding\_rule\_address](#output\_ilb\_forwarding\_rule\_address) | ILB forwarding rule IP address. |
 | <a name="output_ilb_forwarding_rule_self_link"></a> [ilb\_forwarding\_rule\_self\_link](#output\_ilb\_forwarding\_rule\_self\_link) | ILB forwarding rule self link. |
 | <a name="output_instance_group"></a> [instance\_group](#output\_instance\_group) | Backend Service MIG. |
+| <a name="output_region"></a> [region](#output\_region) | Backend Service region. |
 <!-- END_TF_DOCS -->

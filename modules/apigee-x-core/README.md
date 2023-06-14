@@ -1,7 +1,6 @@
 # Apigee Core Setup
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Providers
 
 | Name | Version |

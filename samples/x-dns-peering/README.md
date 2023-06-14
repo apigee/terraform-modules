@@ -16,10 +16,6 @@ Please see the main [README](https://github.com/apigee/terraform-modules#deployi
 for detailed instructions.
 
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
 ## Providers
 
 | Name | Version |
@@ -64,7 +60,4 @@ No requirements.
 ## Outputs
 
 No outputs.
-
-## Copyright
-Copyright 2023 Google LLC. This software is provided as-is, without warranty or representation for any use or purpose. Your use of it is subject to your agreement with Google.
 <!-- END_TF_DOCS -->

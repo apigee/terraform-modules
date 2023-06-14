@@ -170,10 +170,6 @@ curl -kv --resolve $INGRESS_DOMAIN:443:$INGRESS_IP "https://$INGRESS_DOMAIN/my-p
 * Implement CD for TF and k8s resources
 
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
 ## Providers
 
 | Name | Version |
