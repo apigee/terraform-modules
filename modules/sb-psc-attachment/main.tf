@@ -27,7 +27,7 @@ resource "google_compute_service_attachment" "psc_service_attachment" {
 }
 
 resource "google_apigee_endpoint_attachment" "endpoint_attachment" {
-  org_id                 = "organizations/${var.apigee_organization}"
+  org_id                 = var.apigee_organization
   endpoint_attachment_id = var.name
   location               = var.region
   service_attachment     = google_compute_service_attachment.psc_service_attachment.id
