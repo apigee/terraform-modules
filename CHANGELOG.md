@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.1](https://github.com/apigee/terraform-modules/compare/v0.15.0...v0.15.1) (2023-06-14)
+
+
+### Bug Fixes
+
+* **modules/sb-psc-attachment:** remove explicit organizations prefix on variable ([e4b460f](https://github.com/apigee/terraform-modules/commit/e4b460f48b9877b90bc2169e271e9f0d03af7f80))
+
 ## [0.15.0](https://github.com/apigee/terraform-modules/compare/v0.14.1...v0.15.0) (2023-04-23)
 
 
