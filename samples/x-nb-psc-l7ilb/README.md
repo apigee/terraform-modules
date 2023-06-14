@@ -1,10 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-# Apigee X L7 ILB PSC NEG Northbound Sample
-
-## Requirements
-
-No requirements.
-
 ## Providers
 
 | Name | Version |

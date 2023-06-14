@@ -40,6 +40,10 @@ variable "target_service" {
 }
 
 variable "apigee_organization" {
-  description = "Apigee organization where the Endpoint Attachment should be added to."
+  description = "Apigee organization where the Endpoint Attachment should be added to. Apigee Organization ID should be prefixed with 'organizations/'"
   type        = string
+  validation {
+    condition     = can(regex("^(organizations/[a-zA-Z0-9-_]+)$", var.apigee_organization))
+    error_message = "Invalid Apigee Organization ID. Please use the format \"organizations/[a-zA-Z0-9-_]+\"."
+  }
 }

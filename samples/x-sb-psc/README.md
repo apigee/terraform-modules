@@ -19,10 +19,6 @@ psc_endpoint_attachment_connection_state = "ACCEPTED"
 ```
 
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
 ## Providers
 
 | Name | Version |
@@ -75,7 +71,4 @@ No requirements.
 |------|-------------|
 | <a name="output_psc_endpoint_attachment_connection_state"></a> [psc\_endpoint\_attachment\_connection\_state](#output\_psc\_endpoint\_attachment\_connection\_state) | Underlying connection state of the PSC endpoint attachment. |
 | <a name="output_psc_endpoint_attachment_host"></a> [psc\_endpoint\_attachment\_host](#output\_psc\_endpoint\_attachment\_host) | Hostname of the PSC endpoint attachment. |
-
-## Copyright
-Copyright 2023 Google LLC. This software is provided as-is, without warranty or representation for any use or purpose. Your use of it is subject to your agreement with Google.
 <!-- END_TF_DOCS -->

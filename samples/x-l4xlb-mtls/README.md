@@ -56,10 +56,6 @@ curl https://my-domain.com/my-proxy --cert ./certs/example-client.crt --key ./ce
 ```
 
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
 ## Providers
 
 | Name | Version |
@@ -109,7 +105,4 @@ No requirements.
 | Name | Description |
 |------|-------------|
 | <a name="output_nip_hostnames"></a> [nip\_hostnames](#output\_nip\_hostnames) | Map of envgroup name -> hostnames. |
-
-## Copyright
-Copyright 2023 Google LLC. This software is provided as-is, without warranty or representation for any use or purpose. Your use of it is subject to your agreement with Google.
 <!-- END_TF_DOCS -->
