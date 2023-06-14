@@ -12,10 +12,6 @@ for detailed instructions.
 Note that the sample uses an EVAL Apigee X Organization and hence a single Apigee X Instance only. In case you have a PROD Apigee X Organization then you will be able to easily extend the sample accordingly.
 
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
-
 ## Providers
 
 No providers.
@@ -57,7 +53,4 @@ No resources.
 ## Outputs
 
 No outputs.
-
-## Copyright
-Copyright 2023 Google LLC. This software is provided as-is, without warranty or representation for any use or purpose. Your use of it is subject to your agreement with Google.
 <!-- END_TF_DOCS -->
