@@ -20,7 +20,7 @@ locals {
     region              = value.region
     environments        = value.environments
     psa_ip_cidr_range   = value.ip_range
-    disk_encryption_key = module.kms-inst-disk[key].key_ids["inst-disk"]
+    disk_encryption_key = module.kms-inst-disk[key].key_ids[value.key_name]
   } }
 }
 
@@ -39,9 +39,10 @@ module "kms-org-db" {
     }
   }
   keyring = {
-    location = var.ax_region
-    name     = var.apigee_org_kms_keyring_name
+    location = coalesce(var.org_kms_keyring_location, var.ax_region)
+    name     = var.org_kms_keyring_name
   }
+  keyring_create = var.org_kms_keyring_create
   keys = {
     org-db = { rotation_period = var.org_key_rotation_period, labels = null }
   }
@@ -52,16 +53,20 @@ module "kms-inst-disk" {
   source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v19.0.0"
   project_id = var.project_id
   key_iam = {
-    inst-disk = {
+    (each.value.key_name) = {
       "roles/cloudkms.cryptoKeyEncrypterDecrypter" = ["serviceAccount:${google_project_service_identity.apigee_sa.email}"]
     }
   }
   keyring = {
-    location = each.value.region
-    name     = "apigee-${each.key}"
+    location = coalesce(each.value.keyring_location, each.value.region)
+    name     = coalesce(each.value.keyring_name, "apigee-${each.key}")
   }
+  keyring_create = each.value.keyring_create
   keys = {
-    inst-disk = { rotation_period = var.instance_key_rotation_period, labels = null }
+    (each.value.key_name) = {
+      rotation_period = each.value.key_rotation_period
+      labels          = each.value.key_labels
+    }
   }
 }
 
