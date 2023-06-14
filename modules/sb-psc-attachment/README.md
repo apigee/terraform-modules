@@ -20,7 +20,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_apigee_organization"></a> [apigee\_organization](#input\_apigee\_organization) | Apigee organization where the Endpoint Attachment should be added to. | `string` | n/a | yes |
+| <a name="input_apigee_organization"></a> [apigee\_organization](#input\_apigee\_organization) | Apigee organization where the Endpoint Attachment should be added to. Apigee Organization ID should be prefixed with 'organizations/' | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Name for the service attachment. | `string` | n/a | yes |
 | <a name="input_nat_subnets"></a> [nat\_subnets](#input\_nat\_subnets) | One or more NAT subnets to be used for PSC. | `list(string)` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id. | `string` | n/a | yes |
