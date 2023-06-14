@@ -36,7 +36,7 @@ output "instance_map" {
 }
 
 output "org_id" {
-  description = "Apigee Organization ID"
+  description = "Apigee Organization ID in the format of 'organizations/<org_id>'"
   value       = module.apigee.org_id
 }
 
