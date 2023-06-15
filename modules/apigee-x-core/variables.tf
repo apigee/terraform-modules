@@ -73,9 +73,15 @@ variable "apigee_environments" {
 variable "apigee_instances" {
   description = "Apigee Instances (only one instance for EVAL)."
   type = map(object({
-    region       = string
-    ip_range     = string
-    environments = list(string)
+    region              = string
+    ip_range            = string
+    environments        = list(string)
+    keyring_create      = optional(bool, true)
+    keyring_name        = optional(string, null)
+    keyring_location    = optional(string, null)
+    key_name            = optional(string, "inst-disk")
+    key_rotation_period = optional(string, "2592000s")
+    key_labels          = optional(map(string), null)
   }))
   default = {}
 }
@@ -86,14 +92,20 @@ variable "org_key_rotation_period" {
   default     = "2592000s"
 }
 
-variable "instance_key_rotation_period" {
-  description = "Rotaton period for the instance disk encryption key"
-  type        = string
-  default     = "2592000s"
-}
-
-variable "apigee_org_kms_keyring_name" {
+variable "org_kms_keyring_name" {
   description = "Name of the KMS Key Ring for Apigee Organization DB."
   type        = string
   default     = "apigee-x-org"
+}
+
+variable "org_kms_keyring_location" {
+  description = "Location of the KMS Key Ring for Apigee Organization DB. Matches AX region if not provided."
+  type        = string
+  default     = null
+}
+
+variable "org_kms_keyring_create" {
+  description = "Set to false to manage the keyring for the Apigee Organization DB and IAM bindings in an existing keyring."
+  type        = bool
+  default     = true
 }

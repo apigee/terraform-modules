@@ -27,15 +27,16 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    hostnames = list(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environments. | <pre>map(object({<br>    display_name = optional(string)<br>    description  = optional(string, "Terraform-managed")<br>    node_config = optional(object({<br>      min_node_count = optional(number)<br>      max_node_count = optional(number)<br>    }))<br>    iam       = optional(map(list(string)))<br>    envgroups = list(string)<br>  }))</pre> | `null` | no |
-| <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL). | <pre>map(object({<br>    region       = string<br>    ip_range     = string<br>    environments = list(string)<br>  }))</pre> | `{}` | no |
-| <a name="input_apigee_org_kms_keyring_name"></a> [apigee\_org\_kms\_keyring\_name](#input\_apigee\_org\_kms\_keyring\_name) | Name of the KMS Key Ring for Apigee Organization DB. | `string` | `"apigee-x-org"` | no |
+| <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL). | <pre>map(object({<br>    region              = string<br>    ip_range            = string<br>    environments        = list(string)<br>    keyring_create      = optional(bool, true)<br>    keyring_name        = optional(string, null)<br>    keyring_location    = optional(string, null)<br>    key_name            = optional(string, "inst-disk")<br>    key_rotation_period = optional(string, "2592000s")<br>    key_labels          = optional(map(string), null)<br>  }))</pre> | `{}` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
 | <a name="input_billing_type"></a> [billing\_type](#input\_billing\_type) | Billing type of the Apigee organization. | `string` | `null` | no |
-| <a name="input_instance_key_rotation_period"></a> [instance\_key\_rotation\_period](#input\_instance\_key\_rotation\_period) | Rotaton period for the instance disk encryption key | `string` | `"2592000s"` | no |
 | <a name="input_network"></a> [network](#input\_network) | Network (self-link) to peer with the Apigee tennant project. | `string` | n/a | yes |
 | <a name="input_org_description"></a> [org\_description](#input\_org\_description) | Apigee org description | `string` | `"Apigee org created in TF"` | no |
 | <a name="input_org_display_name"></a> [org\_display\_name](#input\_org\_display\_name) | Apigee org display name | `string` | `null` | no |
 | <a name="input_org_key_rotation_period"></a> [org\_key\_rotation\_period](#input\_org\_key\_rotation\_period) | Rotaton period for the organization DB encryption key | `string` | `"2592000s"` | no |
+| <a name="input_org_kms_keyring_create"></a> [org\_kms\_keyring\_create](#input\_org\_kms\_keyring\_create) | Set to false to manage the keyring for the Apigee Organization DB and IAM bindings in an existing keyring. | `bool` | `true` | no |
+| <a name="input_org_kms_keyring_location"></a> [org\_kms\_keyring\_location](#input\_org\_kms\_keyring\_location) | Location of the KMS Key Ring for Apigee Organization DB. Matches AX region if not provided. | `string` | `null` | no |
+| <a name="input_org_kms_keyring_name"></a> [org\_kms\_keyring\_name](#input\_org\_kms\_keyring\_name) | Name of the KMS Key Ring for Apigee Organization DB. | `string` | `"apigee-x-org"` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id (also used for the Apigee Organization). | `string` | n/a | yes |
 
 ## Outputs
