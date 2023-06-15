@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.0](https://github.com/apigee/terraform-modules/compare/v0.15.1...v0.16.0) (2023-06-15)
+
+
+### Features
+
+* configurable keyrings creation in Apigee X core module ([d70b66d](https://github.com/apigee/terraform-modules/commit/d70b66dc0948775646b1f5fd5e4f7ebbf9703ac3))
+
 ## [0.15.1](https://github.com/apigee/terraform-modules/compare/v0.15.0...v0.15.1) (2023-06-14)
 
 
