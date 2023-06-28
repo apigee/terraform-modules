@@ -73,15 +73,16 @@ variable "apigee_environments" {
 variable "apigee_instances" {
   description = "Apigee Instances (only one instance for EVAL)."
   type = map(object({
-    region              = string
-    ip_range            = string
-    environments        = list(string)
-    keyring_create      = optional(bool, true)
-    keyring_name        = optional(string, null)
-    keyring_location    = optional(string, null)
-    key_name            = optional(string, "inst-disk")
-    key_rotation_period = optional(string, "2592000s")
-    key_labels          = optional(map(string), null)
+    region               = string
+    ip_range             = string
+    environments         = list(string)
+    keyring_create       = optional(bool, true)
+    keyring_name         = optional(string, null)
+    keyring_location     = optional(string, null)
+    key_name             = optional(string, "inst-disk")
+    key_rotation_period  = optional(string, "2592000s")
+    key_labels           = optional(map(string), null)
+    consumer_accept_list = optional(list(string), null)
   }))
   default = {}
 }
