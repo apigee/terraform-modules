@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.17.0](https://github.com/apigee/terraform-modules/compare/v0.16.0...v0.17.0) (2023-06-28)
+
+
+### Features
+
+* allow consumer_accept_list in apigee-x-core module ([#129](https://github.com/apigee/terraform-modules/issues/129)) ([0fea0a7](https://github.com/apigee/terraform-modules/commit/0fea0a7fc1f564198c622ea9829eef995014d043))
+
 ## [0.16.0](https://github.com/apigee/terraform-modules/compare/v0.15.1...v0.16.0) (2023-06-15)
 
 
