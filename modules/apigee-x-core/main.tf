@@ -32,7 +32,7 @@ resource "google_project_service_identity" "apigee_sa" {
 }
 
 module "kms-org-db" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v19.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v26.0.0"
   project_id = var.project_id
   key_iam = {
     org-db = {
@@ -51,7 +51,7 @@ module "kms-org-db" {
 
 module "kms-inst-disk" {
   for_each   = var.apigee_instances
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v19.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v26.0.0"
   project_id = var.project_id
   key_iam = {
     (each.value.key_name) = {
@@ -72,7 +72,7 @@ module "kms-inst-disk" {
 }
 
 module "apigee" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=v19.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=v26.0.0"
   project_id = var.project_id
   organization = {
     display_name            = var.org_display_name
