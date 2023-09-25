@@ -1,6 +1,5 @@
 # Apigee Core Setup
 
-<!-- BEGIN_TF_DOCS -->
 ## Providers
 
 | Name | Version |
@@ -11,9 +10,9 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_apigee"></a> [apigee](#module\_apigee) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee | v19.0.0 |
-| <a name="module_kms-inst-disk"></a> [kms-inst-disk](#module\_kms-inst-disk) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v19.0.0 |
-| <a name="module_kms-org-db"></a> [kms-org-db](#module\_kms-org-db) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v19.0.0 |
+| <a name="module_apigee"></a> [apigee](#module\_apigee) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee | v26.0.0 |
+| <a name="module_kms-inst-disk"></a> [kms-inst-disk](#module\_kms-inst-disk) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v26.0.0 |
+| <a name="module_kms-org-db"></a> [kms-org-db](#module\_kms-org-db) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms | v26.0.0 |
 
 ## Resources
 
@@ -27,7 +26,7 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_apigee_envgroups"></a> [apigee\_envgroups](#input\_apigee\_envgroups) | Apigee Environment Groups. | <pre>map(object({<br>    hostnames = list(string)<br>  }))</pre> | `{}` | no |
 | <a name="input_apigee_environments"></a> [apigee\_environments](#input\_apigee\_environments) | Apigee Environments. | <pre>map(object({<br>    display_name = optional(string)<br>    description  = optional(string, "Terraform-managed")<br>    node_config = optional(object({<br>      min_node_count = optional(number)<br>      max_node_count = optional(number)<br>    }))<br>    iam       = optional(map(list(string)))<br>    envgroups = list(string)<br>  }))</pre> | `null` | no |
-| <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL). | <pre>map(object({<br>    region              = string<br>    ip_range            = string<br>    environments        = list(string)<br>    keyring_create      = optional(bool, true)<br>    keyring_name        = optional(string, null)<br>    keyring_location    = optional(string, null)<br>    key_name            = optional(string, "inst-disk")<br>    key_rotation_period = optional(string, "2592000s")<br>    key_labels          = optional(map(string), null)<br>    consumer_accept_list          = optional(list(string), null)<br>  }))</pre> | `{}` | no |
+| <a name="input_apigee_instances"></a> [apigee\_instances](#input\_apigee\_instances) | Apigee Instances (only one instance for EVAL). | <pre>map(object({<br>    region               = string<br>    ip_range             = string<br>    environments         = list(string)<br>    keyring_create       = optional(bool, true)<br>    keyring_name         = optional(string, null)<br>    keyring_location     = optional(string, null)<br>    key_name             = optional(string, "inst-disk")<br>    key_rotation_period  = optional(string, "2592000s")<br>    key_labels           = optional(map(string), null)<br>    consumer_accept_list = optional(list(string), null)<br>  }))</pre> | `{}` | no |
 | <a name="input_ax_region"></a> [ax\_region](#input\_ax\_region) | GCP region for storing Apigee analytics data (see https://cloud.google.com/apigee/docs/api-platform/get-started/install-cli). | `string` | n/a | yes |
 | <a name="input_billing_type"></a> [billing\_type](#input\_billing\_type) | Billing type of the Apigee organization. | `string` | `null` | no |
 | <a name="input_network"></a> [network](#input\_network) | Network (self-link) to peer with the Apigee tennant project. | `string` | n/a | yes |
@@ -50,4 +49,3 @@
 | <a name="output_instance_service_attachments"></a> [instance\_service\_attachments](#output\_instance\_service\_attachments) | Map of instance region -> instance PSC service attachment |
 | <a name="output_org_id"></a> [org\_id](#output\_org\_id) | Apigee Organization ID in the format of 'organizations/<org\_id>' |
 | <a name="output_organization"></a> [organization](#output\_organization) | Apigee Organization. |
-<!-- END_TF_DOCS -->

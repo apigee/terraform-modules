@@ -16,12 +16,11 @@
 
 locals {
   envgroups = { for key, value in var.apigee_envgroups : key => value.hostnames }
-  instances = { for key, value in var.apigee_instances : key => {
-    region               = value.region
-    environments         = value.environments
-    psa_ip_cidr_range    = value.ip_range
-    disk_encryption_key  = module.kms-inst-disk[key].key_ids[value.key_name]
-    consumer_accept_list = value.consumer_accept_list
+  instances = { for key, value in var.apigee_instances : value.region => {
+    environments          = value.environments
+    runtime_ip_cidr_range = value.ip_range
+    disk_encryption_key   = module.kms-inst-disk[key].key_ids[value.key_name]
+    consumer_accept_list  = value.consumer_accept_list
   } }
 }
 
@@ -32,12 +31,10 @@ resource "google_project_service_identity" "apigee_sa" {
 }
 
 module "kms-org-db" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v19.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v26.0.0"
   project_id = var.project_id
-  key_iam = {
-    org-db = {
-      "roles/cloudkms.cryptoKeyEncrypterDecrypter" = ["serviceAccount:${google_project_service_identity.apigee_sa.email}"]
-    }
+  iam = {
+    "roles/cloudkms.cryptoKeyEncrypterDecrypter" = ["serviceAccount:${google_project_service_identity.apigee_sa.email}"]
   }
   keyring = {
     location = coalesce(var.org_kms_keyring_location, var.ax_region)
@@ -51,12 +48,10 @@ module "kms-org-db" {
 
 module "kms-inst-disk" {
   for_each   = var.apigee_instances
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v19.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v26.0.0"
   project_id = var.project_id
-  key_iam = {
-    (each.value.key_name) = {
-      "roles/cloudkms.cryptoKeyEncrypterDecrypter" = ["serviceAccount:${google_project_service_identity.apigee_sa.email}"]
-    }
+  iam = {
+    "roles/cloudkms.cryptoKeyEncrypterDecrypter" = ["serviceAccount:${google_project_service_identity.apigee_sa.email}"]
   }
   keyring = {
     location = coalesce(each.value.keyring_location, each.value.region)
@@ -72,7 +67,7 @@ module "kms-inst-disk" {
 }
 
 module "apigee" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=v19.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=v26.0.0"
   project_id = var.project_id
   organization = {
     display_name            = var.org_display_name
