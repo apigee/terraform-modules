@@ -16,7 +16,7 @@
 import os
 import pytest
 from .utils import *
-
+import json
 FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "../../samples/x-dns-peering")
 
 
@@ -28,6 +28,7 @@ def resources(recursive_plan_runner):
         project_id="testonly",
         project_create="true"
     )
+    print(json.dumps(resources,indent=2))
     return resources
 
 
@@ -43,7 +44,7 @@ def test_apigee_instance(resources):
 
 def test_apigee_instance_attachment(resources):
     "Test Apigee Instance Attachments."
-    assert_instance_attachment(resources, ["euw1-instance-test1", "euw1-instance-test2"])
+    assert_instance_attachment(resources, ["test1-europe-west1", "test2-europe-west1"])
 
 
 def test_envgroup_attachment(resources):
