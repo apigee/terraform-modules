@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.18.0](https://github.com/apigee/terraform-modules/compare/v0.17.0...v0.18.0) (2023-09-26)
+
+
+### Features
+
+* bumped cff module version for apigee & kms to v26.0.0 ([5a0d4a3](https://github.com/apigee/terraform-modules/commit/5a0d4a3294bf8392d440f93a19330389e1dc54ed))
+
 ## [0.17.0](https://github.com/apigee/terraform-modules/compare/v0.16.0...v0.17.0) (2023-06-28)
 
 
