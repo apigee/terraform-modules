@@ -14,7 +14,7 @@
 
 FROM quay.io/terraform-docs/terraform-docs:0.16.0
 
-RUN apk add --no-cache git
+RUN apk add --no-cache git perl
 
 COPY ./entrypoint.sh /opt/entrypoint.sh
 

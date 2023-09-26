@@ -16,8 +16,16 @@
 
 set -e
 
+template_string="$(cat .github/actions/update-docs/sample-instructions.template.md)"
+export template_string
+
 for TYPE in samples modules; do
   for D in "$TYPE"/*; do
+    # set the generic sample instructions if required
+    perl -i.bkp -0pe 's|<!-- BEGIN_SAMPLES_DEFAULT_SETUP_INSTRUCTIONS.+?END_SAMPLES_DEFAULT_SETUP_INSTRUCTIONS -->|$ENV{template_string}|gs;' "$D/README.md"
+    rm "$D/README.md.bkp"
+
+    # run terraform docs
     terraform-docs --lockfile=false --hide header --hide requirements markdown table --output-file README.md --output-mode inject "$D"
   done
 done
