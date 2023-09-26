@@ -1,5 +1,20 @@
 # Managed Instance Group with Client Authentication (mTLS)
 
+An managed instance group (MIG) that runs an Envoy proxy to terminate mTLS
+before the traffic is sent to Apigee via one-way TLS.
+
+Note that by default Envoy doesn't send the client certificate to the backend
+service. To enable this you could define an x-header in the [envoy config](./envoy-config-template.yaml).
+
+```yaml
+route_config:
+    name: local_route
+    request_headers_to_add:
+    - header:
+        key: "x-raw-client-cert"
+        value: "%DOWNSTREAM_PEER_CERT%"
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Providers
 
