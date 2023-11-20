@@ -17,7 +17,7 @@
 output "instance_endpoints" {
   description = "Map of instance name -> internal runtime endpoint IP address"
   value = tomap({
-    for name, instance in module.apigee.instances : name => instance.host
+    for name, instance in module.apigee.instances : instance.name => instance.host
   })
 }
 
