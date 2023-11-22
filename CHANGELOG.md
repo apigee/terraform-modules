@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.18.1](https://github.com/apigee/terraform-modules/compare/v0.18.0...v0.18.1) (2023-11-22)
+
+
+### Bug Fixes
+
+* Fix bug in apigee-x-core output, not returning the documented map of instance name to instance endpoint IP ([23ae4b7](https://github.com/apigee/terraform-modules/commit/23ae4b7acc753697fe1559446967eafa19c66541))
+* Fix locals definition to correctly pass the instance name from variables to the apigee module ([5343c12](https://github.com/apigee/terraform-modules/commit/5343c1226e7f7a0075fe307bbe2c4d3311191f89))
+
 ## [0.18.0](https://github.com/apigee/terraform-modules/compare/v0.17.0...v0.18.0) (2023-09-26)
 
 
