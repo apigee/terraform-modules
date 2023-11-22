@@ -17,6 +17,7 @@
 locals {
   envgroups = { for key, value in var.apigee_envgroups : key => value.hostnames }
   instances = { for key, value in var.apigee_instances : value.region => {
+    name                  = key
     environments          = value.environments
     runtime_ip_cidr_range = value.ip_range
     disk_encryption_key   = module.kms-inst-disk[key].key_ids[value.key_name]
