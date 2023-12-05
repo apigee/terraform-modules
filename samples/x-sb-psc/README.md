@@ -71,10 +71,10 @@ psc_endpoint_attachment_connection_state = "ACCEPTED"
 |------|--------|---------|
 | <a name="module_apigee-x-core"></a> [apigee-x-core](#module\_apigee-x-core) | ../../modules/apigee-x-core | n/a |
 | <a name="module_backend-example"></a> [backend-example](#module\_backend-example) | ../../modules/development-backend | n/a |
-| <a name="module_backend-vpc"></a> [backend-vpc](#module\_backend-vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v16.0.0 |
-| <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v16.0.0 |
+| <a name="module_backend-vpc"></a> [backend-vpc](#module\_backend-vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v26.0.0 |
+| <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v26.0.0 |
 | <a name="module_southbound-psc"></a> [southbound-psc](#module\_southbound-psc) | ../../modules/sb-psc-attachment | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v16.0.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v26.0.0 |
 
 ## Resources
 

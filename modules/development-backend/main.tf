@@ -15,7 +15,7 @@
  */
 
 module "demo-backend-template" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v16.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v26.0.0"
   project_id    = var.project_id
   name          = var.name
   zone          = "${var.region}-b"
@@ -29,9 +29,11 @@ module "demo-backend-template" {
     alias_ips  = null
   }]
   boot_disk = {
-    image = "projects/debian-cloud/global/images/family/debian-11"
-    type  = "pd-standard"
-    size  = 10
+    initialize_params = {
+      image = "projects/debian-cloud/global/images/family/debian-11"
+      type  = "pd-standard"
+      size  = 10
+    }
   }
   create_template = true
   metadata = {
@@ -42,27 +44,25 @@ module "demo-backend-template" {
 }
 
 module "demo-backend-mig" {
-  source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v16.0.0"
-  project_id  = var.project_id
-  location    = var.region
-  regional    = true
-  name        = "${var.name}-${var.region}"
-  target_size = 2
-  default_version = {
-    instance_template = module.demo-backend-template.template.self_link
-    name              = "default"
-  }
+  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v26.0.0"
+  project_id        = var.project_id
+  location          = var.region
+  name              = "${var.name}-${var.region}"
+  target_size       = 2
+  instance_template = module.demo-backend-template.template.self_link
 }
 
 module "ilb-backend" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb?ref=v16.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-lb-int?ref=v26.0.0"
   project_id    = var.project_id
   region        = var.region
   name          = var.name
   service_label = var.name
-  network       = var.network
-  subnetwork    = var.subnet
-  ports         = [80]
+  vpc_config = {
+    network    = var.network
+    subnetwork = var.subnet
+  }
+  ports = [80]
   backends = [
     {
       group          = module.demo-backend-mig.group_manager.instance_group,
@@ -71,10 +71,7 @@ module "ilb-backend" {
     }
   ]
   health_check_config = {
-    type    = "tcp"
-    check   = { port = 80 }
-    config  = {}
-    logging = false
+    tcp = { port = 80 }
   }
 }
 

@@ -28,13 +28,12 @@ def resources(recursive_plan_runner):
         project_id="testonly",
         project_create="true"
     )
-    print(json.dumps(resources,indent=2))
     return resources
 
 
 def test_resource_count(resources):
     "Test total number of resources created."
-    assert len(resources) == 42
+    assert len(resources) == 46
 
 
 def test_apigee_instance(resources):

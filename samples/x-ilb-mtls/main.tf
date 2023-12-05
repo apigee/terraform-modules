@@ -21,7 +21,7 @@ locals {
 }
 
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v16.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v26.0.0"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -35,7 +35,7 @@ module "project" {
 }
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v16.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v26.0.0"
   project_id = module.project.project_id
   name       = var.network
   subnets    = var.exposure_subnets
@@ -44,7 +44,6 @@ module "vpc" {
       apigee-range         = var.peering_range
       apigee-support-range = var.support_range
     }
-    routes = null
   }
 }
 
@@ -74,14 +73,16 @@ module "apigee-x-mtls-mig" {
 
 module "ilb" {
   for_each      = var.apigee_instances
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb?ref=v16.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-lb-int?ref=v26.0.0"
   project_id    = module.project.project_id
   region        = each.value.region
   name          = "apigee-mtls-${each.key}"
   service_label = "apigee-mtls-${each.key}"
-  network       = module.vpc.network.id
-  subnetwork    = module.vpc.subnet_self_links[local.subnet_region_name[each.value.region]]
-  ports         = [443]
+  vpc_config = {
+    network    = module.vpc.network.id
+    subnetwork = module.vpc.subnet_self_links[local.subnet_region_name[each.value.region]]
+  }
+  ports = [443]
   backends = [
     {
       group          = module.apigee-x-mtls-mig[each.key].instance_group,
@@ -90,10 +91,7 @@ module "ilb" {
     }
   ]
   health_check_config = {
-    type    = "tcp"
-    check   = { port = 443 }
-    config  = {}
-    logging = true
+    tcp = { port = 443 }
   }
 }
 

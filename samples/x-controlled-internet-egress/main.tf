@@ -15,7 +15,7 @@
  */
 
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v16.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v26.0.0"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -29,7 +29,7 @@ module "project" {
 }
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v16.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v26.0.0"
   project_id = module.project.project_id
   name       = var.network
   subnets    = [var.firewall_appliance_subnet]
@@ -38,10 +38,8 @@ module "vpc" {
       apigee-range         = var.peering_range
       apigee-support-range = var.support_range
     }
-    routes = {
-      export = true
-      import = false
-    }
+    export_routes = true
+    import_routes = true
   }
 }
 
@@ -56,7 +54,7 @@ module "apigee-x-core" {
 }
 
 module "nat" {
-  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat?ref=v16.0.0"
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat?ref=v26.0.0"
   project_id     = module.project.project_id
   region         = var.firewall_appliance_subnet.region
   name           = "nat"
@@ -83,7 +81,7 @@ resource "google_compute_route" "firewall_to_internet" {
 }
 
 module "mock-firewall" {
-  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v16.0.0"
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v26.0.0"
   project_id     = module.project.project_id
   zone           = var.firewall_appliance_zone
   can_ip_forward = true

@@ -22,7 +22,7 @@ locals {
 }
 
 module "host-project" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v16.0.0"
+  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v26.0.0"
   name                = local.svpc_host_project_id
   parent              = var.project_parent
   billing_account     = var.billing_account
@@ -38,7 +38,7 @@ module "host-project" {
 }
 
 module "service-project" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v16.0.0"
+  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v26.0.0"
   name                = var.project_id
   parent              = var.project_parent
   billing_account     = var.billing_account
@@ -58,23 +58,27 @@ module "service-project" {
 }
 
 module "shared-vpc" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v16.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v26.0.0"
   project_id      = module.host-project.project_id
   name            = var.network
-  subnets         = var.exposure_subnets
   shared_vpc_host = true
   shared_vpc_service_projects = [
     module.service-project.project_id
   ]
-  iam = {
+  subnets = [
     for subnet in var.exposure_subnets :
-    "${subnet.region}/${subnet.name}" =>
     {
-      "roles/compute.networkUser" = [
-        "serviceAccount:${module.service-project.service_accounts.cloud_services}"
-      ]
+      "name"                = subnet.name
+      "region"              = subnet.region
+      "secondary_ip_ranges" = subnet.secondary_ip_range
+      "ip_cidr_range"       = subnet.ip_cidr_range
+      "iam" = {
+        "roles/compute.networkUser" = [
+          "serviceAccount:${module.service-project.service_accounts.cloud_services}"
+        ]
+      }
     }
-  }
+  ]
   psa_config = {
     ranges = {
       apigee-range         = var.peering_range

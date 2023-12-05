@@ -19,13 +19,13 @@ resource "random_id" "bucket" {
 }
 
 module "appliance-sa" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v16.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v26.0.0"
   project_id = var.project_id
   name       = "sa-${var.name}"
 }
 
 module "config-bucket" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v16.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v26.0.0"
   project_id = var.project_id
   name       = "appliance-${random_id.bucket.dec}"
   location   = "EU"
@@ -41,7 +41,7 @@ resource "google_storage_bucket_object" "setup_script" {
 }
 
 module "routing-appliance-template" {
-  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v16.0.0"
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v26.0.0"
   project_id     = var.project_id
   name           = var.name
   zone           = "${var.region}-b"
@@ -56,9 +56,11 @@ module "routing-appliance-template" {
     alias_ips  = null
   }]
   boot_disk = {
-    image = "projects/debian-cloud/global/images/family/debian-11"
-    type  = "pd-standard"
-    size  = 10
+    initialize_params = {
+      image = "projects/debian-cloud/global/images/family/debian-11"
+      type  = "pd-standard"
+      size  = 10
+    }
   }
   create_template = true
   metadata = {
@@ -73,27 +75,25 @@ module "routing-appliance-template" {
 }
 
 module "routing-appliance-mig" {
-  source      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v16.0.0"
-  project_id  = var.project_id
-  location    = var.region
-  regional    = true
-  name        = "${var.name}-${var.region}"
-  target_size = 2
-  default_version = {
-    instance_template = module.routing-appliance-template.template.self_link
-    name              = "default"
-  }
+  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v26.0.0"
+  project_id        = var.project_id
+  location          = var.region
+  name              = "${var.name}-${var.region}"
+  target_size       = 2
+  instance_template = module.routing-appliance-template.template.self_link
 }
 
 module "ilb-appliance" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-ilb?ref=v16.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-lb-int?ref=v26.0.0"
   project_id    = var.project_id
   region        = var.region
   name          = var.name
   service_label = var.name
-  network       = var.network
-  subnetwork    = var.subnet
-  ports         = [443]
+  vpc_config = {
+    network    = var.network
+    subnetwork = var.subnet
+  }
+  ports = [443]
   backends = [
     {
       group          = module.routing-appliance-mig.group_manager.instance_group,
@@ -102,10 +102,7 @@ module "ilb-appliance" {
     }
   ]
   health_check_config = {
-    type    = "tcp"
-    check   = { port = 80 }
-    config  = {}
-    logging = false
+    tcp = { port = 80 }
   }
 }
 
