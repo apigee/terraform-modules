@@ -21,7 +21,7 @@ locals {
 }
 
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v26.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v28.0.0"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -35,7 +35,7 @@ module "project" {
 }
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v26.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v28.0.0"
   project_id = module.project.project_id
   name       = var.network
   psa_config = {
@@ -68,7 +68,7 @@ module "apigee-x-core" {
 }
 
 module "psc-ingress-vpc" {
-  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v26.0.0"
+  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v28.0.0"
   project_id              = module.project.project_id
   name                    = var.psc_ingress_network
   auto_create_subnetworks = false

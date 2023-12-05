@@ -15,7 +15,7 @@
  */
 
 module "demo-backend-template" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v26.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v28.0.0"
   project_id    = var.project_id
   name          = var.name
   zone          = "${var.region}-b"
@@ -39,12 +39,14 @@ module "demo-backend-template" {
   metadata = {
     startup-script = "sudo mkdir -p /var/www && cd /var/www && echo \"hello from $(hostname)\" > index.html && python3 -m http.server 80"
   }
-  service_account_create = true
-  service_account_scopes = ["cloud-platform"]
+  service_account = {
+    auto_create = true
+    scopes      = ["cloud-platform"]
+  }
 }
 
 module "demo-backend-mig" {
-  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v26.0.0"
+  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v28.0.0"
   project_id        = var.project_id
   location          = var.region
   name              = "${var.name}-${var.region}"
@@ -53,7 +55,7 @@ module "demo-backend-mig" {
 }
 
 module "ilb-backend" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-lb-int?ref=v26.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-lb-int?ref=v28.0.0"
   project_id    = var.project_id
   region        = var.region
   name          = var.name
@@ -62,7 +64,11 @@ module "ilb-backend" {
     network    = var.network
     subnetwork = var.subnet
   }
-  ports = [80]
+  forwarding_rules_config = {
+    "" = {
+      ports = [80]
+    }
+  }
   backends = [
     {
       group          = module.demo-backend-mig.group_manager.instance_group,

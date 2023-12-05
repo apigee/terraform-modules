@@ -19,13 +19,13 @@ resource "random_id" "bucket" {
 }
 
 module "mtls-proxy-sa" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v26.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v28.0.0"
   project_id = var.project_id
   name       = "apigee-mtls-proxy-vm"
 }
 
 module "config-bucket" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v26.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v28.0.0"
   project_id = var.project_id
   name       = "apigee-mtls-ingress-${random_id.bucket.dec}"
   location   = "EU"
@@ -65,7 +65,7 @@ resource "google_storage_bucket_object" "tls_key" {
 }
 
 module "apigee-mtls-proxy-template" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v26.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v28.0.0"
   project_id    = var.project_id
   name          = "apigee-nb-mtls-proxy"
   zone          = "${var.region}-b"
@@ -90,8 +90,10 @@ module "apigee-mtls-proxy-template" {
     BUCKET             = module.config-bucket.name
     startup-script-url = "gs://${module.config-bucket.name}/setup.sh"
   }
-  service_account        = module.mtls-proxy-sa.email
-  service_account_scopes = ["cloud-platform"]
+  service_account = {
+    scopes = ["cloud-platform"]
+    email  = module.mtls-proxy-sa.email
+  }
   depends_on = [
     google_storage_bucket_object.setup_script,
     google_storage_bucket_object.ca_cert,
@@ -103,7 +105,7 @@ module "apigee-mtls-proxy-template" {
 }
 
 module "apigee-mtls-proxy-mig" {
-  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v26.0.0"
+  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v28.0.0"
   project_id        = var.project_id
   location          = var.region
   name              = "apigee-mtls-proxy-${var.region}"
@@ -116,7 +118,7 @@ module "apigee-mtls-proxy-mig" {
 }
 
 module "nat" {
-  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat?ref=v26.0.0"
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat?ref=v28.0.0"
   project_id     = var.project_id
   region         = var.region
   name           = "nat-${var.region}"

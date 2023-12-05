@@ -48,6 +48,7 @@ def assert_instance_attachment(resources, attachment_ids):
     attachments = resources_by_type(resources, "google_apigee_instance_attachment")
     assert len(attachments) == len(attachment_ids)
     attachment_ids_found = set(a["index"] for a in attachments)
+    print(attachment_ids_found)
     assert set(attachment_ids_found) == set(attachment_ids)
 
 def resources_by_type(resources, resourceType):

@@ -25,7 +25,7 @@ locals {
 }
 
 module "host-project" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v26.0.0"
+  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v28.0.0"
   name                = local.svpc_host_project_id
   parent              = var.project_parent
   billing_account     = var.billing_account
@@ -41,7 +41,7 @@ module "host-project" {
 }
 
 module "service-project" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v26.0.0"
+  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v28.0.0"
   name                = var.project_id
   parent              = var.project_parent
   billing_account     = var.billing_account
@@ -61,7 +61,7 @@ module "service-project" {
 }
 
 module "shared-vpc" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v26.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v28.0.0"
   project_id      = module.host-project.project_id
   name            = var.network
   shared_vpc_host = true

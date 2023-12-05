@@ -19,7 +19,7 @@ locals {
 }
 
 module "bridge-template" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v26.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v28.0.0"
   project_id    = var.project_id
   name          = local.bridge_name
   zone          = "${var.region}-b"
@@ -44,12 +44,14 @@ module "bridge-template" {
     ENDPOINT           = var.endpoint_ip
     startup-script-url = "gs://apigee-5g-saas/apigee-envoy-proxy-release/latest/conf/startup-script.sh"
   }
-  service_account_create = true
-  service_account_scopes = ["cloud-platform"]
+  service_account = {
+    auto_create = true
+    scopes      = ["cloud-platform"]
+  }
 }
 
 module "bridge-mig" {
-  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v26.0.0"
+  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v28.0.0"
   project_id        = var.project_id
   location          = var.region
   name              = local.bridge_name

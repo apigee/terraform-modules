@@ -88,9 +88,9 @@ terraform apply --var-file=./my-config.tfvars -var "project_id=$PROJECT_ID"
 |------|--------|---------|
 | <a name="module_apigee-x-core"></a> [apigee-x-core](#module\_apigee-x-core) | ../../modules/apigee-x-core | n/a |
 | <a name="module_apigee-x-mtls-mig"></a> [apigee-x-mtls-mig](#module\_apigee-x-mtls-mig) | ../../modules/apigee-x-mtls-mig | n/a |
-| <a name="module_ilb"></a> [ilb](#module\_ilb) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-lb-int | v26.0.0 |
-| <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v26.0.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v26.0.0 |
+| <a name="module_ilb"></a> [ilb](#module\_ilb) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-lb-int | v28.0.0 |
+| <a name="module_project"></a> [project](#module\_project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v28.0.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc | v28.0.0 |
 
 ## Resources
 

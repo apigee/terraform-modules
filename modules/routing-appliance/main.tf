@@ -19,13 +19,13 @@ resource "random_id" "bucket" {
 }
 
 module "appliance-sa" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v26.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v28.0.0"
   project_id = var.project_id
   name       = "sa-${var.name}"
 }
 
 module "config-bucket" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v26.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v28.0.0"
   project_id = var.project_id
   name       = "appliance-${random_id.bucket.dec}"
   location   = "EU"
@@ -41,7 +41,7 @@ resource "google_storage_bucket_object" "setup_script" {
 }
 
 module "routing-appliance-template" {
-  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v26.0.0"
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v28.0.0"
   project_id     = var.project_id
   name           = var.name
   zone           = "${var.region}-b"
@@ -66,8 +66,10 @@ module "routing-appliance-template" {
   metadata = {
     startup-script-url = "gs://${module.config-bucket.name}/setup.sh"
   }
-  service_account        = module.appliance-sa.email
-  service_account_scopes = ["cloud-platform"]
+  service_account = {
+    email  = module.appliance-sa.email
+    scopes = ["cloud-platform"]
+  }
 
   depends_on = [
     google_storage_bucket_object.setup_script
@@ -75,7 +77,7 @@ module "routing-appliance-template" {
 }
 
 module "routing-appliance-mig" {
-  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v26.0.0"
+  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v28.0.0"
   project_id        = var.project_id
   location          = var.region
   name              = "${var.name}-${var.region}"
@@ -84,7 +86,7 @@ module "routing-appliance-mig" {
 }
 
 module "ilb-appliance" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-lb-int?ref=v26.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-lb-int?ref=v28.0.0"
   project_id    = var.project_id
   region        = var.region
   name          = var.name
@@ -93,7 +95,11 @@ module "ilb-appliance" {
     network    = var.network
     subnetwork = var.subnet
   }
-  ports = [443]
+  forwarding_rules_config = {
+    "" = {
+      ports = [443]
+    }
+  }
   backends = [
     {
       group          = module.routing-appliance-mig.group_manager.instance_group,
@@ -124,6 +130,6 @@ resource "google_compute_route" "appliance" {
   name         = "appliance-rt-${each.key}"
   dest_range   = each.value.range
   network      = var.network
-  next_hop_ilb = module.ilb-appliance.forwarding_rule.id
+  next_hop_ilb = module.ilb-appliance.forwarding_rules[""].id
   priority     = each.value.priority
 }
