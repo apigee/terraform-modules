@@ -56,6 +56,7 @@ module "nip-development-hostname" {
 
 module "apigee-x-core" {
   source              = "../../modules/apigee-x-core"
+  billing_type        = "PAYG"
   project_id          = module.project.project_id
   ax_region           = var.ax_region
   apigee_environments = var.apigee_environments

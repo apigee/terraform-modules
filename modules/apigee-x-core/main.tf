@@ -67,7 +67,7 @@ module "kms-inst-disk" {
 }
 
 module "apigee" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=v26.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/apigee?ref=v28.0.0"
   project_id = var.project_id
   organization = {
     display_name            = var.org_display_name

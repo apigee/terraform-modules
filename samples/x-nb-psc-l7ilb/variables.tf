@@ -58,6 +58,7 @@ variable "apigee_environments" {
     }))
     iam       = optional(map(list(string)))
     envgroups = list(string)
+    type      = optional(string)
   }))
   default = null
 }

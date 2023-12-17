@@ -65,6 +65,7 @@ variable "apigee_environments" {
       max_node_count = optional(number)
     }))
     iam       = optional(map(list(string)))
+    type      = optional(string)
     envgroups = list(string)
   }))
   default = null
