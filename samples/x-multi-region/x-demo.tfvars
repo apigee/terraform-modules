@@ -49,7 +49,6 @@ apigee_environments = {
     type         = null
   }
 }
-}
 
 apigee_envgroups = {
   test = {
