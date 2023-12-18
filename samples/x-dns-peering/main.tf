@@ -21,7 +21,7 @@ locals {
 }
 
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v16.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v28.0.0"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -36,7 +36,7 @@ module "project" {
 }
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v16.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v28.0.0"
   project_id = module.project.project_id
   name       = var.network
   subnets = [{
@@ -50,7 +50,6 @@ module "vpc" {
       apigee-range         = var.peering_range
       apigee-support-range = var.support_range
     }
-    routes = null
   }
 }
 
@@ -78,12 +77,15 @@ module "backend-example" {
 }
 
 module "private-dns" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/dns?ref=v16.0.0"
-  project_id      = module.project.project_id
-  type            = "private"
-  name            = var.dns.name
-  domain          = var.dns.domain
-  client_networks = [module.vpc.self_link]
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/dns?ref=v28.0.0"
+  project_id = module.project.project_id
+  name       = var.dns.name
+  zone_config = {
+    domain = var.dns.domain
+    private = {
+      client_networks = [module.vpc.self_link]
+    }
+  }
   recordsets = merge(
     { "A ${var.backend.name}" = { type = "A", ttl = 300, records = [module.backend-example.ilb_forwarding_rule_address] } },
     { for eg_name in keys(var.apigee_envgroups) : "A ${eg_name}-api" => { type = "A", ttl = 300, records = values(module.apigee-x-core.instance_endpoints) } }

@@ -21,15 +21,15 @@ output "instance_group" {
 
 output "ilb_forwarding_rule_address" {
   description = "ILB forwarding rule IP address."
-  value       = module.ilb-backend.forwarding_rule_address
+  value       = module.ilb-backend.forwarding_rule_addresses[""]
 }
 
 output "ilb_forwarding_rule_self_link" {
   description = "ILB forwarding rule self link."
-  value       = module.ilb-backend.forwarding_rule_self_link
+  value       = module.ilb-backend.forwarding_rule_self_links[""]
 }
 
 output "region" {
   description = "Backend Service region."
-  value       = module.ilb-backend.forwarding_rule.region
+  value       = module.ilb-backend.forwarding_rules[""].region
 }

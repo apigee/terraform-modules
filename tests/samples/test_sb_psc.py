@@ -34,7 +34,7 @@ def resources(recursive_plan_runner):
 
 def test_resource_count(resources):
     "Test total number of resources created."
-    assert len(resources) == 41
+    assert len(resources) == 46
 
 
 def test_apigee_instance(resources):
@@ -44,7 +44,7 @@ def test_apigee_instance(resources):
 
 def test_apigee_instance_attachment(resources):
     "Test Apigee Instance Attachments."
-    assert_instance_attachment(resources, ["test1-europe-west1","test2-europe-west1"])
+    assert_instance_attachment(resources, ["europe-west1-test1", "europe-west1-test2"])
 
 
 def test_envgroup_attachment(resources):

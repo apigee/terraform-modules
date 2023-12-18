@@ -13,3 +13,4 @@ modules/apigee-hybrid-workload/overrides/
 **.key
 modules/apigee-hybrid-workload/apigeectl_*
 __pycache__
+.venv

@@ -19,13 +19,13 @@ resource "random_id" "bucket" {
 }
 
 module "mtls-proxy-sa" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v16.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/iam-service-account?ref=v28.0.0"
   project_id = var.project_id
   name       = "apigee-mtls-proxy-vm"
 }
 
 module "config-bucket" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v16.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v28.0.0"
   project_id = var.project_id
   name       = "apigee-mtls-ingress-${random_id.bucket.dec}"
   location   = "EU"
@@ -65,7 +65,7 @@ resource "google_storage_bucket_object" "tls_key" {
 }
 
 module "apigee-mtls-proxy-template" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v16.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v28.0.0"
   project_id    = var.project_id
   name          = "apigee-nb-mtls-proxy"
   zone          = "${var.region}-b"
@@ -79,17 +79,21 @@ module "apigee-mtls-proxy-template" {
     alias_ips  = null
   }]
   boot_disk = {
-    image = "projects/debian-cloud/global/images/family/debian-11"
-    type  = "pd-standard"
-    size  = 10
+    initialize_params = {
+      image = "projects/debian-cloud/global/images/family/debian-11"
+      type  = "pd-standard"
+      size  = 10
+    }
   }
   create_template = true
   metadata = {
     BUCKET             = module.config-bucket.name
     startup-script-url = "gs://${module.config-bucket.name}/setup.sh"
   }
-  service_account        = module.mtls-proxy-sa.email
-  service_account_scopes = ["cloud-platform"]
+  service_account = {
+    scopes = ["cloud-platform"]
+    email  = module.mtls-proxy-sa.email
+  }
   depends_on = [
     google_storage_bucket_object.setup_script,
     google_storage_bucket_object.ca_cert,
@@ -101,24 +105,20 @@ module "apigee-mtls-proxy-template" {
 }
 
 module "apigee-mtls-proxy-mig" {
-  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v16.0.0"
+  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v28.0.0"
   project_id        = var.project_id
   location          = var.region
-  regional          = true
   name              = "apigee-mtls-proxy-${var.region}"
   target_size       = var.target_size
   autoscaler_config = var.autoscaler_config
   named_ports = {
     https = 443
   }
-  default_version = {
-    instance_template = module.apigee-mtls-proxy-template.template.self_link
-    name              = "default"
-  }
+  instance_template = module.apigee-mtls-proxy-template.template.self_link
 }
 
 module "nat" {
-  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat?ref=v16.0.0"
+  source         = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-cloudnat?ref=v28.0.0"
   project_id     = var.project_id
   region         = var.region
   name           = "nat-${var.region}"

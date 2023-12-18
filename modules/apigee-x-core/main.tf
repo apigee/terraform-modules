@@ -17,6 +17,7 @@
 locals {
   envgroups = { for key, value in var.apigee_envgroups : key => value.hostnames }
   instances = { for key, value in var.apigee_instances : value.region => {
+    name                  = key
     environments          = value.environments
     runtime_ip_cidr_range = value.ip_range
     disk_encryption_key   = module.kms-inst-disk[key].key_ids[value.key_name]
@@ -31,7 +32,7 @@ resource "google_project_service_identity" "apigee_sa" {
 }
 
 module "kms-org-db" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v26.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v28.0.0"
   project_id = var.project_id
   iam = {
     "roles/cloudkms.cryptoKeyEncrypterDecrypter" = ["serviceAccount:${google_project_service_identity.apigee_sa.email}"]
@@ -48,7 +49,7 @@ module "kms-org-db" {
 
 module "kms-inst-disk" {
   for_each   = var.apigee_instances
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v26.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v28.0.0"
   project_id = var.project_id
   iam = {
     "roles/cloudkms.cryptoKeyEncrypterDecrypter" = ["serviceAccount:${google_project_service_identity.apigee_sa.email}"]

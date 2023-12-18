@@ -38,7 +38,7 @@ locals {
 
 # GCP Project to host Apigee Organization and the related components.
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v16.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v28.0.0"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -53,7 +53,7 @@ module "project" {
 
 # VPC Network to host Apigee Organization network resources.
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v16.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v28.0.0"
   project_id = module.project.project_id
   name       = var.network
   psa_config = {
@@ -61,7 +61,6 @@ module "vpc" {
       apigee-range         = var.peering_range
       apigee-support-range = var.support_range
     }
-    routes = null
   }
 }
 
@@ -83,7 +82,7 @@ module "apigee-x-core" {
 
 # VPC for Private Service Connect-based Ingress.
 module "psc-ingress-vpc" {
-  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v16.0.0"
+  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v28.0.0"
   project_id              = module.project.project_id
   name                    = var.psc_ingress_network
   auto_create_subnetworks = false
