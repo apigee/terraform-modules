@@ -19,7 +19,7 @@ locals {
 }
 
 module "bridge-template" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v16.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-vm?ref=v28.0.0"
   project_id    = var.project_id
   name          = local.bridge_name
   zone          = "${var.region}-b"
@@ -33,31 +33,31 @@ module "bridge-template" {
     alias_ips  = null
   }]
   boot_disk = {
-    image = "debian-cloud/debian-11"
-    type  = "pd-standard"
-    size  = 20
+    initialize_params = {
+      image = "debian-cloud/debian-11"
+      type  = "pd-standard"
+      size  = 20
+    }
   }
   create_template = true
   metadata = {
     ENDPOINT           = var.endpoint_ip
     startup-script-url = "gs://apigee-5g-saas/apigee-envoy-proxy-release/latest/conf/startup-script.sh"
   }
-  service_account_create = true
-  service_account_scopes = ["cloud-platform"]
+  service_account = {
+    auto_create = true
+    scopes      = ["cloud-platform"]
+  }
 }
 
 module "bridge-mig" {
-  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v16.0.0"
+  source            = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/compute-mig?ref=v28.0.0"
   project_id        = var.project_id
   location          = var.region
-  regional          = true
   name              = local.bridge_name
   target_size       = var.target_size
   autoscaler_config = var.autoscaler_config
-  default_version = {
-    instance_template = module.bridge-template.template.self_link
-    name              = "default"
-  }
+  instance_template = module.bridge-template.template.self_link
   named_ports = {
     https = 443
   }
@@ -66,13 +66,10 @@ module "bridge-mig" {
     initial_delay_sec = 30
   }
   health_check_config = {
-    type = "https"
-    check = {
+    https = {
       port         = 443,
       request_path = "/healthz/ingress"
     }
-    config  = {}
-    logging = false
   }
 }
 

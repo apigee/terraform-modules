@@ -15,7 +15,7 @@
  */
 
 module "bootstrap-project" {
-  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v16.0.0"
+  source              = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v28.0.0"
   name                = var.project_id
   parent              = var.project_parent
   billing_account     = var.billing_account
@@ -37,7 +37,7 @@ module "bootstrap-project" {
 }
 
 module "infra-tfstate-bucket" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v16.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v28.0.0"
   project_id    = module.bootstrap-project.project_id
   name          = "${var.project_id}-infra-tfstate"
   location      = var.region
@@ -47,7 +47,7 @@ module "infra-tfstate-bucket" {
 }
 
 module "app-tfstate-bucket" {
-  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v16.0.0"
+  source        = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs?ref=v28.0.0"
   project_id    = module.bootstrap-project.project_id
   name          = "${var.project_id}-app-tfstate"
   location      = var.region

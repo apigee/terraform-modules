@@ -149,9 +149,9 @@ curl https://test.123-456-789-012.nip.io/httpbin/headers
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_app-tfstate-bucket"></a> [app-tfstate-bucket](#module\_app-tfstate-bucket) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs | v16.0.0 |
-| <a name="module_bootstrap-project"></a> [bootstrap-project](#module\_bootstrap-project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v16.0.0 |
-| <a name="module_infra-tfstate-bucket"></a> [infra-tfstate-bucket](#module\_infra-tfstate-bucket) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs | v16.0.0 |
+| <a name="module_app-tfstate-bucket"></a> [app-tfstate-bucket](#module\_app-tfstate-bucket) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs | v28.0.0 |
+| <a name="module_bootstrap-project"></a> [bootstrap-project](#module\_bootstrap-project) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/project | v28.0.0 |
+| <a name="module_infra-tfstate-bucket"></a> [infra-tfstate-bucket](#module\_infra-tfstate-bucket) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gcs | v28.0.0 |
 
 ## Resources
 
