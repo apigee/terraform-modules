@@ -38,6 +38,7 @@ apigee_environments = {
     node_config  = null
     iam          = null
     envgroups    = ["test"]
+    type         = null
   }
   test2 = {
     display_name = "Test 2"
@@ -45,6 +46,7 @@ apigee_environments = {
     node_config  = null
     iam          = null
     envgroups    = ["test"]
+    type         = null
   }
 }
 

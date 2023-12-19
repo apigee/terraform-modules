@@ -31,6 +31,7 @@ apigee_environments = {
     node_config  = null
     iam          = null
     envgroups    = ["test"]
+    type         = null
   }
   test2 = {
     display_name = "Test 2"
@@ -38,6 +39,7 @@ apigee_environments = {
     node_config  = null
     iam          = null
     envgroups    = ["test"]
+    type         = null
   }
 }
 
@@ -60,5 +62,5 @@ psc_ingress_subnets = [
   }
 ]
 
-peering_range = "10.0.0.0/22"
+peering_range = "10.0.0.0/20"
 support_range = "10.1.0.0/28"
