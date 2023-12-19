@@ -5,8 +5,7 @@
 
 ### Features
 
-* Bump to latest CFF v28.0.0 ([d34508d](https://github.com/apigee/terraform-modules/commit/d34508dd64b829ac5061c7ab53fb8fb767698d47))
-* Harmonize Cloud Foundation Fabric dependencies to all use v26.0.0 ([9c899be](https://github.com/apigee/terraform-modules/commit/9c899be9a75838db4f80e12c30962daee0d91f58))
+* Bump module dependencies to latest Cloud Foundation Fabric v28.0.0 ([d34508d](https://github.com/apigee/terraform-modules/commit/d34508dd64b829ac5061c7ab53fb8fb767698d47))
 
 ## [0.18.1](https://github.com/apigee/terraform-modules/compare/v0.18.0...v0.18.1) (2023-11-22)
 
