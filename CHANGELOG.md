@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.19.0](https://github.com/apigee/terraform-modules/compare/v0.18.1...v0.19.0) (2023-12-19)
+
+
+### Features
+
+* Bump module dependencies to latest Cloud Foundation Fabric v28.0.0 ([d34508d](https://github.com/apigee/terraform-modules/commit/d34508dd64b829ac5061c7ab53fb8fb767698d47))
+
 ## [0.18.1](https://github.com/apigee/terraform-modules/compare/v0.18.0...v0.18.1) (2023-11-22)
 
 
