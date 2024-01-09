@@ -19,6 +19,13 @@ set -e
 template_string="$(cat .github/actions/update-docs/sample-instructions.template.md)"
 export template_string
 
+
+# create a copy to compare docs updates
+workdir=$PWD
+original_content_clone=$PWD/../docs-clone
+(cd .. && cp -r "$workdir" "$original_content_clone")
+
+# run terraform docs
 for TYPE in samples modules; do
   for D in "$TYPE"/*; do
     # set the generic sample instructions if required
@@ -30,7 +37,7 @@ for TYPE in samples modules; do
   done
 done
 
-changes=$(git diff --name-only | grep 'README.md$' || true )
+changes=$(git diff --name-only --no-index -- "$original_content_clone" "$workdir" | grep 'README.md$' || true )
 
 if [ -z "$changes" ];then
   echo "Docs Are up to date 🎉"
