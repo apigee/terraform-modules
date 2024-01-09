@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.19.1](https://github.com/apigee/terraform-modules/compare/v0.19.0...v0.19.1) (2024-01-09)
+
+
+### Bug Fixes
+
+* Correct docs check and update samples to include new type argument ([2b9e95d](https://github.com/apigee/terraform-modules/commit/2b9e95df16d0f862e3684d303920efdc08abd953))
+
 ## [0.19.0](https://github.com/apigee/terraform-modules/compare/v0.18.1...v0.19.0) (2023-12-19)
 
 
