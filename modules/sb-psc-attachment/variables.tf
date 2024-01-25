@@ -47,3 +47,29 @@ variable "apigee_organization" {
     error_message = "Invalid Apigee Organization ID. Please use the format \"organizations/[a-zA-Z0-9-_]+\"."
   }
 }
+
+variable "target_servers" {
+  description = "Map of target servers to be created and associated with the endpoint attachment."
+  default     = {}
+  type = map(object({
+    environment_id = string
+    name           = string
+    protocol       = optional(string, "HTTP")
+    port           = optional(number, 80)
+    enabled        = optional(bool, true)
+    s_sl_info = optional(object({
+      enabled                  = bool
+      client_auth_enabled      = optional(bool, null)
+      key_store                = optional(string, null)
+      key_alias                = optional(string, null)
+      trust_store              = optional(string, null)
+      ignore_validation_errors = optional(bool, null)
+      protocols                = optional(list(string), null)
+      ciphers                  = optional(list(string), null)
+      common_name = optional(object({
+        value          = optional(string, null)
+        wildcard_match = optional(bool, null)
+      }))
+    }))
+  }))
+}

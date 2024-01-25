@@ -3,7 +3,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | >= 4.20.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | >= 4.83, <6 |
 
 ## Modules
 
@@ -14,6 +14,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [google_apigee_endpoint_attachment.endpoint_attachment](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/apigee_endpoint_attachment) | resource |
+| [google_apigee_target_server.target_server](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/apigee_target_server) | resource |
 | [google_compute_service_attachment.psc_service_attachment](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_service_attachment) | resource |
 
 ## Inputs
@@ -25,6 +26,7 @@ No modules.
 | <a name="input_nat_subnets"></a> [nat\_subnets](#input\_nat\_subnets) | One or more NAT subnets to be used for PSC. | `list(string)` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id. | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | GCP region where the service attachment should be created. | `string` | n/a | yes |
+| <a name="input_target_servers"></a> [target\_servers](#input\_target\_servers) | Map of target servers to be created and associated with the endpoint attachment. | <pre>map(object({<br>    environment_id = string<br>    name           = string<br>    protocol       = optional(string, "HTTP")<br>    port           = optional(number, 80)<br>    enabled        = optional(bool, true)<br>    s_sl_info = optional(object({<br>      enabled                  = bool<br>      client_auth_enabled      = optional(bool, null)<br>      key_store                = optional(string, null)<br>      key_alias                = optional(string, null)<br>      trust_store              = optional(string, null)<br>      ignore_validation_errors = optional(bool, null)<br>      protocols                = optional(list(string), null)<br>      ciphers                  = optional(list(string), null)<br>      common_name = optional(object({<br>        value          = optional(string, null)<br>        wildcard_match = optional(bool, null)<br>      }))<br>    }))<br>  }))</pre> | `{}` | no |
 | <a name="input_target_service"></a> [target\_service](#input\_target\_service) | Target Service for the service attachment e.g. a forwarding rule. | `string` | n/a | yes |
 
 ## Outputs

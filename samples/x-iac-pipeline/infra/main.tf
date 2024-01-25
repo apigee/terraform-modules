@@ -79,10 +79,10 @@ module "shared-vpc" {
   subnets = [
     for subnet in var.exposure_subnets :
     {
-      "name" = subnet.name
-      "region" = subnet.region
+      "name"                = subnet.name
+      "region"              = subnet.region
       "secondary_ip_ranges" = subnet.secondary_ip_range
-      "ip_cidr_range" = subnet.ip_cidr_range
+      "ip_cidr_range"       = subnet.ip_cidr_range
       "iam" = {
         "roles/compute.networkUser" = [
           "serviceAccount:${module.service-project.service_accounts.cloud_services}"
