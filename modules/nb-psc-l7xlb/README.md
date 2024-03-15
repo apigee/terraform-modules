@@ -28,6 +28,7 @@ No modules.
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Project id. | `string` | n/a | yes |
 | <a name="input_psc_negs"></a> [psc\_negs](#input\_psc\_negs) | List of PSC NEGs to be used as backends. | `list(string)` | n/a | yes |
 | <a name="input_security_policy"></a> [security\_policy](#input\_security\_policy) | (Optional) The security policy associated with this backend service. | `string` | `null` | no |
+| <a name="input_edge_security_policy"></a> [edge\_security\_policy](#input\_edge\_security\_policy) | (Optional) The edge security policy associated with this backend service. | `string` | `null` | no |
 | <a name="input_ssl_certificate"></a> [ssl\_certificate](#input\_ssl\_certificate) | A list of SSL certificates for the HTTPS LB. | `list(string)` | n/a | yes |
 
 ## Outputs

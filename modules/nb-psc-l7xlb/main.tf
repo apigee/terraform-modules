@@ -21,6 +21,7 @@ resource "google_compute_backend_service" "psc_backend" {
   protocol              = "HTTPS"
   load_balancing_scheme = "EXTERNAL_MANAGED"
   security_policy       = var.security_policy
+  edge_security_policy  = var.edge_security_policy
   dynamic "backend" {
     for_each = var.psc_negs
     content {
