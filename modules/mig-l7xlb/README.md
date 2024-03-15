@@ -27,6 +27,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_backend_migs"></a> [backend\_migs](#input\_backend\_migs) | List of MIGs to be used as backends. | `list(string)` | n/a | yes |
 | <a name="input_backend_timeout"></a> [backend\_timeout](#input\_backend\_timeout) | Backend timeout in seconds | `number` | `10` | no |
+| <a name="input_edge_security_policy"></a> [edge\_security\_policy](#input\_edge\_security\_policy) | (Optional) The edge security policy associated with this backend service. | `string` | `null` | no |
 | <a name="input_external_ip"></a> [external\_ip](#input\_external\_ip) | (Optional) External IP for the L7 XLB. | `string` | `null` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | An optional map of label key:value pairs to assign to the forwarding rule.<br>Default is an empty map. | `map(string)` | `{}` | no |
 | <a name="input_logs_enabled"></a> [logs\_enabled](#input\_logs\_enabled) | Whether to enable logging for the load balancer traffic served by this backend service. | `bool` | `false` | no |
