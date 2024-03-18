@@ -46,6 +46,12 @@ variable "security_policy" {
   default     = null
 }
 
+variable "edge_security_policy" {
+  description = "(Optional) The edge security policy associated with this backend service."
+  type        = string
+  default     = null
+}
+
 variable "logs_enabled" {
   type        = bool
   default     = false

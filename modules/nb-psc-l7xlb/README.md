@@ -22,6 +22,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_edge_security_policy"></a> [edge\_security\_policy](#input\_edge\_security\_policy) | (Optional) The edge security policy associated with this backend service. | `string` | `null` | no |
 | <a name="input_external_ip"></a> [external\_ip](#input\_external\_ip) | External IP for the L7 XLB. | `string` | `null` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | An optional map of label key:value pairs to assign to the forwarding rule.<br>Default is an empty map. | `map(string)` | `{}` | no |
 | <a name="input_name"></a> [name](#input\_name) | External LB name. | `string` | n/a | yes |
