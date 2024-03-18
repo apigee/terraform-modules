@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.20.0](https://github.com/apigee/terraform-modules/compare/v0.19.1...v0.20.0) (2024-03-18)
+
+
+### Features
+
+* added edge_security_policy to nb-psc-l7xlb ([235661f](https://github.com/apigee/terraform-modules/commit/235661f591138c298f49108fce5c62f50c5e9ee0))
+* adding target server to sb-psc-attachment module ([fd88f0a](https://github.com/apigee/terraform-modules/commit/fd88f0a4477725a782801bb1e566cbd6a2fce93b))
+
 ## [0.19.1](https://github.com/apigee/terraform-modules/compare/v0.19.0...v0.19.1) (2024-01-09)
 
 
