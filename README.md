@@ -9,7 +9,7 @@ This repository provides end-to-end sample modules and reusable terraform module
 
 ## End-To-End Samples
 
-Sample modules are intended to demonstrate the most common network topologies for Apgiee. The sample modules don't make any assumptions about pre-exsting topologies and create all the required resources from scratch. They can be used as a starting point for your own projects or be edited to work with your existing resources (e.g to reference an existing VPC instead of creating a separate one).
+Sample modules are intended to demonstrate the most common network topologies for Apigee. The sample modules don't make any assumptions about pre-exsting topologies and create all the required resources from scratch. They can be used as a starting point for your own projects or be edited to work with your existing resources (e.g to reference an existing VPC instead of creating a separate one).
 
 * [X Basic](samples/x-basic) for a basic Apigee X setup with the raw instance endpoints exposed as internal IP addresses.
 * [X with external L7 LB](samples/x-l7xlb) for an Apigee X setup that is exposed via a global external L7 load balancer.
