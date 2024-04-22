@@ -57,6 +57,7 @@ variable "target_servers" {
     protocol       = optional(string, "HTTP")
     port           = optional(number, 80)
     enabled        = optional(bool, true)
+    host           = optional(string, null)
     s_sl_info = optional(object({
       enabled                  = bool
       client_auth_enabled      = optional(bool, null)

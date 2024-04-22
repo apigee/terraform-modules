@@ -41,7 +41,7 @@ resource "google_apigee_target_server" "target_server" {
   description = "Target server for ${var.name} endpoint attachment"
   env_id      = each.value.environment_id
   protocol    = each.value.protocol
-  host        = google_apigee_endpoint_attachment.endpoint_attachment.host
+  host        = coalesce(each.value.host, google_apigee_endpoint_attachment.endpoint_attachment.host)
   port        = each.value.port
   is_enabled  = each.value.enabled
 
