@@ -78,6 +78,7 @@ module "apigee" {
     billing_type            = var.billing_type
     database_encryption_key = module.kms-org-db.key_ids["org-db"]
     analytics_region        = var.ax_region
+    disable_vpc_peering     = var.disable_vpc_peering
   }
   envgroups    = local.envgroups
   environments = var.apigee_environments
