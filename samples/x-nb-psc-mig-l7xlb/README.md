@@ -2,7 +2,7 @@
 
 End-to-end sample terraform code to provision Apigee X exposed by External Load Balancer with PSC and MIG.
 
-If you plan to use PSC for Apigee northbound network routing, follow the instructions in this document to configure active health check. At this time, PSC does not support active health check monitoring. To work around this limitation of PSC, you can modify the Apigee installation configuration to use a managed instance group (MIG), which does provide active health check capability.
+If you plan to use PSC for Apigee northbound network routing, follow the instructions in this document to configure active health check. 
 At this time, PSC does not support active health check monitoring. To work around this limitation of PSC, you can modify the Apigee installation configuration to use a managed instance group (MIG), which does provide active health check capability. Refer the network diagram below
 
 <p align="center">
