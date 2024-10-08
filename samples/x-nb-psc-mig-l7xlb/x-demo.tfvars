@@ -40,14 +40,8 @@ apigee_instances = {
     region       = "europe-west1"    
     ip_range     = "10.1.4.0/22"              
     environments = ["test"] 
-  },
-  /*
-  "euw2-instance" = {
-    region       = "europe-west2"    
-    ip_range     = "10.1.8.0/22"                
-    environments = ["test"] 
   }
-*/
+  #Add more instances if needed
 }
 
 apigee_environments = {
@@ -69,16 +63,8 @@ exposure_subnets = [
     region             = "europe-west1"
     instance           = "euw1-instance"
     secondary_ip_range = null
-  },
-  /*
-  {
-    name               = "apigee-exposure-2"
-    ip_cidr_range      = "10.200.0.0/24"
-    region             = "europe-west2"
-    instance           = "euw2-instance"
-    secondary_ip_range = null
   }
-  */
+  
 ]
 
 psc_subnets = [
@@ -88,15 +74,6 @@ psc_subnets = [
     region             = "europe-west1"
     instance           = "euw1-instance"
     secondary_ip_range = null
-  },
-  /*
-  {
-    name               = "psc-subnet-2"
-    ip_cidr_range      = "10.100.255.248/29"
-    region             = "europe-west2"
-    instance           = "euw2-instance"
-    secondary_ip_range = null
   }
-*/
 ]
 
