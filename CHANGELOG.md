@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.0](https://github.com/apigee/terraform-modules/compare/v0.20.0...v0.21.0) (2024-10-09)
+
+
+### Features
+
+* add north-bound PSC example with MIGs ([b677bc6](https://github.com/apigee/terraform-modules/commit/b677bc623bce3803c3908f81a76ead2bbd6e4bb7))
+
 ## [0.20.0](https://github.com/apigee/terraform-modules/compare/v0.19.1...v0.20.0) (2024-03-18)
 
 
