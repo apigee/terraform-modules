@@ -18,9 +18,6 @@ locals {
   subnet_region_name = { for subnet in var.exposure_subnets :
     subnet.region => "${subnet.region}/${subnet.name}"
   }
-  instance_region_name = { for subnet in var.exposure_subnets :
-    subnet.region => subnet.instance
-  }
   psc_subnets = { for psc in var.psc_subnets : 
     psc.name => psc 
   }
@@ -112,7 +109,6 @@ module "apigee-x-bridge-mig" {
   network     = module.vpc.network.id
   region      = each.key
   subnet      = module.vpc.subnet_self_links[local.subnet_region_name[each.key]]
-  #endpoint_ip = module.apigee-x-core.instance_endpoints[local.instance_region_name[each.key]] 
   endpoint_ip = data.google_compute_address.int_psc_ips[local.region_psc_map[each.key]].address
 }
 
