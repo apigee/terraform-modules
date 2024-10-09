@@ -3,8 +3,8 @@
 End-to-end sample terraform code to provision Apigee X exposed by External Load Balancer with PSC and MIG.
 
 If you plan to use LB-->PSC-NEG for Apigee northbound network routing, follow the instructions in this document to configure active health check. 
-At this time, PSC does not support active health check monitoring as mentioned [here](https://cloud.google.com/load-balancing/docs/negs#psc-neg). 
-To work around this limitation of PSC, you can modify the Apigee installation configuration to use a managed instance group (MIG), which does provide active health check capability. Refer guide [here](https://cloud.google.com/apigee/docs/api-platform/system-administration/health-check-mig-workaround) and the network diagram below :
+At this time, PSC-NEG does not support active health check monitoring as mentioned [here](https://cloud.google.com/load-balancing/docs/negs#psc-neg). 
+To work around this limitation of PSC, you can modify the Apigee installation configuration to use a managed instance group (MIG), which does provide active health check capability. Refer the solution guide [here](https://cloud.google.com/apigee/docs/api-platform/system-administration/health-check-mig-workaround) and the network diagram below :
 
 <p align="center">
   <img src="./sample-architecture.png?raw=true" alt="Apigee X Shared VPC Multi Region Sample Architecture">
