@@ -6,6 +6,7 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | >= 4.20.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
@@ -20,6 +21,7 @@
 | Name | Type |
 |------|------|
 | [google-beta_google_project_service_identity.apigee_sa](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_project_service_identity) | resource |
+| [random_string.key_random_suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
 
 ## Inputs
 
