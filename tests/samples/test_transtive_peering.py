@@ -35,7 +35,7 @@ def resources(recursive_plan_runner):
 
 def test_resource_count(resources):
     "Test total number of resources created."
-    assert len(resources) == 60
+    assert len(resources) == 61
 
 
 def test_apigee_instance(resources):

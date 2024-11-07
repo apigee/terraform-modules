@@ -31,6 +31,14 @@ resource "google_project_service_identity" "apigee_sa" {
   service  = "apigee.googleapis.com"
 }
 
+
+
+resource "random_string" "key_random_suffix" {
+  length  = 6
+  special = false
+}
+
+
 module "kms-org-db" {
   source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/kms?ref=v28.0.0"
   project_id = var.project_id
@@ -39,7 +47,8 @@ module "kms-org-db" {
   }
   keyring = {
     location = coalesce(var.org_kms_keyring_location, var.ax_region)
-    name     = var.org_kms_keyring_name
+  
+     name     = "${var.org_kms_keyring_name}-${random_string.key_random_suffix.result}"
   }
   keyring_create = var.org_kms_keyring_create
   keys = {
@@ -56,7 +65,8 @@ module "kms-inst-disk" {
   }
   keyring = {
     location = coalesce(each.value.keyring_location, each.value.region)
-    name     = coalesce(each.value.keyring_name, "apigee-${each.key}")
+    name     = "${coalesce(each.value.keyring_name, "apigee-${each.key}")}-${random_string.key_random_suffix.result}"
+  
   }
   keyring_create = each.value.keyring_create
   keys = {
